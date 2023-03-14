@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class ControllerClass {
+
+
+    
     @RequestMapping("/welcomepage")
     public String welcomefunction(){
         System.out.println("This is welcome page");
