@@ -360,7 +360,7 @@
                     transition: 2s ease-in-out;
                 }
 
-                .container.sign-up-mode:before {
+                .container.sign-up-mode:before {   
                     transform: translate(-50%, 100%);
                     bottom: 32%;
                     right: initial;
