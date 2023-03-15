@@ -21,4 +21,10 @@ public class ControllerClass {
         System.out.println("This is welcome page");
         return "welcomepage";
     }
+    
+    @RequestMapping("/whoweare")
+    public String whowearefunction(){
+        System.out.println("This is whoweare page");
+        return "whoweare";
+    }
 }
