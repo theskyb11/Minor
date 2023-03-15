@@ -6,16 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script>
-        const switchers = [...document.querySelectorAll('.switcher')]
-
-        switchers.forEach(item => {
-            item.addEventListener('click', function () {
-                switchers.forEach(item => item.parentElement.classList.remove('is-active'))
-                this.parentElement.classList.add('is-active')
-            })
-        })
-    </script>
+    
     <style>
         *,
         *::before,
@@ -365,6 +356,17 @@
             </div>
         </div>
     </section>
+    
+    <script>
+        const switchers = [...document.querySelectorAll('.switcher')]
+
+        switchers.forEach(item => {
+          item.addEventListener('click', function() {
+            switchers.forEach(item => item.parentElement.classList.remove('is-active'))
+            this.parentElement.classList.add('is-active')
+          })
+        })
+    </script>
 </body>
 
 </html>
