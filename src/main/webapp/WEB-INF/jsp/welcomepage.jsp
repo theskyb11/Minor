@@ -161,10 +161,6 @@
         </style>
     </head>
     <body>
-<<<<<<< Updated upstream
-        <h1>Hello World TREDGTTGTYHFL</h1>
-=======
-<<<<<<< HEAD
         <link href='https://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400' rel='stylesheet' type='text/css'>
         <nav class="shift">
             <ul>
@@ -176,9 +172,5 @@
             </ul>
         </nav>
         <h1>Hello World</h1>
-=======
-        <h1>Hello World TREDGTTGTYHFL</h1>
->>>>>>> 0b85521d4c0fa286b1925e3de7eb2545137914c6
->>>>>>> Stashed changes
     </body>
 </html>
