@@ -1,17 +1,43 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Progeakta</title>
+        <title>Projekta</title>
+        <link rel="icon" href="http://d1ujqdpfgkvqfi.cloudfront.net/favicon-generator/htdocs/favicons/2015-01-25/4757e4ccd8a23c97566ae55feb33e917.ico">
         <style>
-            body {
+            @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');            body {
                 background-color: #111;
-                color: #fff;
-                font-family: Arial, sans-serif;
+                color: black;
+            }
+            .container {
+                background-color: rgba(255, 255, 255, 0.8);
+                padding: 50px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                border-radius: 20px;
+            }
+            .container h1 {
+                font-family: 'Fredoka One', cursive;
+                font-size: 48px;
+                font-weight: bold;
+                margin: 0;
+                margin-bottom: 20px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+            .container h2 {
+                font-size: 24px;
+                font-family: sans-serif;
+                margin: 0;
+                font-style: italic;
             }
             .navbar {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                font-family: sans-serif;
                 padding: 20px;
             }
             .navbar-brand {
@@ -82,5 +108,9 @@
                 <a class="navbar-link" href="#">Contact Us</a>
             </div>
         </nav>
+        <div class="container">
+            <h1>Projekta</h1>
+            <h2>"Simplify your projects, Amplify your results!!!"</h2>
+        </div>
     </body>
 </html>
