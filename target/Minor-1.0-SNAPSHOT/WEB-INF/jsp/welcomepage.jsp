@@ -16,8 +16,50 @@
         <title>Projekta</title>
         <link rel="icon" href="http://d1ujqdpfgkvqfi.cloudfront.net/favicon-generator/htdocs/favicons/2015-01-25/4757e4ccd8a23c97566ae55feb33e917.ico">
         <style>
-            @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');            body {
-                background-color: #111;
+            @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+            .ta-center {
+                text-align: center !important
+            }
+            .mb-30 {
+                margin-bottom: 30px !important
+            }
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            p,
+            span,
+            a {
+                line-height: 140%;
+                max-width: 100%
+            }
+            .content {
+                max-width: 1170px;
+                position: relative;
+                width: 100%;
+                padding: 0 25px;
+                font-size: 17px
+            }
+
+            .content a {
+                text-decoration: none
+            }
+
+            .content .intro {
+                font-size: 21px;
+                color: rgba(61, 71, 77, 0.5);
+                margin-bottom: 40px
+            }
+            .subheading {
+                font-size: 32px;
+                font-weight: 500;
+                line-height: 120%;
+                color: rgba(61, 71, 77, 0.5);
+                letter-spacing: normal
+            }
+            body {
+                background-color: white;
                 color: black;
             }
             .container {
@@ -112,18 +154,14 @@
         </style>
     </head>
     <body>
-        <nav class="navbar">
-            <img src="logo.png" alt="Logo">
-            <div class="navbar-links">
-                <a class="navbar-link" href="#">Login</a>
-                <a class="navbar-link" href="#">Signup</a>
-                <a class="navbar-link" href="#">Contact Us</a>
-            </div>
-        </nav>
-        <div class="container">
-            <h1>Projekta</h1>
-            <h2>"Simplify your projects, Amplify your results!!!"</h2>
+        <%@ include file="headermp.jsp"%>
+
+        <div class="content ta-center">
+                <h1 class="subheading">Secure Project Management Tool for Teams</h1>
+                <div class="h1 mb-30">Simplify your Projects,<span>Amplify your results.</span></div>
         </div>
+        
+        
+        <%@ include file="footermp.jsp"%>
     </body>
-    <%@ include file="footermp.jsp"%>
 </html>

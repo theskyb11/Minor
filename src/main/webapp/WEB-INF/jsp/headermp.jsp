@@ -4,9 +4,9 @@
 <%@ page import="java.sql.ResultSet" %>
 
 
-<nav class="navbar navbar-expand-lg nav-main navbar-dark bg-dark" id="nav-main">
+<nav class="navbar navbar-expand-lg nav-main navbar-dark bg-dark" id="nav-main" style="height: 60px;">
   <div class="container-fluid">
-    
+    <img src="https://www.linkpicture.com/q/Screenshot_2023-03-15_193046_edit_black-removebg-preview.png" alt="Projekta Logo" style="margin-left: 20px; margin-top: 2px; width: 20%; height: 20%;">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
