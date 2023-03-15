@@ -1,6 +1,18 @@
 <!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="org.springframework.web.bind.annotation.GetMapping" %>
+<%@ page import="java.io.IOException" %>
+<%@ page import="java.sql.*" %>
+<%@ page import="java.io.OutputStream" %>
+<%@ page import="java.util.Base64" %>
+<%@ page import="static java.lang.System.out" %>
+<%@ page import="java.io.InputStream" %>
+<%@ page import="java.io.ByteArrayOutputStream" %>
 <html>
     <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <title>Projekta</title>
         <link rel="icon" href="http://d1ujqdpfgkvqfi.cloudfront.net/favicon-generator/htdocs/favicons/2015-01-25/4757e4ccd8a23c97566ae55feb33e917.ico">
         <style>
@@ -113,4 +125,5 @@
             <h2>"Simplify your projects, Amplify your results!!!"</h2>
         </div>
     </body>
+    <%@ include file="footermp.jsp"%>
 </html>
