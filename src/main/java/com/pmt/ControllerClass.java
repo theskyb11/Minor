@@ -27,4 +27,16 @@ public class ControllerClass {
         System.out.println("This is whoweare page");
         return "whoweare";
     }
+    
+    @RequestMapping("/terms")
+    public String termsfunction(){
+        System.out.println("This is terms page");
+        return "terms";
+    }
+    
+    @RequestMapping("/privacy")
+    public String privacyfunction(){
+        System.out.println("This is privacy page");
+        return "privacy";
+    }
 }
