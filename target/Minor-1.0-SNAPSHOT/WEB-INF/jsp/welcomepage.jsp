@@ -71,7 +71,7 @@
                 display: block;
                 padding: 15px;
                 text-decoration: none;
-                color: #aaa;
+                color: black;
                 font-weight: 800;
                 text-transform: uppercase;
                 margin: 0 10px;
