@@ -17,9 +17,6 @@
           <a class="nav-link active" aria-current="page" href="welcomepage">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About Us</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="contactus">Contact and Support</a>
         </li>
         <li class="nav-item">

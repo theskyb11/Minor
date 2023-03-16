@@ -3,9 +3,12 @@
     a{
         text-decoration: none;
     }
+    i{
+        color: white;
+    }
 </style>
 
-<footer class="text-center text-lg-start bg-dark text-muted footer-main" style="height: 100%    ;">
+<footer class="text-center text-lg-start bg-dark text-muted footer-main" style="height: 100%;">
   <section class="">
     <div class="container-fluid text-center text-md-start mt-5">
       <div class="row mt-3">
@@ -32,13 +35,10 @@
             <a href="whoweare" class="text-white">Who We Are</a>
           </p>
           <p>
-            <a href="#!" class="text-white">Blog</a>
+            <a href="blog" class="text-white">Blog</a>
           </p>
           <p>
             <a href="contactus" class="text-white">Contact Us</a>
-          </p>
-          <p>
-            <a href="#!" class="text-white">Work With Us</a>
           </p>
         </div>
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
@@ -52,10 +52,7 @@
             <a href="privacy" class="text-white">Privacy</a>
           </p>
           <p>
-            <a href="#!" class="text-white">Security</a>
-          </p>
-          <p>
-            <a href="#!" class="text-white">Rules and Regulations</a>
+            <a href="security" class="text-white">Security</a>
           </p>
         </div>
 
@@ -63,11 +60,11 @@
           <h6 class="text-uppercase fw-bold mb-4">
             Follow Projekta
           </h6>
-          <i class="fa-brands fa-instagram social-icon"></i>
-          <i class="fa-brands fa-facebook-f social-icon"></i>
-          <i class="fa-brands fa-youtube social-icon"></i>
-          <i class="fa-brands fa-linkedin-in social-icon"></i>
-          <i class="fa-brands fa-twitter social-icon"></i>
+            <a href="#!"><i class="fa-brands fa-instagram social-icon"></i></a>
+            <a href="#!"><i class="fa-brands fa-facebook-f social-icon"></i></a>
+            <a href="#!"><i class="fa-brands fa-youtube social-icon"></i></a>
+            <a href="#!"><i class="fa-brands fa-linkedin-in social-icon"></i></a>
+            <a href="#!"><i class="fa-brands fa-twitter social-icon"></i></a>
         </div>
 
       </div>
@@ -76,7 +73,7 @@
 
   <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025); color: white">
     &#169 2023 Copyright:
-    <a class="text-reset fw-bold" href="home">Projekta.com</a>
+    <a class="text-reset fw-bold" href="welcomepage">Projekta.com</a>
   </div>
 </footer>
 
