@@ -14,7 +14,7 @@
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="contactus">Home</a>
+          <a class="nav-link active" aria-current="page" href="welcomepage">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">About Us</a>
@@ -22,22 +22,47 @@
         <li class="nav-item">
           <a class="nav-link" href="contactus">Contact and Support</a>
         </li>
+        <li class="nav-item">
+          <% boolean flag = false;
+             Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
+             if (loggedIn == null || !loggedIn) { %>
+            <a class="nav-link" href="#" onclick="alert('Please Login')">Dashboard</a>
+          <% } else { %>
+            <a class="nav-link" href="dashboard" onclick="alert('Please Login')">Dashboard</a>
+          <% } %>
+        </li>
       </ul>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center">
           <%
-                    boolean flag = false;
-                    Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
                     if (loggedIn == null || !loggedIn) {
                 %>
         <li class="nav-item">
           <a class="nav-link nav-reg" href="login">Log In/Sign Up</a>
         </li>
-
-<!--        <li class="nav-item">
-          <a class="nav-link nav-reg" href="register">Sign Up</a>
-        </li>-->
         <%
                 } else {} %>
+<!--        <li class="nav-item">
+                    <ul>
+                        <a href="#" class="display-picture"><img src="<c:url value="/resources/img/user-icon-default.png" />" alt="User Icon"></a>
+                    </ul>
+                    <div class="card hidden">
+                        <ul>
+                            <li><a href="account">Account</a></li>
+                            <li><a href="settings">Settings</a></li>
+                            <li><a href="#">Log Out</a></li>
+                            <%--
+                                        }}}
+                            --%>
+                        </ul>
+                    </div>
+
+                    <%--
+                            }catch (Exception k) {
+                                System.out.println(k);
+                            }
+                        }
+                    --%>
+                </li>-->
       </ul>
     </div>
   </div>
