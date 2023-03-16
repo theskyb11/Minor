@@ -14,29 +14,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ControllerClass {
 
-
-    
     @RequestMapping("/welcomepage")
-    public String welcomefunction(){
+    public String welcomefunction() {
         System.out.println("This is welcome page");
         return "welcomepage";
     }
-    
+
     @RequestMapping("/whoweare")
-    public String whowearefunction(){
+    public String whowearefunction() {
         System.out.println("This is whoweare page");
         return "whoweare";
     }
-    
+
     @RequestMapping("/terms")
-    public String termsfunction(){
+    public String termsfunction() {
         System.out.println("This is terms page");
         return "terms";
     }
-    
+
     @RequestMapping("/privacy")
-    public String privacyfunction(){
+    public String privacyfunction() {
         System.out.println("This is privacy page");
         return "privacy";
+    }
+
+    @RequestMapping("/blog")
+    public String blogfunction() {
+        System.out.println("This is blog page");
+        return "blog";
     }
 }
