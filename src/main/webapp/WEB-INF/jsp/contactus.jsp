@@ -6,167 +6,191 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="http://d1ujqdpfgkvqfi.cloudfront.net/favicon-generator/htdocs/favicons/2015-01-25/4757e4ccd8a23c97566ae55feb33e917.ico">
         <title>Contact Us </title>
-        <!-- <link rel="stylesheet" href="normalize.css">  -->
         <link href="https://fonts.googleapis.com/css2?family=Days+One&family=Work+Sans&display=swap" rel="stylesheet">
-
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <!-- <link rel="stylesheet" type="text/css" href="Portfolio.css"> -->
         <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
         <style>
             @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
             *{
                 font-family: Poppins, sans-serif;
+                padding: 0;
             }
-            .button {
-                border: 5px solid lightblue;
-                border-radius: 10px;
-                width: 160px;
-                margin-bottom: 100px;
-                margin-left: 10px;
-
+            body {
+                background-color: #444442;
             }
 
-            .contact {
-                width: 100%;
-                height: auto;
-                padding: 75px 0 50px 0;
+            h1 {
+                font-family: 'Poppins', sans-serif, 'arial';
+                font-weight: 600;
+                font-size: 72px;
+                color: white;
                 text-align: center;
-                background-color: rgba(3,3,3,45%);
             }
 
-            .contact p {
-                margin-bottom: 50px;
+            h4 {
+                font-family: 'Roboto', sans-serif, 'arial';
+                font-weight: 400;
+                font-size: 20px;
+                color: #9b9b9b;
+                line-height: 1.5;
             }
 
-            .contact h2, .contact p {
-                color: white;
+            input:focus ~ label, textarea:focus ~ label, input:valid ~ label, textarea:valid ~ label {
+                font-size: 0.75em;
+                color: #999;
+                top: -5px;
+                -webkit-transition: all 0.225s ease;
+                transition: all 0.225s ease;
             }
 
-            .contact-form {
-                max-width: 800px;
-                display: flex;
-                text-align: left;
-                max-width: 1100px;
-                margin: 0 auto;
-                color: white;
+            .styled-input {
+                float: left;
+                width: 293px;
+                margin: 1rem 0;
+                position: relative;
+                border-radius: 4px;
             }
 
-            .contact-form label {
-                display: block;
-                margin-bottom: 9px;
+            @media only screen and (max-width: 768px){
+                .styled-input {
+                    width:100%;
+                }
             }
 
-            .message {
-                display: flex;
-                flex-direction: column;
-                width: 60%;
+            .styled-input label {
+                color: #999;
+                padding: 1.3rem 30px 1rem 30px;
+                position: absolute;
+                top: 10px;
+                left: 0;
+                -webkit-transition: all 0.25s ease;
+                transition: all 0.25s ease;
+                pointer-events: none;
             }
 
-            .message textarea {
-                border-radius: 5px;
-                border: 0px;
+            .styled-input.wide {
+                width: 650px;
+                max-width: 100%;
             }
 
-            .contact-details {
-                flex: 1;
-                margin-right: 50px;
-            }
-
-            .contact-details input {
-                width: 100%;
-                border-radius: 5px;
-                border: 0px;
-                padding: 15px 20px;
-                margin-bottom: 20px;
-            }
-
-            .message button {
-                color: #1d3d5f;
+            input,
+            textarea {
+                padding: 30px;
                 border: 0;
-                border-radius: 5px;
-                background: lightblue;
-                width: 140px;
-                height: 40px;
-                margin-top: 40px;
-                margin-left: auto;
-                text-transform: uppercase;
-                font-weight: bold;
+                width: 100%;
+                font-size: 1rem;
+                background-color: #2d2d2d;
+                color: white;
+                border-radius: 4px;
+            }
+
+            input:focus,
+            textarea:focus {
+                outline: 0;
+            }
+
+            input:focus ~ span,
+            textarea:focus ~ span {
+                width: 100%;
+                -webkit-transition: all 0.075s ease;
+                transition: all 0.075s ease;
+            }
+
+            textarea {
+                width: 100%;
+                min-height: 15em;
+            }
+
+            .input-container {
+                width: 650px;
+                max-width: 100%;
+                margin: 20px auto 25px auto;
+            }
+
+            .submit-btn {
+                float: right;
+                padding: 7px 35px;
+                border-radius: 60px;
+                display: inline-block;
+                background-color: #4b8cfb;
+                color: white;
+                font-size: 18px;
                 cursor: pointer;
-                transition: 0.3s;
+                box-shadow: 0 2px 5px 0 rgba(0,0,0,0.06),
+                    0 2px 10px 0 rgba(0,0,0,0.07);
+                -webkit-transition: all 300ms ease;
+                transition: all 300ms ease;
             }
 
-            .message button:hover {
-                background: black;
-                color:white;
-                transition:0.2s;
+            .submit-btn:hover {
+                transform: translateY(1px);
+                box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10),
+                    0 1px 1px 0 rgba(0,0,0,0.09);
             }
 
-            footer {
-                height: 90px;
-                background-color: #1f2027;
-
+            @media (max-width: 768px) {
+                .submit-btn {
+                    width:100%;
+                    float: none;
+                    text-align:center;
+                }
             }
 
-            footer .container {
-                display: flex;
-                align-items: center;
-                height: 100%;
-
+            input[type=checkbox] + label {
+                color: #ccc;
+                font-style: italic;
             }
 
-            .social-media {
-                font-size: 200%;
-                width: auto;
-                margin-left: auto;
+            input[type=checkbox]:checked + label {
+                color: #f00;
+                font-style: normal;
             }
-
-            .social-media a i{
-                color: white;
-                transition: 0.2s;
-            }
-
-            .social-media a i:hover {
-                color: lightblue;
-                transition: 0.2;
-            }
-
-            .copyright {
-                color: white;
-            }
-
         </style>
 
     </head>
 
     <body>
-        <section id="contactme" class="contact">
-            <h2>Contact</h2>
-            <p>Use this form to get in touch. I would love to hear from you!</p>
+        <%@ include file="headermp.jsp"%>
 
-            <form class="contact-form">
-
-                <div class="contact-details">
-
-                    <label for="name">Name</label>
-                    <input type="text" id="yourname" placeholder="Yourname">
-
-                    <label for="subject">Subject</label>
-                    <input type="text" id="subject" placeholder="Reason for your message">
-
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="Your email address">
-
+        <div class="container">
+            <div class="row">
+                <h1>Contact Us</h1>
+            </div>
+            <div class="row">
+                <h4 style="text-align:center">We'd love to hear from you!</h4>
+            </div>
+            <div class="row input-container">
+                <div class="col-xs-12">
+                    <div class="styled-input wide">
+                        <input type="text" required />
+                        <label>Name</label> 
+                    </div>
                 </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="styled-input">
+                        <input type="text" required />
+                        <label>Email</label> 
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="styled-input" style="float:right;">
+                        <input type="text" required />
+                        <label>Phone Number</label> 
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="styled-input wide">
+                        <textarea required></textarea>
+                        <label>Message</label>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="btn-lrg submit-btn">Send Message</div>
+                </div>
+            </div>
+        </div>
+        <%@ include file="footermp.jsp"%>
 
-
-                <div class="message">
-                    <label for="msg">Message</label>
-                    <textarea id="msg" rows="15"></textarea>
-                    <button type="submit">Submit</button>
-                </div> 
-
-            </form>
-
-        </section>
     </body>
 </html>
