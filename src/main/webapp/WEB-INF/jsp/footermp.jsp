@@ -5,7 +5,7 @@
     }
 </style>
 
-<footer class="text-center text-lg-start bg-dark text-muted footer-main">
+<footer class="text-center text-lg-start bg-dark text-muted footer-main" style="height: 100%    ;">
   <section class="">
     <div class="container-fluid text-center text-md-start mt-5">
       <div class="row mt-3">

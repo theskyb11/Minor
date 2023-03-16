@@ -20,9 +20,9 @@
             .ta-center {
                 text-align: center !important
             }
-            .mb-30 {
+/*            .mb-30 {
                 margin-bottom: 30px !important
-            }
+            }*/
             h1,
             h2,
             h3,
@@ -155,12 +155,12 @@
     </head>
     <body>
         <%@ include file="headermp.jsp"%>
-
+       
         <div class="content ta-center">
-                <h1 class="subheading">Secure Project Management Tool for Teams</h1>
-                <div class="h1 mb-30">Simplify your Projects,<span>Amplify your results.</span></div>
+            <div class="h1 mb-30" style="margin-bottom: 0px;">Simplify your Projects,<span style="color: rgba(61, 71, 77, 0.5);"> Amplify your results.</span></div>
+            <h1 class="subheading">Secure Project Management Tool for Teams</h1>
         </div>
-        
+            
         
         <%@ include file="footermp.jsp"%>
     </body>
