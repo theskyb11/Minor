@@ -26,19 +26,19 @@
             About Projekta
           </h6>
           <p>
-            <a href="welcomepage" class="text-reset">Home</a>
+            <a href="welcomepage" class="text-white">Home</a>
           </p>
           <p>
-            <a href="whoweare" class="text-reset">Who We Are</a>
+            <a href="whoweare" class="text-white">Who We Are</a>
           </p>
           <p>
-            <a href="#!" class="text-reset">Blog</a>
+            <a href="#!" class="text-white">Blog</a>
           </p>
           <p>
-            <a href="contactus" class="text-reset">Contact Us</a>
+            <a href="contactus" class="text-white">Contact Us</a>
           </p>
           <p>
-            <a href="#!" class="text-reset">Work With Us</a>
+            <a href="#!" class="text-white">Work With Us</a>
           </p>
         </div>
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
@@ -46,16 +46,16 @@
             Learn More
           </h6>
           <p>
-            <a href="#!" class="text-reset">Terms</a>
+            <a href="terms" class="text-white">Terms</a>
           </p>
           <p>
-            <a href="#!" class="text-reset">Privacy</a>
+            <a href="privacy" class="text-white">Privacy</a>
           </p>
           <p>
-            <a href="#!" class="text-reset">Security</a>
+            <a href="#!" class="text-white">Security</a>
           </p>
           <p>
-            <a href="#!" class="text-reset">Rules and Regulations</a>
+            <a href="#!" class="text-white">Rules and Regulations</a>
           </p>
         </div>
 
