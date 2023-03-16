@@ -43,4 +43,10 @@ public class ControllerClass {
         System.out.println("This is blog page");
         return "blog";
     }
+
+    @RequestMapping("/security")
+    public String securityfunction() {
+        System.out.println("This is security page");
+        return "security";
+    }
 }
