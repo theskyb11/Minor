@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" href="http://d1ujqdpfgkvqfi.cloudfront.net/favicon-generator/htdocs/favicons/2015-01-25/4757e4ccd8a23c97566ae55feb33e917.ico">
 
@@ -17,15 +18,20 @@
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
+                background-color: lightgray;
             }
             main {
+                font-family: Poppins, sans-serif;
                 max-width: 800px;
                 margin: 20px auto;
                 padding: 0 20px;
             }
 
             .blog-post {
+                margin-left: 20px;
+                margin-right: 20px;
                 margin-bottom: 40px;
+                margin-top: 20px;
             }
 
             .blog-post h2 {
@@ -40,14 +46,14 @@
             }
 
             .blog-post ul {
-                margin-bottom: 20px;
+                margin-bottom: 40px;
             }
 
             .blog-post li {
                 margin-bottom: 10px;
             }
 
-            a {
+/*            a {
                 background-color: #0077c2;
                 color: #fff;
                 padding: 10px 20px;
@@ -58,23 +64,27 @@
 
             a:hover {
                 background-color: #005c99;
+            }*/
+            .details-col {
+                background-color: white;
+                width: 100%;
+                height: 100%;
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+                border-radius: 10px;
             }
         </style>
 
     </head>
     <body>
-        <header>
-            <h1>Projekta Blog</h1>
-        </header>
-
+        <%@ include file="headermp.jsp"%>
         <main>
+            <div class="details-col">
             <section class="blog-post">
                 <h2>Introducing Projekta</h2>
                 <p>Projekta is a project management tool designed to help teams collaborate more effectively. With Projekta,
                     you can create and manage projects, assign tasks to team members, track progress, and more.</p>
                 <p>Whether you're working on a small project or a large one, Projekta can help you stay organized and on
                     track.</p>
-                <a href="#">Read More</a>
             </section>
 
             <section class="blog-post">
@@ -87,8 +97,9 @@
                     <li>Great customer support</li>
                     <li>Affordable pricing</li>
                 </ul>
-                <a href="#">Read More</a>
             </section>
+            </div>
         </main>
+        <%@ include file="footermp.jsp"%>
     </body>
 </html>
