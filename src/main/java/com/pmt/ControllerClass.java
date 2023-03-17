@@ -49,4 +49,11 @@ public class ControllerClass {
         System.out.println("This is security page");
         return "security";
     }
+    
+    @RequestMapping("/dashboard")
+    public String dashboardfunction()
+    {
+        System.out.println("This is dashboard page");
+        return "dashboard";
+    }
 }
