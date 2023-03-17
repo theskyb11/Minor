@@ -17,62 +17,12 @@
 
         <style>
             @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
-
+            @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
             * {
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
                 font-family: 'Poppins', sans-serif;
-            }
-            /*        .add-button {
-                        text-align: center;
-                    }
-            
-                    .add-button button {
-                        font-size: 2rem;
-                        width: 50px;
-                        height: 50px;
-                        background-color: rgba(0, 0, 0, 0.2);
-                        border: none;
-                        border-radius: 50%;
-                        color: white;
-                        cursor: pointer;
-                        transition: all 0.2s ease-in-out;
-                    }
-            
-                    .add-button button.shifted {
-                        transform: translateX(150%);
-                    }*/
-            .add-button button {
-                font-size: 0.9rem;
-                width: 150px;
-                height: 50px;
-                background-color: rgba(0, 0, 0, 0.2);
-                border: none;
-                border-radius: 20px;
-                color: white;
-                cursor: pointer;
-                transition: all 0.2s ease-in-out;
-            }
-            .add-button {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background-color: rgba(0, 0, 0, 0.3);
-                color: #fff;
-                border: none;
-                border-radius: 20px;
-                width: 150px;
-                height: 50px;
-                font-size: 24px;
-                text-align: center;
-                line-height: 50px;
-                cursor: pointer;
-                transition: all 0.3s ease-in-out;
-            }
-
-            .add-button:hover {
-                background-color: rgba(0, 0, 0, 0.5);
             }
             
             body {
@@ -239,7 +189,18 @@
                 }
             }
 
-
+            .main-details-div {
+                margin-top: 10px;
+                font-family: 'Poppins', sans-serif;
+                width: 100%;
+            }
+            .details-col {
+                margin-top: 10px;
+                background-color: white;
+                width: 70%;
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+                border-radius: 10px;
+            }
 
             .project-cards {
                 position: fixed;
@@ -266,6 +227,19 @@
                 margin-bottom: 10px;
             }
 
+            .button {
+                display: inline-block;
+                background-color: #4CAF50;
+                color: #fff;
+                padding: 5px 10px;
+                border-radius: 5px;
+                text-decoration: none;
+            }
+            
+            .button:hover {
+                background-color: #3e8e41;
+            }
+            
             .card p {
                 font-size: 16px;
                 margin-bottom: 20px;
@@ -284,12 +258,6 @@
                 background-color: #3e8e41;
             }
 
-
-            /*        .btn-small{
-                        height: 40px;
-                        width: 40%;
-                    }*/
-
             .progress-container {
                 border-radius: 50px;
                 width: 85%;
@@ -301,6 +269,10 @@
                 background-color: #f2f2f2;
             }
 
+            h1{
+                font-family: 'Josefin Sans', sans-serif;
+                font-weight: bold;
+            }
             .progress-bar {
                 border-radius: 50px;
                 height: 100%;
@@ -311,42 +283,51 @@
     </head>
 
     <body>
-        <div class="project-cards">
-            <div class="card">
-                <h3>Project 1</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nibh eget lacus vestibulum
-                    malesuada. Aenean vel purus sapien.</p>
-                <a href="#" class="button">View Project</a>
-                <a href="https://www.arsdcollege.ac.in/wp-content/uploads/2020/04/Lecture-2-Project-Report.pdf" class="button btn-small">Print Report</a>
+        
+        <div align="center" class="main-details-div">
+            <div class="details-col"><br>
+                <h1>Settings</h1><br>
+                <form>
+                    <h3>General Settings</h3>
+                    <label for="language">Language:</label>
+                    <select id="language" name="language">
+                        <option value="english">English</option>
+                        <option value="spanish">Spanish</option>
+                        <option value="french">French</option>
+                        <option value="german">German</option>
+                    </select>
+                    <br>
+                    <label for="timezone">Timezone:</label>
+                    <select id="timezone" name="timezone">
+                        <option value="utc-8">UTC-8</option>
+                        <option value="utc-7">UTC-7</option>
+                        <option value="utc-6">UTC-6</option>
+                        <option value="utc-5">UTC-5</option>
+                    </select>
+                    <br>
+                    <label for="dateFormat">Date Format:</label>
+                    <select id="dateFormat" name="dateFormat">
+                        <option value="mm-dd-yyyy">MM/DD/YYYY</option>
+                        <option value="dd-mm-yyyy">DD/MM/YYYY</option>
+                        <option value="yyyy-mm-dd">YYYY/MM/DD</option>
+                    </select>
+                    <br><br>
+                    <h3>Notification Settings</h3>
+                    <label for="emailNotifications">Email Notifications:</label>
+                    <input type="checkbox" id="emailNotifications" name="emailNotifications">
+                    <br>
+                    <label for="mobileNotifications">Mobile Notifications:</label>
+                    <input type="checkbox" id="mobileNotifications" name="mobileNotifications">
+                    <br><br>
+                    <input type="submit" class="button" value="Save Changes">
+                </form><br>
             </div>
-            <div class="card">
-                <h3>Project 2</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nibh eget lacus vestibulum
-                    malesuada. Aenean vel purus sapien.</p>
-                <a href="#" class="button">View Project</a>
-                <a href="https://www.imi.europa.eu/sites/default/files/uploads/documents/apply-for-funding/call-documents/imi1/Annex2_FinalReportTemplate.pdf" class="button btn-small">Print Report</a>
-            </div>
-
-            <div class="add-button">
-                <button id="add-project">Create New Project</button>
-            </div>
-
-            <!--        <div class="card">
-                        <h3>Project 3</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nibh eget lacus vestibulum
-                            malesuada. Aenean vel purus sapien.</p>
-                        <a href="#" class="button">View Project</a>
-                        <a href="https://www-users.york.ac.uk/~dajp1/Project%20Reports.pdf" class="button btn-small">Print Report</a>
-                    </div>-->
         </div>
-<!--        <div class="progress-container">
-            <div class="progress-bar" id="myBar"></div>
-        </div>-->
 
         <div class="navigation">
 
             <ul>
-                <li class="list active">
+                <li class="list">
                     <b></b>
                     <b></b>
                     <a href="dashboard">
@@ -378,7 +359,7 @@
                         <span class="title">Message</span>
                     </a>
                 </li>
-                <li class="list">
+                <li class="list  active">
                     <b></b>
                     <b></b>
                     <a href="settings">
@@ -467,33 +448,6 @@
             window.onload = move;
 
         </script>
-
-        <script>
-            // Get the add button
-            const addButton = document.getElementById('add-project');
-
-            // Get the project cards container
-            const projectCards = document.querySelector('.project-cards');
-
-            // Add event listener for the add button
-            addButton.addEventListener('click', () => {
-                // Create a new card
-                const newCard = document.createElement('div');
-                newCard.classList.add('card');
-                newCard.innerHTML = `
-                <h3>New Project</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nibh eget lacus vestibulum malesuada. Aenean vel purus sapien.</p>
-                <a href="#" class="button">View Project</a>
-                <a href="#" class="button btn-small">Print Report</a>
-            `;
-
-                projectCards.appendChild(newCard);
-            });
-
-            // Shift the add button
-            addButton.classList.add('shifted');
-        </script>
-        
     </body>
 
 </html>
