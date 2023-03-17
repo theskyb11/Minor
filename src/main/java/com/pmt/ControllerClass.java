@@ -56,4 +56,11 @@ public class ControllerClass {
         System.out.println("This is dashboard page");
         return "dashboard";
     }
+    
+    @RequestMapping("/settings")
+    public String settings()
+    {
+        System.out.println("This is dashboard page");
+        return "settings";
+    }
 }
