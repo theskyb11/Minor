@@ -312,7 +312,8 @@
                     </div>
 
                     <div column class="proof-box">
-                        <img src="https://www.linkpicture.com/q/teammanagement.png" alt="Projekta backgrnd" style="width: 150px; height: 80px;">
+                        <img src="<c:url value="/resources/images/teammanagement.png" />" alt="Projekta backgrnd" style="width: 150px; height: 80px;"/>
+<!--                        <img src="https://www.linkpicture.com/q/teammanagement.png" alt="Projekta backgrnd" style="width: 150px; height: 80px;">-->
 <!--                        <span class="material-symbols-outlined">sentiment_very_satisfied</span>-->
                         <h4>
                             <span>Happy teams</span>worldwide
@@ -320,6 +321,7 @@
                     </div>
                     
                     <div column class="proof-box">
+<!--                        <img src="<c:url value="/resources/images/time-management.png" />" alt="Projekta backgrnd" style="width: 120px; height: 80px;"/>-->
                         <img src="https://www.linkpicture.com/q/time-management.png" alt="Projekta backgrnd" style="width: 120px; height: 80px;">
                         <h4>
                             <span>Time</span>Management
@@ -338,6 +340,7 @@
         
         <div align="center">
             <img src="https://www.linkpicture.com/q/pmt-2.png" alt="Projekta backgrnd" style="margin-left: 40px;margin-top: 20px;width: 70%; height: 60%;">
+<!--            <img src="<c:url value="/resources/images/pmt-2.png" />" alt="Projekta backgrnd" style="margin-left: 40px;margin-top: 20px;width: 70%; height: 60%;"/>-->
         </div>
         
         <div class="cont" style="margin-top: 0px;">
@@ -359,7 +362,8 @@
                 </a>
             </div>
             <div align="right" style="margin-right: 40px;">
-                <img src="https://www.linkpicture.com/q/manthinking.png" alt="Projekta backgrnd" style="width: 500px; height: 500px;">
+                <img src="<c:url value="/resources/images/manthinking.png" />" alt="Projekta backgrnd" style="width: 500px; height: 500px;"/>
+<!--                <img src="https://www.linkpicture.com/q/manthinking.png" alt="Projekta backgrnd" style="width: 500px; height: 500px;">-->
             </div>
         </div>
         
@@ -381,7 +385,8 @@
         </section>
         
         <div align="center">
-            <img src="https://www.linkpicture.com/q/kanban-project-management.png123.png" alt="Projekta backgrnd" style="margin-left: 40px;margin-top: 20px;width: 70%; height: 60%;">
+<!--            <img src="https://www.linkpicture.com/q/kanban-project-management.png123.png" alt="Projekta backgrnd" style="margin-left: 40px;margin-top: 20px;width: 70%; height: 60%;">-->
+            <img src="<c:url value="/resources/images/kanban-project-management.png123.png" />" alt="Projekta backgrnd" style="margin-left: 40px;margin-top: 20px;width: 70%; height: 60%;"/>
         </div>
         
         <section style="margin-top: 40px">
@@ -392,7 +397,9 @@
                 <div grid class="align-items-center justify-center">
                     
                     <div column class="proof-box1 ta-center">
-                        <img src="https://www.linkpicture.com/q/checkbox.png" alt="Projekta backgrnd" style="width: 100px; height: 80px;">
+                        <img src="<c:url value="/resources/images/checkbox.png" />" alt="Projekta backgrnd" style="width: 100px; height: 80px;"/>
+<!--                        <img src="https://www.linkpicture.com/q/checkbox.png" alt="Projekta backgrnd" style="width: 100px; height: 80px;">-->
+                        
                         <h2 class="fs-xl mb-10 lh-normal">
                             Task Management?
                         </h2>
@@ -412,7 +419,8 @@
                     </div>
 
                     <div column class="proof-box1 ta-center">
-                        <img src="https://www.linkpicture.com/q/groth.png" alt="Projekta backgrnd" style="width: 120px; height: 80px;">
+                        <img src="<c:url value="/resources/images/groth.png" />" alt="Projekta backgrnd" style="width: 120px; height: 80px;"/>
+<!--                        <img src="https://www.linkpicture.com/q/groth.png" alt="Projekta backgrnd" style="width: 120px; height: 80px;">-->
                         <h2 class="fs-xl mb-10 lh-normal">
                             The Reason You Need Task Management Software?
                         </h2>
