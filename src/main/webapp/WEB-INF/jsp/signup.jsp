@@ -422,19 +422,19 @@
         <div class="container">
             <div class="forms-container">
                 <div class="signin-signup">
-                    <form action="#" class="sign-in-form">
+                    <form action="loginform" method="post" class="sign-in-form" id="form">
                         <h2 class="title">Sign in</h2>
                         <div class="input-field">
                             <i class="fas fa-user"></i>
-                            <input type="text" placeholder="Username" />
+                            <input type="text" name="a" placeholder="Username" />
                         </div>
                         <div class="input-field">
                             <i class="fas fa-lock"></i>
-                            <input type="password" placeholder="Password" />
+                            <input type="password" name="b" placeholder="Password" />
                         </div>
                         <input type="submit" value="Login" class="btn solid" />
                         <div class="social-media">
-                            <a href="https://www.facebook.com/aditya.joshi.5836711" target="_blank" class="social-icon">
+                            <a href="https://www.facebook.com/mrinal.gupta.9003" target="_blank" class="social-icon">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
                             <a href="https://twitter.com/pov_aaditya" target="_blank" class="social-icon">
@@ -448,27 +448,27 @@
                             </a>
                         </div>
                     </form>
-                    <form action="#" class="sign-up-form">
+                    <form action="registerform" method="post" class="sign-up-form">
                         <h2 class="title">Sign up</h2>
                         <div class="input-field">
                             <i class="fas fa-user"></i>
-                            <input type="text" placeholder="Full Name" />
+                            <input type="text" name="a" placeholder="Full Name" />
                         </div>
                         <div class="input-field">
                             <i class="fas fa-user"></i>
-                            <input type="text" placeholder="Username" />
+                            <input type="text" name="b" placeholder="Username" />
                         </div>
                         <div class="input-field">
                             <i class="fas fa-envelope"></i>
-                            <input type="email" placeholder="Email" />
+                            <input type="email" name="c" placeholder="Email" />
                         </div>
                         <div class="input-field">
                             <i class="fas fa-lock"></i>
-                            <input type="password" placeholder="Password" />
+                            <input type="password" name="d" placeholder="Password" />
                         </div>
                         <input type="submit" class="btn" value="Sign up" />
                         <div class="social-media">
-                            <a href="https://www.facebook.com/aditya.joshi.5836711" target="_blank" class="social-icon">
+                            <a href="https://www.facebook.com/mrinal.gupta.9003" target="_blank" class="social-icon">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
                             <a href="https://twitter.com/pov_aaditya" target="_blank" class="social-icon">
@@ -538,6 +538,19 @@
 
             sign_in_btn.addEventListener("click", () => {
                 container.classList.remove("sign-up-mode");
+            });
+        </script>
+        
+        <script>
+            const form = document.getElementById("form");
+            form.addEventListener("submit", function(event) {
+            const a = document.getElementById("username");
+            const b = document.getElementById("password");
+
+            if (!a.value || !b.value) {
+            alert("All fields are required.");
+            event.preventDefault();
+            }
             });
         </script>
     </body>
