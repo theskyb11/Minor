@@ -4,77 +4,108 @@
     Author     : Akash
 --%>
 
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<% int count=0;%>
 <html lang="en">
 
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Projekta - Dashboard</title>
+        <title>Projekta | Dashboard</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
         <link rel="icon" href="http://d1ujqdpfgkvqfi.cloudfront.net/favicon-generator/htdocs/favicons/2015-01-25/4757e4ccd8a23c97566ae55feb33e917.ico">
-
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
         <style>
             @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
-
-            * {
+            @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Alkatra&family=Josefin+Sans&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Alkatra&family=Josefin+Sans&family=Nunito:wght@400;600;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+            
+            *{
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
                 font-family: 'Poppins', sans-serif;
             }
-            /*        .add-button {
-                        text-align: center;
-                    }
             
-                    .add-button button {
-                        font-size: 2rem;
-                        width: 50px;
-                        height: 50px;
-                        background-color: rgba(0, 0, 0, 0.2);
-                        border: none;
-                        border-radius: 50%;
-                        color: white;
-                        cursor: pointer;
-                        transition: all 0.2s ease-in-out;
-                    }
-            
-                    .add-button button.shifted {
-                        transform: translateX(150%);
-                    }*/
-            .add-button button {
-                font-size: 0.9rem;
-                width: 150px;
-                height: 50px;
-                background-color: rgba(0, 0, 0, 0.2);
-                border: none;
-                border-radius: 20px;
-                color: white;
-                cursor: pointer;
-                transition: all 0.2s ease-in-out;
-            }
-            .add-button {
+            .modal {
+                display: none;
                 position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background-color: rgba(0, 0, 0, 0.3);
-                color: #fff;
-                border: none;
-                border-radius: 20px;
-                width: 150px;
-                height: 50px;
-                font-size: 24px;
-                text-align: center;
-                line-height: 50px;
-                cursor: pointer;
-                transition: all 0.3s ease-in-out;
+                z-index: 1;
+                align-self: center;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0,0,0,0.2);
             }
 
-            .add-button:hover {
-                background-color: rgba(0, 0, 0, 0.5);
+            .modal-content {
+                background-color: white;
+                margin: 10% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 40%;
+                position: relative;
             }
             
+            .add-button {
+                position: fixed;
+                right: 20px;
+                bottom: 20px;
+                margin: 10px;
+                background-color: green;
+                color: #fff;
+                padding: 5px 10px;
+                border-radius: 10px;
+                text-decoration: none;
+/*                width: 100px;*/
+                border-color: white;
+            }
+            
+            .msg-button{
+                position: fixed;
+                right: 20px;
+                bottom: 20px;
+                margin: 10px;
+                background-color: green;
+                color: #fff;
+                padding: 5px 10px;
+                border-radius: 10px;
+                text-decoration: none;
+/*                width: 100px;*/
+                border-color: white;
+            }
+            
+            .modal button.close{
+                display: none;
+            }
+            
+            .text {
+                display: none;
+                font-size: 0.6rem;
+            }
+
+            button:hover + .text {
+                display: block;
+            }
+            
+/*            .add-button:hover {
+                background-color: #3e8e41;
+            }*/
+
             body {
                 min-height: 100vh;
                 background: #fff;
@@ -222,7 +253,11 @@
                 color: white;
                 font-size: 34px;
             }
-
+            
+            form {
+                    padding: 0 1.5rem;
+                }
+                
             .toggle ion-icon.open,
             .toggle.active ion-icon.close {
                 display: block;
@@ -238,39 +273,80 @@
                     width: 100%;
                 }
             }
-
-
-
-            .project-cards {
-                position: fixed;
-                top: 0;
-                left: 120px;
-                width: calc(100% - 220px);
-                display: flex;
+/*            .project-cards {
+                width: calc(100% - 200px);
                 justify-content: space-between;
                 align-items: center;
                 padding: 20px;
+            }*/
+
+            .card-text {
+                padding-top: 10px;
+                margin-top: 30px;
+/*                margin-bottom: 4px;*/
+                font-weight: 600;
+                padding-left: 10px;
+                font-family: 'PT Sans', sans-serif;
+/*                font-family: 'Alkatra', cursive;*/
+/*                font-family: 'Josefin Sans', sans-serif;*/
+            }
+            
+            .card-head{
+                position: relative;
+            }
+            
+            .child-center {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
             }
 
+            .child-right {
+                position: absolute;
+                right: 0;
+            }
+            
             .card {
                 background-color: #fff;
                 border-radius: 5px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-                padding: 20px;
-                width: calc(33.33% - 20px);
+                justify-content: space-between;
+                margin-top: 10px;                
+/*                padding: 20px;*/
+                height: 250px;
+                width: 300px;
+                margin-left: 5px;
+                margin-right: 5px;
                 text-align: center;
             }
 
             .card h3 {
-                font-size: 20px;
                 margin-bottom: 10px;
+                margin-top: 10px;
+                font-size: 30px;
+                font-weight: bold;
+                font-family: 'Nunito', sans-serif;
             }
 
             .card p {
-                font-size: 16px;
-                margin-bottom: 20px;
+                font-size: 18px;
+                font-weight: normal;
+                margin-bottom: 0px;
+                margin-left: 10px;
+                margin-right: 10px;
             }
-
+            
+            .centre-button{
+                text-decoration: none;
+                 padding: 5px 10px;
+                 color: #fff;
+                 background-color:green;
+                 width: 40%;
+                 border-radius: 5px;
+                 align-self: center;
+                 margin-bottom: 10px;
+            }
+            
             .button {
                 display: inline-block;
                 background-color: #4CAF50;
@@ -278,71 +354,167 @@
                 padding: 5px 10px;
                 border-radius: 5px;
                 text-decoration: none;
+                width: 100px;
             }
 
             .button:hover {
                 background-color: #3e8e41;
             }
 
-
-            /*        .btn-small{
-                        height: 40px;
-                        width: 40%;
-                    }*/
-
-            .progress-container {
-                border-radius: 50px;
-                width: 85%;
-                height: 30px;
-                position: fixed;
-                bottom: 10%;
-                left:10%;
-                right: -10px;
-                background-color: #f2f2f2;
+            .container{
+                width: 90%;
+                margin-top: 30px;
+                margin-right: 20px;
+                margin-left: 120px;
+/*                position: scroll;*/
             }
-
-            .progress-bar {
-                border-radius: 50px;
-                height: 100%;
-                background-color: #4CAF50;
-                width: 0%;
+            
+            cnt{
+                font-size: 20px;
+                width: calc(100% - 220px);
+                justify-content: space-between;
+                font-family: 'Poppins', sans-serif;
+            }
+            r{
+                font-size: 30px;;
+                justify-content: space-between;
+                font-family: 'Poppins', sans-serif;
             }
         </style>
     </head>
 
     <body>
-        <div class="project-cards">
-            <div class="card">
-                <h3>Project 1</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nibh eget lacus vestibulum
-                    malesuada. Aenean vel purus sapien.</p>
-                <a href="#" class="button">View Project</a>
-                <a href="https://www.arsdcollege.ac.in/wp-content/uploads/2020/04/Lecture-2-Project-Report.pdf" class="button btn-small">Print Report</a>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <r>Projects</r>
+                    <hr style="color: black; width: 85%; top: 70px; left: 100px;">
+                </div>
             </div>
-            <div class="card">
-                <h3>Project 2</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nibh eget lacus vestibulum
-                    malesuada. Aenean vel purus sapien.</p>
-                <a href="#" class="button">View Project</a>
-                <a href="https://www.imi.europa.eu/sites/default/files/uploads/documents/apply-for-funding/call-documents/imi1/Annex2_FinalReportTemplate.pdf" class="button btn-small">Print Report</a>
-            </div>
+            <div class="row">
+                <div class="col">
+                    <%
+                        try{
+                            Class.forName("com.mysql.cj.jdbc.Driver");
 
-            <div class="add-button">
-                <button id="add-project">Create New Project</button>
+                            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
+                            PreparedStatement state = con.prepareStatement("select count(*) from projects where username=?");
+                            state.setString(1,(String) session.getAttribute("userName"));
+                            
+                            ResultSet rst = state.executeQuery();
+                            
+                            while (rst.next()) {
+                                count = rst.getInt(1);
+                            }
+                        }
+                        catch (Exception k){
+                            System.out.println(k.getMessage());
+                        }
+                    %>
+                    <cnt><%=count%> projects ongoing</cnt>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <table>
+                        <%
+                        int colind = 0;
+                        try{
+                            Class.forName("com.mysql.cj.jdbc.Driver");
 
-            <!--        <div class="card">
-                        <h3>Project 3</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nibh eget lacus vestibulum
-                            malesuada. Aenean vel purus sapien.</p>
-                        <a href="#" class="button">View Project</a>
-                        <a href="https://www-users.york.ac.uk/~dajp1/Project%20Reports.pdf" class="button btn-small">Print Report</a>
-                    </div>-->
+                            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
+
+                            PreparedStatement stmt = con.prepareStatement("select * from projects where username=?");
+                            stmt.setString(1,(String) session.getAttribute("userName"));
+                            
+                            ResultSet rs = stmt.executeQuery();
+
+                            while(rs.next() && count<7){
+                        %>
+                        <td>
+                            <div class="project-cards">
+                                <div class="card">
+                                    <div class="card-head">
+                                        <div class="child-center">
+                                            <h3><%= rs.getString("title")%></h3>
+                                        </div>
+                                        <div class="child-right">
+                                            <form action="projectdelete" method="post" onsubmit="return confirm('Are you sure you want to delete this project?');">
+                                                <button type="submit" style="border: none;">
+                                                    <span class="material-symbols-outlined" style="color: red; background-color: white;margin-top: 0px; font-size: 1.6rem; border-top: 10px solid white; border-bottom: 10px solid white;">scan_delete</span>
+                                                </button><div class="text">Delete Project</div><br>
+                                                <input name="a" value="<%=session.getAttribute("userName")%>" hidden>
+                                                <input name="b" value="<%=rs.getString("title")%>" hidden>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <hr style="width: 80%; color: black; align-self: center; margin-top: 60px; position: absolute;">
+                                    <p class="card-text">
+                                        <%= rs.getString("description")%></p>
+                                    <a href="#" class="centre-button">View Project</a>
+                                </div>
+                            </div>
+                        </td>
+                        <%colind++;%>
+                            <%if(colind % 3 == 0)
+                            {
+                            %></tr><tr>
+                            <%}%>
+                            <%
+                            }
+                            %>
+                            <%
+                            }
+                            catch (Exception k){
+                                System.out.println(k.getMessage());
+                            }
+                        %>
+                    </table>
+                </div>
+            </div>
+                              
+                                        <br>
+            <%
+            if (count < 6) {
+            %>
+            <button class="add-button">Create New Project</button>
+            <%
+            } else {
+            %>
+            <button class="msg-button" onclick="alert('Maximum 6 projects allowed')" >Create New Project</button>
+            <%
+            }
+            %>
+            <!--button class="add-button">Create New Project</button-->
+
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">New Project</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+<!--                    <h2>New Project</h2>-->
+                    <div class="modal-body">
+                        <form action="addproject" method="post">
+                            <input type="text" id="project-user" value="<%=session.getAttribute("userName")%>" class="form-control form-input" name="a" readonly="readonly"/><br>
+                            <input type="text" id="project-title" class="form-control form-input" placeholder="title" name="b"/><br>
+                            <textarea id="project-desc" class="form-control form-input" placeholder="descrition (word limit 100)" name="c" maxlength="100" /></textarea><br>                                
+                            <button type="submit" class="btn btn-primary" value="submit">Save changes</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+<!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>-->
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-md-12">
+                    <r>Progress</r>
+                    <hr style="color: black; width: 85%; top: 70px; left: 100px;">
+                </div>
+            </div>
         </div>
-<!--        <div class="progress-container">
-            <div class="progress-bar" id="myBar"></div>
-        </div>-->
-
         <div class="navigation">
 
             <ul>
@@ -467,33 +639,121 @@
             window.onload = move;
 
         </script>
-
+        
         <script>
-            // Get the add button
-            const addButton = document.getElementById('add-project');
+            const addButton = document.querySelector('.add-button');
+            const modal = document.getElementById('modal');
+            const cancelButton = document.getElementById('cancel-button');
+            const saveButton = document.getElementById('save-button');
+            const closeButton = document.querySelector('.btn-close');
 
-            // Get the project cards container
-            const projectCards = document.querySelector('.project-cards');
-
-            // Add event listener for the add button
-            addButton.addEventListener('click', () => {
-                // Create a new card
-                const newCard = document.createElement('div');
-                newCard.classList.add('card');
-                newCard.innerHTML = `
-                <h3>New Project</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nibh eget lacus vestibulum malesuada. Aenean vel purus sapien.</p>
-                <a href="#" class="button">View Project</a>
-                <a href="#" class="button btn-small">Print Report</a>
-            `;
-
-                projectCards.appendChild(newCard);
+            closeButton.addEventListener('click', () => {
+              modal.classList.remove('show');
+              modal.style.display = 'none';
             });
 
-            // Shift the add button
-            addButton.classList.add('shifted');
+            addButton.addEventListener('click', () => {
+              modal.style.display = 'block';
+            });
+
+            cancelButton.addEventListener('click', () => {
+              modal.style.display = 'none';
+            });
+
+            saveButton.addEventListener('click', (event) => {
+              event.preventDefault();
+              const nameInput = document.getElementById('project-user');
+              const titleInput = document.getElementById('project-title');
+              const descriptionInput = document.getElementById('project-description');
+              const name = nameInput.value;
+              const title = titleInput.value;
+              const description = descriptionInput.value;
+              // You can save the data to a database or perform any other action here
+              console.log('Name:', name);
+              console.log('Title:', title);
+              console.log('Description:', description);
+              modal.style.display = 'none';
+            });
+            
+//            // Get a reference to the textarea element
+//            const textarea = document.getElementById('prject-desc');
+//
+//            // Add an event listener to the textarea for the "input" event
+//            textarea.addEventListener('input', () => {
+//              // Get the current value of the textarea
+//              const value = textarea.value.trim();
+//
+//              // Split the value into an array of words
+//              const words = value.split(/\s+/);
+//
+//              // If the number of words is greater than 20, remove the last word
+//              if (words.length > 20) {
+//                // Remove the last word from the array
+//                words.pop();
+//                // Join the words back into a string and set it as the new textarea value
+//                textarea.value = words.join(' ');
+//              }
+//            });
+
         </script>
-        
+
     </body>
 
 </html>
+
+
+<!--                        <div class="card">
+                                    <h3>Project 2</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nibh eget lacus vestibulum
+                                        malesuada. Aenean vel purus sapien.</p>
+                                    <a href="#" class="button">View Project</a>
+                                    <a href="https://www.imi.europa.eu/sites/default/files/uploads/documents/apply-for-funding/call-documents/imi1/Annex2_FinalReportTemplate.pdf" class="button btn-small">Print Report</a>
+                                </div>-->
+
+                                <!--        <div class="card">
+                                            <h3>Project 3</h3>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nibh eget lacus vestibulum
+                                                malesuada. Aenean vel purus sapien.</p>
+                                            <a href="#" class="button">View Project</a>
+                                            <a href="https://www-users.york.ac.uk/~dajp1/Project%20Reports.pdf" class="button btn-small">Print Report</a>
+                                        </div>-->
+                                
+                                <!--                    <input type="text" value="<%--=session.getAttribute("res_id")--%>" class="form-control form-input" name="a" readonly="readonly"/><br>
+                                        <input type="text" id="offer-value" class="form-control form-input" placeholder="title" name="b"/><br>
+                                        <input type="text" id="offer-id" class="form-control form-input" placeholder="descrition" name="c"/><br>-->
+<!--                      <div class="add-button">
+                      <button  onclick="openModal()">
+                            Create New Project
+                        </button>
+                        <button id="add-project" onclick="addCard()">Create New Project</button>
+                    </div>-->
+
+<!--            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                Create New Project
+            </button>
+                                        
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="addproject" method="post">
+                                <input type="text" value="<%=session.getAttribute("res_id")%>" class="form-control form-input" name="a" readonly="readonly"/><br>
+                                <input type="text" id="offer-value" class="form-control form-input" placeholder="title" name="b"/><br>
+                                <input type="text" id="offer-id" class="form-control form-input" placeholder="descrition" name="c"/><br>                                
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+
+<!-- <a href="https://www.arsdcollege.ac.in/wp-content/uploads/2020/04/Lecture-2-Project-Report.pdf" class="button">Print Report</a>-->
