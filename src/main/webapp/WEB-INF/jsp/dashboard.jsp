@@ -11,7 +11,7 @@
 <%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<% int count=0;%>
+<% int count = 0;%>
 <html lang="en">
 
     <head>
@@ -31,14 +31,14 @@
             @import url('https://fonts.googleapis.com/css2?family=Alkatra&family=Josefin+Sans&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Alkatra&family=Josefin+Sans&family=Nunito:wght@400;600;700&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
-            
+
             *{
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
                 font-family: 'Poppins', sans-serif;
             }
-            
+
             .modal {
                 display: none;
                 position: fixed;
@@ -60,7 +60,7 @@
                 width: 40%;
                 position: relative;
             }
-            
+
             .add-button {
                 position: fixed;
                 right: 20px;
@@ -71,10 +71,10 @@
                 padding: 5px 10px;
                 border-radius: 10px;
                 text-decoration: none;
-/*                width: 100px;*/
+                /*                width: 100px;*/
                 border-color: white;
             }
-            
+
             .msg-button{
                 position: fixed;
                 right: 20px;
@@ -85,14 +85,14 @@
                 padding: 5px 10px;
                 border-radius: 10px;
                 text-decoration: none;
-/*                width: 100px;*/
+                /*                width: 100px;*/
                 border-color: white;
             }
-            
+
             .modal button.close{
                 display: none;
             }
-            
+
             .text {
                 display: none;
                 font-size: 0.6rem;
@@ -101,10 +101,10 @@
             button:hover + .text {
                 display: block;
             }
-            
-/*            .add-button:hover {
-                background-color: #3e8e41;
-            }*/
+
+            /*            .add-button:hover {
+                            background-color: #3e8e41;
+                        }*/
 
             body {
                 min-height: 100vh;
@@ -253,11 +253,11 @@
                 color: white;
                 font-size: 34px;
             }
-            
+
             form {
-                    padding: 0 1.5rem;
-                }
-                
+                padding: 0 1.5rem;
+            }
+
             .toggle ion-icon.open,
             .toggle.active ion-icon.close {
                 display: block;
@@ -273,28 +273,28 @@
                     width: 100%;
                 }
             }
-/*            .project-cards {
-                width: calc(100% - 200px);
-                justify-content: space-between;
-                align-items: center;
-                padding: 20px;
-            }*/
+            /*            .project-cards {
+                            width: calc(100% - 200px);
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 20px;
+                        }*/
 
             .card-text {
                 padding-top: 10px;
                 margin-top: 30px;
-/*                margin-bottom: 4px;*/
+                /*                margin-bottom: 4px;*/
                 font-weight: 600;
                 padding-left: 10px;
                 font-family: 'PT Sans', sans-serif;
-/*                font-family: 'Alkatra', cursive;*/
-/*                font-family: 'Josefin Sans', sans-serif;*/
+                /*                font-family: 'Alkatra', cursive;*/
+                /*                font-family: 'Josefin Sans', sans-serif;*/
             }
-            
+
             .card-head{
                 position: relative;
             }
-            
+
             .child-center {
                 position: absolute;
                 left: 50%;
@@ -305,14 +305,14 @@
                 position: absolute;
                 right: 0;
             }
-            
+
             .card {
                 background-color: #fff;
                 border-radius: 5px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
                 justify-content: space-between;
-                margin-top: 10px;                
-/*                padding: 20px;*/
+                margin-top: 10px;
+                /*                padding: 20px;*/
                 height: 250px;
                 width: 300px;
                 margin-left: 5px;
@@ -335,18 +335,18 @@
                 margin-left: 10px;
                 margin-right: 10px;
             }
-            
+
             .centre-button{
                 text-decoration: none;
-                 padding: 5px 10px;
-                 color: #fff;
-                 background-color:green;
-                 width: 40%;
-                 border-radius: 5px;
-                 align-self: center;
-                 margin-bottom: 10px;
+                padding: 5px 10px;
+                color: #fff;
+                background-color:green;
+                width: 40%;
+                border-radius: 5px;
+                align-self: center;
+                margin-bottom: 10px;
             }
-            
+
             .button {
                 display: inline-block;
                 background-color: #4CAF50;
@@ -366,9 +366,9 @@
                 margin-top: 30px;
                 margin-right: 20px;
                 margin-left: 120px;
-/*                position: scroll;*/
+                /*                position: scroll;*/
             }
-            
+
             cnt{
                 font-size: 20px;
                 width: calc(100% - 220px);
@@ -376,14 +376,27 @@
                 font-family: 'Poppins', sans-serif;
             }
             r{
-                font-size: 30px;;
+                font-size: 30px;
+                ;
                 justify-content: space-between;
                 font-family: 'Poppins', sans-serif;
+            }
+            .clock{
+                color: black;
+                font-size: 0.9rem;
+                top: 27px;
+                position: fixed;
+                margin-left: 960px;
+                /*                padding: 5px 10px;
+                                background-color: blue;  
+                                border-radius: 10px;
+                                width: 200px;*/
             }
         </style>
     </head>
 
     <body>
+        <div class="clock" id="clock"></div>
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -394,20 +407,19 @@
             <div class="row">
                 <div class="col">
                     <%
-                        try{
+                        try {
                             Class.forName("com.mysql.cj.jdbc.Driver");
 
-                            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
+                            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
                             PreparedStatement state = con.prepareStatement("select count(*) from projects where username=?");
-                            state.setString(1,(String) session.getAttribute("userName"));
-                            
+                            state.setString(1, (String) session.getAttribute("userName"));
+
                             ResultSet rst = state.executeQuery();
-                            
+
                             while (rst.next()) {
                                 count = rst.getInt(1);
                             }
-                        }
-                        catch (Exception k){
+                        } catch (Exception k) {
                             System.out.println(k.getMessage());
                         }
                     %>
@@ -418,18 +430,18 @@
                 <div class="col-md-4">
                     <table>
                         <%
-                        int colind = 0;
-                        try{
-                            Class.forName("com.mysql.cj.jdbc.Driver");
+                            int colind = 0;
+                            try {
+                                Class.forName("com.mysql.cj.jdbc.Driver");
 
-                            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
+                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
 
-                            PreparedStatement stmt = con.prepareStatement("select * from projects where username=?");
-                            stmt.setString(1,(String) session.getAttribute("userName"));
-                            
-                            ResultSet rs = stmt.executeQuery();
+                                PreparedStatement stmt = con.prepareStatement("select * from projects where username=?");
+                                stmt.setString(1, (String) session.getAttribute("userName"));
 
-                            while(rs.next() && count<7){
+                                ResultSet rs = stmt.executeQuery();
+
+                                while (rs.next() && count < 7) {
                         %>
                         <td>
                             <div class="project-cards">
@@ -456,26 +468,24 @@
                             </div>
                         </td>
                         <%colind++;%>
-                            <%if(colind % 3 == 0)
-                            {
-                            %></tr><tr>
+                        <%if (colind % 3 == 0) {
+                        %></tr><tr>
                             <%}%>
                             <%
-                            }
+                                }
                             %>
                             <%
-                            }
-                            catch (Exception k){
-                                System.out.println(k.getMessage());
-                            }
-                        %>
+                                } catch (Exception k) {
+                                    System.out.println(k.getMessage());
+                                }
+                            %>
                     </table>
                 </div>
             </div>
-                              
-                                        <br>
+
+            <br>
             <%
-            if (count < 6) {
+                if (count < 6) {
             %>
             <button class="add-button">Create New Project</button>
             <%
@@ -483,7 +493,7 @@
             %>
             <button class="msg-button" onclick="alert('Maximum 6 projects allowed')" >Create New Project</button>
             <%
-            }
+                }
             %>
             <!--button class="add-button">Create New Project</button-->
 
@@ -491,9 +501,9 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">New Project</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-<!--                    <h2>New Project</h2>-->
+                    <!--                    <h2>New Project</h2>-->
                     <div class="modal-body">
                         <form action="addproject" method="post">
                             <input type="text" id="project-user" value="<%=session.getAttribute("userName")%>" class="form-control form-input" name="a" readonly="readonly"/><br>
@@ -503,7 +513,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-<!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>-->
+                        <!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>-->
                     </div>
                 </div>
             </div>
@@ -586,13 +596,15 @@
                 <li class="list">
                     <b></b>
                     <b></b>
-                    <a href="welcomepage">
+                    <a href="welcomepage" onclick="event.preventDefault(); removeSessionAttributeAndRedirect();">
                         <span class="icon">
-
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
                         <span class="title">Sign Out</span>
                     </a>
+                    <!--                    <form action="logout" method="post" id="logout">
+                                            <input type="hidden" name="logout" value="true"/>
+                                        </form>-->
                 </li>
             </ul>
         </div>
@@ -605,41 +617,41 @@
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
         <script>
-            let menuToggle = document.querySelector('.toggle');
-            let navigation = document.querySelector('.navigation')
-            menuToggle.onclick = function () {
-                menuToggle.classList.toggle('active');
-                navigation.classList.toggle('active');
-            }
-            let list = document.querySelectorAll('.list');
-            for (let i = 0; i < list.length; i++) {
-                list[i].onclick = function () {
-                    let j = 0;
-                    while (j < list.length) {
-                        list[j++].className = 'list';
-                    }
-                    list[i].className = 'list active';
-                }
-            }
+                        let menuToggle = document.querySelector('.toggle');
+                        let navigation = document.querySelector('.navigation')
+                        menuToggle.onclick = function () {
+                            menuToggle.classList.toggle('active');
+                            navigation.classList.toggle('active');
+                        }
+                        let list = document.querySelectorAll('.list');
+                        for (let i = 0; i < list.length; i++) {
+                            list[i].onclick = function () {
+                                let j = 0;
+                                while (j < list.length) {
+                                    list[j++].className = 'list';
+                                }
+                                list[i].className = 'list active';
+                            }
+                        }
 
 
-            function move() {
-                var elem = document.getElementById("myBar");
-                var width = 0;
-                var id = setInterval(frame, 10);
-                function frame() {
-                    if (width >= 100) {
-                        clearInterval(id);
-                    } else {
-                        width++;
-                        elem.style.width = width + '%';
-                    }
-                }
-            }
-            window.onload = move;
+                        function move() {
+                            var elem = document.getElementById("myBar");
+                            var width = 0;
+                            var id = setInterval(frame, 10);
+                            function frame() {
+                                if (width >= 100) {
+                                    clearInterval(id);
+                                } else {
+                                    width++;
+                                    elem.style.width = width + '%';
+                                }
+                            }
+                        }
+                        window.onload = move;
 
         </script>
-        
+
         <script>
             const addButton = document.querySelector('.add-button');
             const modal = document.getElementById('modal');
@@ -648,33 +660,51 @@
             const closeButton = document.querySelector('.btn-close');
 
             closeButton.addEventListener('click', () => {
-              modal.classList.remove('show');
-              modal.style.display = 'none';
+                modal.classList.remove('show');
+                modal.style.display = 'none';
             });
 
             addButton.addEventListener('click', () => {
-              modal.style.display = 'block';
+                modal.style.display = 'block';
             });
 
             cancelButton.addEventListener('click', () => {
-              modal.style.display = 'none';
+                modal.style.display = 'none';
             });
 
             saveButton.addEventListener('click', (event) => {
-              event.preventDefault();
-              const nameInput = document.getElementById('project-user');
-              const titleInput = document.getElementById('project-title');
-              const descriptionInput = document.getElementById('project-description');
-              const name = nameInput.value;
-              const title = titleInput.value;
-              const description = descriptionInput.value;
-              // You can save the data to a database or perform any other action here
-              console.log('Name:', name);
-              console.log('Title:', title);
-              console.log('Description:', description);
-              modal.style.display = 'none';
+                event.preventDefault();
+                const nameInput = document.getElementById('project-user');
+                const titleInput = document.getElementById('project-title');
+                const descriptionInput = document.getElementById('project-description');
+                const name = nameInput.value;
+                const title = titleInput.value;
+                const description = descriptionInput.value;
+                // You can save the data to a database or perform any other action here
+                console.log('Name:', name);
+                console.log('Title:', title);
+                console.log('Description:', description);
+                modal.style.display = 'none';
             });
-            
+
+            function removeSessionAttributeAndRedirect() {
+                fetch('/removeSessionAttribute', {
+                    method: 'POST',
+                    body: JSON.stringify({attributeName: 'userName'}),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                        .then(response => {
+                            if (response.ok) {
+                                window.location.href = 'welcomepage';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+            }
+
 //            // Get a reference to the textarea element
 //            const textarea = document.getElementById('prject-desc');
 //
@@ -696,7 +726,30 @@
 //            });
 
         </script>
-
+        <script>
+            function displayTime() {
+                var date = new Date();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var seconds = date.getSeconds();
+                var ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+                var time = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+                var month = date.getMonth() + 1;
+                var day = date.getDate();
+                var year = date.getFullYear();
+                var dateStr = month + '/' + day + '/' + year;
+                var dateTimeStr = time + ' | ' + dateStr;
+                document.getElementById('clock').innerHTML = dateTimeStr;
+                setTimeout(displayTime, 1000);
+            }
+            window.onload = function () {
+                displayTime();
+            }
+        </script>
     </body>
 
 </html>
@@ -710,17 +763,17 @@
                                     <a href="https://www.imi.europa.eu/sites/default/files/uploads/documents/apply-for-funding/call-documents/imi1/Annex2_FinalReportTemplate.pdf" class="button btn-small">Print Report</a>
                                 </div>-->
 
-                                <!--        <div class="card">
-                                            <h3>Project 3</h3>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nibh eget lacus vestibulum
-                                                malesuada. Aenean vel purus sapien.</p>
-                                            <a href="#" class="button">View Project</a>
-                                            <a href="https://www-users.york.ac.uk/~dajp1/Project%20Reports.pdf" class="button btn-small">Print Report</a>
-                                        </div>-->
-                                
-                                <!--                    <input type="text" value="<%--=session.getAttribute("res_id")--%>" class="form-control form-input" name="a" readonly="readonly"/><br>
-                                        <input type="text" id="offer-value" class="form-control form-input" placeholder="title" name="b"/><br>
-                                        <input type="text" id="offer-id" class="form-control form-input" placeholder="descrition" name="c"/><br>-->
+<!--        <div class="card">
+            <h3>Project 3</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nibh eget lacus vestibulum
+                malesuada. Aenean vel purus sapien.</p>
+            <a href="#" class="button">View Project</a>
+            <a href="https://www-users.york.ac.uk/~dajp1/Project%20Reports.pdf" class="button btn-small">Print Report</a>
+        </div>-->
+
+<!--                    <input type="text" value="<%--=session.getAttribute("res_id")--%>" class="form-control form-input" name="a" readonly="readonly"/><br>
+        <input type="text" id="offer-value" class="form-control form-input" placeholder="title" name="b"/><br>
+        <input type="text" id="offer-id" class="form-control form-input" placeholder="descrition" name="c"/><br>-->
 <!--                      <div class="add-button">
                       <button  onclick="openModal()">
                             Create New Project
