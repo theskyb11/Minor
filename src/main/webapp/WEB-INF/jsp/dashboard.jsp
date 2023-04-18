@@ -596,7 +596,11 @@
                 <li class="list">
                     <b></b>
                     <b></b>
-                    <a href="welcomepage" onclick="event.preventDefault(); removeSessionAttributeAndRedirect();">
+                    <a href="welcomepage">
+                        <%
+                            session.removeAttribute("userName");
+                            session.setAttribute("loggedIn", false);
+                        %>
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
@@ -672,38 +676,38 @@
                 modal.style.display = 'none';
             });
 
-            saveButton.addEventListener('click', (event) => {
-                event.preventDefault();
-                const nameInput = document.getElementById('project-user');
-                const titleInput = document.getElementById('project-title');
-                const descriptionInput = document.getElementById('project-description');
-                const name = nameInput.value;
-                const title = titleInput.value;
-                const description = descriptionInput.value;
-                // You can save the data to a database or perform any other action here
-                console.log('Name:', name);
-                console.log('Title:', title);
-                console.log('Description:', description);
-                modal.style.display = 'none';
-            });
+//            saveButton.addEventListener('click', (event) => {
+//                event.preventDefault();
+//                const nameInput = document.getElementById('project-user');
+//                const titleInput = document.getElementById('project-title');
+//                const descriptionInput = document.getElementById('project-description');
+//                const name = nameInput.value;
+//                const title = titleInput.value;
+//                const description = descriptionInput.value;
+//                // You can save the data to a database or perform any other action here
+//                console.log('Name:', name);
+//                console.log('Title:', title);
+//                console.log('Description:', description);
+//                modal.style.display = 'none';
+//            });
 
-            function removeSessionAttributeAndRedirect() {
-                fetch('/removeSessionAttribute', {
-                    method: 'POST',
-                    body: JSON.stringify({attributeName: 'userName'}),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                        .then(response => {
-                            if (response.ok) {
-                                window.location.href = 'welcomepage';
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
-            }
+//            function removeSessionAttributeAndRedirect() {
+//                fetch('/removeSessionAttribute', {
+//                    method: 'POST',
+//                    body: JSON.stringify({attributeName: 'userName'}),
+//                    headers: {
+//                        'Content-Type': 'application/json'
+//                    }
+//                })
+//                        .then(response => {
+//                            if (response.ok) {
+//                                window.location.href = 'welcomepage';
+//                            }
+//                        })
+//                        .catch(error => {
+//                            console.error('Error:', error);
+//                        });
+//            }
 
 //            // Get a reference to the textarea element
 //            const textarea = document.getElementById('prject-desc');

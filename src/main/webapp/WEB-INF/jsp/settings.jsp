@@ -396,6 +396,10 @@
                     <b></b>
                     <b></b>
                     <a href="welcomepage">
+                        <%
+                            session.removeAttribute("userName");
+                            session.setAttribute("loggedIn", false);
+                        %>
                         <span class="icon">
 
                             <ion-icon name="log-out-outline"></ion-icon>
