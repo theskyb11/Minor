@@ -86,6 +86,7 @@ public class Login {
                     session.setAttribute("password", y);
                     session.setAttribute("email", rs.getString("email"));
 
+                    session.setMaxInactiveInterval(30 * 24 * 30 * 60);
                     session.setAttribute("loggedIn", true);
                     
                     return "welcomepage";
@@ -103,5 +104,14 @@ public class Login {
         }
 
         return "signup" ;
+    }
+    
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpServletRequest request, HttpServletResponse response)
+    {
+        HttpSession session = request.getSession();
+        session.removeAttribute("userName");
+        session.setAttribute("loggedIn", false);
+        return "welcomepage";
     }
 }

@@ -340,7 +340,7 @@
                 <li class="list">
                     <b></b>
                     <b></b>
-                    <a href="#">
+                    <a href="userprofile">
                         <span class="icon">
 
                             <ion-icon name="person-circle-outline"></ion-icon>
@@ -384,7 +384,7 @@
                 <li class="list">
                     <b></b>
                     <b></b>
-                    <a href="#">
+                    <a href="forgotpass">
                         <span class="icon">
 
                             <ion-icon name="lock-open-outline"></ion-icon>
@@ -395,11 +395,7 @@
                 <li class="list">
                     <b></b>
                     <b></b>
-                    <a href="welcomepage">
-                        <%
-                            session.removeAttribute("userName");
-                            session.setAttribute("loggedIn", false);
-                        %>
+                    <a href="logout">
                         <span class="icon">
 
                             <ion-icon name="log-out-outline"></ion-icon>
@@ -452,6 +448,7 @@
             window.onload = move;
 
         </script>
+        
     </body>
 
 </html>
