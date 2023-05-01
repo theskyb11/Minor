@@ -9,13 +9,56 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Projekta</title>
+        <title>Projekta | Code</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
               rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
               crossorigin="anonymous">
         <link href="<c:url value="/resources/css/forgot.css" />" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+                font-family: 'Poppins', sans-serif;
+            }
+
+            .main-container1 {
+                margin-top: 40px;
+                height: 80vh;
+                display: flex!important;
+                justify-content: center!important;
+                align-items: center!important;
+            }
+
+            .forgot-pass-div {
+                box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
+                width: 35%;
+                text-align: center;
+            }
+
+            .form-input {
+                width: 70%!important;
+                border: none;
+                border-bottom: 1px solid #949494;
+                border-radius: 0;
+                display: block;
+                margin: 0 auto;
+                outline: none;
+                transition: 0.2s all;
+            }
+
+            .form-input:focus {
+                border-bottom: 2px solid #1e53ff;
+                transition: 0.2s all;
+            }
+
+            .btn {
+                background-color: #1e53ff;
+                border-radius: 30px;
+                padding: 10px;
+            }
+        </style>
     </head>
     <body>
+    <%@ include file="headermp.jsp"%>
     <div class="main-container1">
         <div class="forgot-pass-div" style="border-radius: 10px;">
             <% String m=(String) session.getAttribute("resetEmail");
@@ -32,7 +75,7 @@
             </div>
         </div>
     </div>
-
+    <%@ include file="footermp.jsp"%>
     </body>
 <script>
     const inputField = document.querySelector("#code");
