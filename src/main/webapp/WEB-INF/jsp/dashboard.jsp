@@ -585,7 +585,7 @@
                 <li class="list">
                     <b></b>
                     <b></b>
-                    <a href="forgotpass">
+                    <a href="Reset">
                         <span class="icon">
 
                             <ion-icon name="lock-open-outline"></ion-icon>
@@ -596,15 +596,12 @@
                 <li class="list">
                     <b></b>
                     <b></b>
-                    <a href="logout">
+                    <a href="logout" onsubmit="return confirm('Are you sure you want to logout?');">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
                         <span class="title">Sign Out</span>
                     </a>
-                    <!--                    <form action="logout" method="post" id="logout">
-                                            <input type="hidden" name="logout" value="true"/>
-                                        </form>-->
                 </li>
             </ul>
         </div>

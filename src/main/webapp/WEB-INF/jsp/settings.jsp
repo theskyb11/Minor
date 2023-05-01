@@ -258,36 +258,59 @@
                 background-color: #3e8e41;
             }
 
-            .progress-container {
-                border-radius: 50px;
-                width: 85%;
-                height: 30px;
-                position: fixed;
-                bottom: 10%;
-                left:10%;
-                right: -10px;
-                background-color: #f2f2f2;
+            .form-input {
+                width: 70%!important;
+                border: none;
+                border-bottom: 1px solid #949494;
+                border-radius: 0;
+                display: block;
+                margin: 0 auto;
+                outline: none;
+                transition: 0.2s all;
             }
 
+            .form-input:focus {
+                border-bottom: 2px solid #1e53ff;
+                transition: 0.2s all;
+            }
             h1{
                 font-family: 'Josefin Sans', sans-serif;
                 font-weight: bold;
             }
-            .progress-bar {
-                border-radius: 50px;
-                height: 100%;
-                background-color: #4CAF50;
-                width: 0%;
+            .container{
+                width: 90%;
+                margin-top: 30px;
+                margin-right: 20px;
+                margin-left: 120px;
+                /*                position: scroll;*/
+            }
+            .forgot-pass-div {
+/*                box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;*/
+                width: 80%;
+                text-align: center;
+            }
+            r{
+/*                left: 380px;*/
+/*                top: 90px;*/
+                position:absolute;
+                font-size: 30px;
+/*                justify-content: space-between;*/
+                font-family: 'Poppins', sans-serif;
             }
         </style>
     </head>
 
     <body>
         
-        <div align="center" class="main-details-div">
-            <div class="details-col"><br>
-                <h1>Settings</h1><br>
-                <form>
+        <div class="container">
+            <div class="forgot-pass-div">
+                <div class="row">
+                    <div align="left" class="col-md-12">
+                        <r>Settings</r>
+                        <hr style="color: black; width: 80%; position: absolute; top: 85px; left: 120px;">
+                    </div>
+                </div>
+                <form action="">
                     <h3>General Settings</h3>
                     <label for="language">Language:</label>
                     <select id="language" name="language">
@@ -384,7 +407,7 @@
                 <li class="list">
                     <b></b>
                     <b></b>
-                    <a href="forgotpass">
+                    <a href="Reset">
                         <span class="icon">
 
                             <ion-icon name="lock-open-outline"></ion-icon>

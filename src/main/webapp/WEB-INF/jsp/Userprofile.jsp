@@ -588,7 +588,7 @@
                 <li class="list">
                     <b></b>
                     <b></b>
-                    <a href="forgotpass">
+                    <a href="Reset">
                         <span class="icon">
 <!--                            <ion-icon name="password-change-outline"></ion-icon>-->
                             <ion-icon name="lock-open-outline"></ion-icon>
