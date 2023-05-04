@@ -541,7 +541,7 @@
                 <li class="list">
                     <b></b>
                     <b></b>
-                    <a href="#">
+                    <a href="userprofile">
                         <span class="icon">
 
                             <ion-icon name="person-circle-outline"></ion-icon>
@@ -585,7 +585,7 @@
                 <li class="list">
                     <b></b>
                     <b></b>
-                    <a href="#">
+                    <a href="Reset">
                         <span class="icon">
 
                             <ion-icon name="lock-open-outline"></ion-icon>
@@ -596,19 +596,12 @@
                 <li class="list">
                     <b></b>
                     <b></b>
-                    <a href="welcomepage">
-                        <%
-                            session.removeAttribute("userName");
-                            session.setAttribute("loggedIn", false);
-                        %>
+                    <a href="logout" onsubmit="return confirm('Are you sure you want to logout?');">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
                         <span class="title">Sign Out</span>
                     </a>
-                    <!--                    <form action="logout" method="post" id="logout">
-                                            <input type="hidden" name="logout" value="true"/>
-                                        </form>-->
                 </li>
             </ul>
         </div>
@@ -674,60 +667,7 @@
 
             cancelButton.addEventListener('click', () => {
                 modal.style.display = 'none';
-            });
-
-//            saveButton.addEventListener('click', (event) => {
-//                event.preventDefault();
-//                const nameInput = document.getElementById('project-user');
-//                const titleInput = document.getElementById('project-title');
-//                const descriptionInput = document.getElementById('project-description');
-//                const name = nameInput.value;
-//                const title = titleInput.value;
-//                const description = descriptionInput.value;
-//                // You can save the data to a database or perform any other action here
-//                console.log('Name:', name);
-//                console.log('Title:', title);
-//                console.log('Description:', description);
-//                modal.style.display = 'none';
-//            });
-
-//            function removeSessionAttributeAndRedirect() {
-//                fetch('/removeSessionAttribute', {
-//                    method: 'POST',
-//                    body: JSON.stringify({attributeName: 'userName'}),
-//                    headers: {
-//                        'Content-Type': 'application/json'
-//                    }
-//                })
-//                        .then(response => {
-//                            if (response.ok) {
-//                                window.location.href = 'welcomepage';
-//                            }
-//                        })
-//                        .catch(error => {
-//                            console.error('Error:', error);
-//                        });
-//            }
-
-//            // Get a reference to the textarea element
-//            const textarea = document.getElementById('prject-desc');
-//
-//            // Add an event listener to the textarea for the "input" event
-//            textarea.addEventListener('input', () => {
-//              // Get the current value of the textarea
-//              const value = textarea.value.trim();
-//
-//              // Split the value into an array of words
-//              const words = value.split(/\s+/);
-//
-//              // If the number of words is greater than 20, remove the last word
-//              if (words.length > 20) {
-//                // Remove the last word from the array
-//                words.pop();
-//                // Join the words back into a string and set it as the new textarea value
-//                textarea.value = words.join(' ');
-//              }
-//            });
+            });            
 
         </script>
         <script>
@@ -757,60 +697,3 @@
     </body>
 
 </html>
-
-
-<!--                        <div class="card">
-                                    <h3>Project 2</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nibh eget lacus vestibulum
-                                        malesuada. Aenean vel purus sapien.</p>
-                                    <a href="#" class="button">View Project</a>
-                                    <a href="https://www.imi.europa.eu/sites/default/files/uploads/documents/apply-for-funding/call-documents/imi1/Annex2_FinalReportTemplate.pdf" class="button btn-small">Print Report</a>
-                                </div>-->
-
-<!--        <div class="card">
-            <h3>Project 3</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet nibh eget lacus vestibulum
-                malesuada. Aenean vel purus sapien.</p>
-            <a href="#" class="button">View Project</a>
-            <a href="https://www-users.york.ac.uk/~dajp1/Project%20Reports.pdf" class="button btn-small">Print Report</a>
-        </div>-->
-
-<!--                    <input type="text" value="<%--=session.getAttribute("res_id")--%>" class="form-control form-input" name="a" readonly="readonly"/><br>
-        <input type="text" id="offer-value" class="form-control form-input" placeholder="title" name="b"/><br>
-        <input type="text" id="offer-id" class="form-control form-input" placeholder="descrition" name="c"/><br>-->
-<!--                      <div class="add-button">
-                      <button  onclick="openModal()">
-                            Create New Project
-                        </button>
-                        <button id="add-project" onclick="addCard()">Create New Project</button>
-                    </div>-->
-
-<!--            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                Create New Project
-            </button>
-                                        
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="addproject" method="post">
-                                <input type="text" value="<%=session.getAttribute("res_id")%>" class="form-control form-input" name="a" readonly="readonly"/><br>
-                                <input type="text" id="offer-value" class="form-control form-input" placeholder="title" name="b"/><br>
-                                <input type="text" id="offer-id" class="form-control form-input" placeholder="descrition" name="c"/><br>                                
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
-
-<!-- <a href="https://www.arsdcollege.ac.in/wp-content/uploads/2020/04/Lecture-2-Project-Report.pdf" class="button">Print Report</a>-->

@@ -413,6 +413,17 @@
                     bottom: 28%;
                     left: 50%;
                 }
+                .link{
+                    text-decoration: none;
+                    text-underline: none;
+                    color: #1e53ff;
+                }
+                .forgot-pass{
+                    position: relative;
+                    margin-left: 40px;
+                    font-size: 1.1em;
+                    font-weight: 600;
+                }
             }
         </style>
     </head>
@@ -432,7 +443,7 @@
                             <i class="fas fa-lock"></i>
                             <input type="password" name="b" placeholder="Password" />
                         </div>
-                        <input type="submit" value="Login" class="btn solid" />
+                        <input type="submit" value="Login" class="btn solid" /><a href="forgotpass" class="link forgot-pass">Forgot Password?</a><br>
                         <div class="social-media">
                             <a href="https://www.facebook.com/mrinal.gupta.9003" target="_blank" class="social-icon">
                                 <i class="fab fa-facebook-f"></i>
