@@ -410,12 +410,12 @@
                 <li class="list">
                     <b></b>
                     <b></b>
-                    <a href="#">
+                    <a href="users">
                         <span class="icon">
 
-                            <ion-icon name="help-circle-outline"></ion-icon>
+                            <ion-icon name="people-outline"></ion-icon>
                         </span>
-                        <span class="title">Help</span>
+                        <span class="title">Users</span>
                     </a>
                 </li>
                 <li class="list active">

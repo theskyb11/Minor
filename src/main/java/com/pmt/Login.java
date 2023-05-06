@@ -38,24 +38,51 @@ public class Login {
     }
     
     @RequestMapping(value = "/registerform", method = RequestMethod.POST)
-    public String processRegistration(@RequestParam("a") String u, @RequestParam("b") String v, @RequestParam("c") String w,
-                                      @RequestParam("d") String x, Model object1) {
+    public String processRegistration(@RequestParam("a") String u, @RequestParam("b") String v, @RequestParam("d") String x, 
+            @RequestParam("j") String y, @RequestParam("e") String m, @RequestParam("f") String n, Model object1) {
         try
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
+            if ("CEO".equals(y))
+            {
+                v=n+"ceo"+v;
+            }
+            else if ("Vice CEO".equals(y))
+            {
+                v=n+"vceo"+v;
+            }
+            else if ("Project Head".equals(y))
+            {
+                v=n+"phead"+v;
+            }
+            else if ("Vice Project Head".equals(y))
+            {
+                v=n+"vphead"+v;
+            }
+            else if ("Project Management".equals(y))
+            {
+                v=n+"vpman"+v;
+            }
+            else
+            {
+                v=n+"member"+v;
+            }
+
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
-            PreparedStatement stmt=con.prepareStatement("insert into users(name, username, email, password) values(?,?,?,?)");
+            PreparedStatement stmt=con.prepareStatement("insert into users(name, username, password, designation, company_name, company_code) values(?,?,?,?,?,?)");
 
             stmt.setString(1, u);
             stmt.setString(2, v);
-            stmt.setString(3, w);
-            stmt.setString(4, x);
+            stmt.setString(3, x);
+            stmt.setString(4, y);
+            stmt.setString(5, m);
+            stmt.setString(6, n);
             stmt.executeUpdate();
 
-            PreparedStatement stmt1 = con.prepareStatement("insert into user_images(username) values(?)");
-            stmt1.setString(1, u);
-            stmt1.executeUpdate();
+//            PreparedStatement stmt1 = con.prepareStatement("insert into user_image (username) values(?)");
+//            stmt1.setString(1, u);
+//            stmt1.executeUpdate();
         }
         catch(Exception k)
         {

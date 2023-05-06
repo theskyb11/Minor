@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,15 +35,92 @@ public class ContactUs extends HttpServlet{
     }
     
     @RequestMapping(value = "/addproject", method = RequestMethod.POST)
-    public String getPartner(@RequestParam("a") String x, @RequestParam("b") String y, @RequestParam("c") String z, Model object1){
+    public String getPartner(@RequestParam("d") String w, @RequestParam("a") String x, @RequestParam("b") String y, @RequestParam("c") String z, Model object1){
         try{
+            String id=x+w;
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
-            PreparedStatement stmt = con.prepareStatement("insert into projects values(?,?,?)");
-            stmt.setString(1, x);
-            stmt.setString(2, y);
-            stmt.setString(3, z);
+            PreparedStatement stmt = con.prepareStatement("insert into projects(project_id, project_head, username, title, description) values(?,?,?,?,?)");
+            stmt.setString(1, id);
+            stmt.setString(2, x);
+            stmt.setString(3, x);
+            stmt.setString(4, y);
+            stmt.setString(5, z);
+            stmt.executeUpdate();
+            
+        }catch(Exception k){
+            System.out.println(k.getMessage());
+        }
+        
+        return "dashboard";
+    }
+    
+    @RequestMapping(value = "/enterproject", method = RequestMethod.POST)
+    public String getPartner2(@RequestParam("a") String w, @RequestParam("d") String id, Model object1){
+        try{
+            
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
+            
+            PreparedStatement stmt1 = con.prepareStatement("select * from projects where project_id=?");
+            stmt1.setString(1, id);
+            
+            String title="";
+            String project_head="";
+            String desc="";
+            ResultSet rs=stmt1.executeQuery();
+            while (rs.next())
+            {
+                title=rs.getString("title");
+                project_head=rs.getString("project_head");
+                desc=rs.getString("description");
+            }
+            PreparedStatement stmt = con.prepareStatement("insert into projects(project_id, project_head, username, title, description) values(?,?,?,?,?)");
+            
+            stmt.setString(1, id);
+            stmt.setString(2, project_head);
+            stmt.setString(3, w);
+            stmt.setString(4, title);
+            stmt.setString(5, desc);
+            stmt.executeUpdate();
+            
+        }catch(Exception k){
+            System.out.println(k.getMessage());
+        }
+        
+        return "dashboard";
+    }
+    
+    @RequestMapping(value = "/enteruser", method = RequestMethod.POST)
+    public String getUser(@RequestParam("a") String w, @RequestParam("b") String id, @RequestParam("u") String x, Model object1){
+        try{
+            
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
+            
+            PreparedStatement stmt1 = con.prepareStatement("select * from projects where username=?");
+            stmt1.setString(1, w);
+            
+            String title="";
+            String project_head="";
+            String desc="";
+            ResultSet rs=stmt1.executeQuery();
+            while (rs.next())
+            {
+                title=rs.getString("title");
+                project_head=rs.getString("project_head");
+                desc=rs.getString("description");
+            }
+            PreparedStatement stmt = con.prepareStatement("insert into projects(project_id, project_head, username, title, description) values(?,?,?,?,?)");
+            
+            stmt.setString(1, id);
+            stmt.setString(2, w);
+            stmt.setString(3, x);
+            stmt.setString(4, title);
+            stmt.setString(5, desc);
             stmt.executeUpdate();
             
         }catch(Exception k){
@@ -53,7 +131,7 @@ public class ContactUs extends HttpServlet{
     }
     
     @RequestMapping(value = "/projectdelete", method = RequestMethod.POST)
-    public String getPartner(@RequestParam("a") String x, @RequestParam("b") String y, Model object1){
+    public String getPartner1(@RequestParam("a") String x, @RequestParam("b") String y, Model object1){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
 

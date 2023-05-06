@@ -24,6 +24,7 @@
         String s = (String) request.getAttribute("EM");
         String t = (String) request.getAttribute("ALTEM");
         String u = (String) request.getAttribute("ADD");
+        String z = (String) request.getAttribute("ADD");
     %>
     <head>
         <meta charset="UTF-8">
@@ -393,6 +394,20 @@
                 padding: 20px;
                 width:20%;
                 text-align: center;
+                height: 40%;
+            }
+            
+            .card3 {
+                top:60vh;
+                position: absolute;
+                left: 120px;
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                padding: 20px;
+                width:20%;
+                text-align: center;
+                height: 40%;
             }
             
             .card2 {
@@ -405,6 +420,16 @@
 /*                padding: 20px;*/
                 width:65%;
                 text-align: center;
+            }
+            .display-picture{
+                margin-left: auto;
+            }
+            .display-picture img{
+                width: 50px;
+                border-radius: 50%;
+            }
+            .display-picture img:hover{
+                border:2px solid #1e53ff;
             }
         </style>
     </head>
@@ -443,21 +468,28 @@
                     <div class="card1">
                         <div class="card-header">Profile Picture</div>
                         <div class="card-body text-center">
-                            <%
+                            <%  boolean result = false;
                                 try {
                                 Class.forName("com.mysql.cj.jdbc.Driver");
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
-                                PreparedStatement stmt = con.prepareStatement("select * from user_image where username=?");
-                                stmt.setString(1, (String) session.getAttribute("userName"));
+//                                PreparedStatement stmt = con.prepareStatement("select * from user_image where username=?");
+                                PreparedStatement stmt = con.prepareStatement("select count(*) from user_image where username=?");
+                                stmt.setString(1,(String) session.getAttribute("userName"));
+                                ResultSet rst = stmt.executeQuery();
+                                if (rst.next()) {
+                                    int count = rst.getInt(1);
+                                    if (count > 0) {
+                                        result = true;
+                                    }
+                                }
+                                if (result) {
+                                    PreparedStatement stmt1 = con.prepareStatement("select * from user_image where username=?");
+                                    stmt1.setString(1, (String) session.getAttribute("userName"));
 
-                                ResultSet rs = stmt.executeQuery();
-                                while(rs.next()){
-                                    if (rs.getBlob("data") == null) {
+                                    ResultSet rs=stmt1.executeQuery();
 
-                            %>
-                            <img src="<c:url value="/resources/images/user-icon-default.png" />" alt="Projekta backgrnd" style="width: 150px; height: 80px;"/>
-                            <%
-                                } else {
+                                    while (rs.next())
+                                    {
                                         Blob imageBlob = rs.getBlob("data");
                                         InputStream imageStream = imageBlob.getBinaryStream();
                                         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -467,19 +499,63 @@
                                             outputStream.write(buffer, 0, n);
                                         }
                                         byte[] imageBytes = outputStream.toByteArray();
+
                             %>
-                            <img class="img-account-profile rounded-circle mb-2" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes) %>" />
+                            <img class="img-account-profile rounded-circle mb-2" alt="..." align="center" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes) %>" />
+                            <%
+                                }} else {
+//                                        Blob imageBlob = rs.getBlob("data");
+//                                        InputStream imageStream = imageBlob.getBinaryStream();
+//                                        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//                                        byte[] buffer = new byte[4096];
+//                                        int n = 0;
+//                                        while (-1 != (n = imageStream.read(buffer))) {
+//                                            outputStream.write(buffer, 0, n);
+//                                        }
+//                                        byte[] imageBytes = outputStream.toByteArray();
+                            %>
+                            <div id="image-upload">
+                                <a href="#" class="display-picture">
+                                    <img src="<c:url value="/resources/images/user-icon-default.png" />" alt="Projekta backgrnd" style="width: 80px; height: 80px;"/>
+                                </a>
+                                <input id="profile-image" type="file" style="font-size: 0.7rem" accept="image/png, image/jpeg" name="profile-image"/ >
+                            </div>
                                 <%
-                                    }}} catch(Exception k)
+                                    }} catch(Exception k)
                                 {
                                     System.out.println("here");
                                     System.out.println(k);
                                 }
                             %>
-                            <br><br><input name="profile-image" id="profile-image" type="file" accept="image/png, image/jpeg" value="Upload an Image" hidden />
-                            <label for="profile-image" class="btn-primary">Upload an Image</label>
+                            
+                            <br><br><br>
+<!--                            <input id="profile-image" type="file" style="font-size: 0.7rem" accept="image/png, image/jpeg" name="profile-image"/>-->
+<!--                            <label for="profile-image" class="btn-primary">Upload an Image</label>-->
                             <br><br>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card3">
+                        <div class="card-header">About</div><br>    
+                        <%
+                            try{
+                                Class.forName("com.mysql.cj.jdbc.Driver");
+                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
+                                PreparedStatement stmt = con.prepareStatement("select * from users where username=?");
+                                stmt.setString(1, (String) session.getAttribute("userName"));
+                                ResultSet rs=stmt.executeQuery();
+                                while(rs.next())
+                                {%>
+                                <%= rs.getString("qualifications")%>
+                                <%}
+                            }
+                            catch(Exception k){
+                            k.getMessage();
+                            }
+                        %>
                     </div>
                 </div>
             </div>
@@ -519,6 +595,10 @@
                             <div class="mb-3">
                                 <br><label class="small mb-1" for="inputAddress" style="margin-left: 20px;color: #6b6b6b;">Address</label>
                                 <input class="form-input" id="inputAddress" name="inputAddress" type="text" value="<%= u%>" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <br><label class="small mb-1" for="inputQualifications" style="margin-left: 20px;color: #6b6b6b;">Qualifications</label>
+                                <input class="form-input" id="inputQualifications" name="inputQualifications" type="text" value="<%= z%>" readonly>
                             </div>
                             <br>
                             <input class="btn-primary" type="submit" value="Save changes"><br><br>
@@ -577,12 +657,12 @@
                 <li class="list">
                     <b></b>
                     <b></b>
-                    <a href="#">
+                    <a href="users">
                         <span class="icon">
 
-                            <ion-icon name="help-circle-outline"></ion-icon>
+                            <ion-icon name="people-outline"></ion-icon>
                         </span>
-                        <span class="title">Help</span>
+                        <span class="title">Users</span>
                     </a>
                 </li>
                 <li class="list">
@@ -693,8 +773,9 @@
                 const c = document.getElementById("inputPhone");
                 const d = document.getElementById("inputEmail");
                 const e = document.getElementById("inputAlternateEmail");
+                const f = document.getElementById("inputQualifications");
 
-                if (!a.value || !b.value || !c.value || !d.value || !e.value || !e.value) {
+                if (!a.value || !b.value || !c.value || !d.value || !e.value || !e.value || !f) {
                     alert("All fields are required.");
                     event.preventDefault();
                 }
@@ -706,7 +787,18 @@
             document.getElementById("inputAlternateEmail").removeAttribute("readonly");
             document.getElementById("inputAddress").removeAttribute("readonly");
             document.getElementById("inputPhone").removeAttribute("readonly");
+            document.getElementById("inputQualifications").removeAttribute("readonly");
         });
+        </script>
+        <script>
+        function toggleImageInput() {
+          var input = document.getElementById("profile-image");
+          if (input.style.display === "none") {
+            input.style.display = "inline";
+          } else {
+            input.style.display = "none";
+          }
+        }
         </script>
         
     </body>
