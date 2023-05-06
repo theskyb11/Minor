@@ -64,6 +64,13 @@ public class ControllerClass {
         return "settings";
     }
     
+    @RequestMapping("/users")
+    public String dashboardusers()
+    {
+        System.out.println("This is users page");
+        return "Users";
+    }
+    
 //    @RequestMapping("/userprofile")
 //    public String userprofile()
 //    {

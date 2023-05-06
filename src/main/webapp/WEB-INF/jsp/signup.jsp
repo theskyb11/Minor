@@ -424,7 +424,27 @@
                     font-size: 1.1em;
                     font-weight: 600;
                 }
-            }
+                .my-input {
+                    width: 200px;
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                  }
+
+                  .my-datalist {
+                    max-height: 200px;
+                    overflow-y: auto;
+                    background-color: #fff;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                  }
+/*                .select1 {
+                    width: 20%!important;
+                    margin-left:100px;
+                    height: 5px;
+                    border-color: black;
+                    border-bottom-width: 30px;
+                }*/
         </style>
     </head>
 
@@ -466,13 +486,33 @@
                             <input type="text" name="a" placeholder="Full Name" />
                         </div>
                         <div class="input-field">
+                            <i class="fas fa-building"></i>
+                            <input type="text" name="e" placeholder="Company Name" />
+                        </div>
+                        <div class="input-field">
+                            <i class="fas fa-building"></i>
+                            <input type="text" name="f" placeholder="Company Code" />
+                        </div>
+                        <div class="input-field">
+                            <i class="fas fa-star"></i>
+                            <input list="myOptions" class="my-input" name="j" placeholder="Designation" />
+                            <datalist id="myOptions" class="my-datalist">
+                                <option value="CEO">CEO</option>
+                                <option value="Vice CEO" >Vice CEO</option>
+                                <option value="Project Head" >Project Head</option>
+                                <option value="Vice Project Head" >Vice Project Head</option>
+                                <option value="Project Management" >Project Management</option>
+                                <option value="Member" >Member</option>
+                            </datalist>
+                        </div>
+                        <div class="input-field">
                             <i class="fas fa-user"></i>
                             <input type="text" name="b" placeholder="Username" />
                         </div>
-                        <div class="input-field">
+<!--                        <div class="input-field">
                             <i class="fas fa-envelope"></i>
                             <input type="email" name="c" placeholder="Email" />
-                        </div>
+                        </div>-->
                         <div class="input-field">
                             <i class="fas fa-lock"></i>
                             <input type="password" name="d" placeholder="Password" />
