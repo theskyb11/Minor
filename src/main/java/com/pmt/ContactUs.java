@@ -136,7 +136,7 @@ public class ContactUs extends HttpServlet{
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
-            PreparedStatement stmt = con.prepareStatement("delete from projects where username=? and title=?");
+            PreparedStatement stmt = con.prepareStatement("delete from projects where project_head=? and project_id=?");
             stmt.setString(1, x);
             stmt.setString(2, y);
             stmt.executeUpdate();

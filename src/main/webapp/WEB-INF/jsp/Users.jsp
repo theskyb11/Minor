@@ -765,7 +765,7 @@
                                 Class.forName("com.mysql.cj.jdbc.Driver");
 
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
-                                PreparedStatement state = con.prepareStatement("select count(*) from users where designation='Members' and company_name=?");
+                                PreparedStatement state = con.prepareStatement("select count(*) from users where designation='Member' and company_name=?");
                                 state.setString(1, Company);
 
                                 ResultSet rst = state.executeQuery();
