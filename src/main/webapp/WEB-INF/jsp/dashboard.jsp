@@ -450,52 +450,28 @@
 
             .centre-button{
                 text-decoration: none;
-                padding: 5px 10px;
+                padding: 5px 15px;
                 color: #fff;
                 background-color:green;
                 width: 40%;
                 border-radius: 5px;
                 align-self: center;
-                margin-bottom: 10px;
+/*                margin-bottom: 20px;*/
                 vertical-align: middle;
-            }
-            
-            .centre-button{
-                vertical-align: middle;                
-                text-decoration: none;
-                padding: 5px 10px;
-                color: #fff;
-                background-color:green;
-                width: 40%;
-                border-radius: 5px;
-                align-self: center;
-                margin-bottom: 10px;
-                border-color: green;
+                border-color: black;
             }
             
             .centre-button3{
+                border-width: 0px;
                 text-decoration: none;
-                padding: 5px 10px;
+                padding: 3.8px 10px;
                 color: #fff;
                 background-color:green;
                 width: 40%;
                 border-radius: 5px;
                 align-self: center;
-                margin-bottom: 10px;
+                margin-bottom: 2.5px;
                 vertical-align: middle;
-            }
-            
-            .centre-button3{
-                vertical-align: middle;                
-                text-decoration: none;
-                padding: 5px 10px;
-                color: #fff;
-                background-color:green;
-                width: 40%;
-                border-radius: 5px;
-                align-self: center;
-                margin-bottom: 10px;
-                border-color: green;
             }
             
             .member-button{
@@ -606,7 +582,8 @@
                             int colind = 0;
                             String position="";
                             String member="Member";
-                            boolean exists=false;
+                            String manage="Project Management";
+                            boolean exists=false, exists1=false;
                             try{
                                 Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -620,9 +597,10 @@
                                 {
                                     position = rst.getString("designation");
                                     exists=position.equals(member);
+                                    exists1=position.equals(manage);
                                 }
                                 
-                                if (!exists)
+                                if (!exists && !exists1)
                                 {
                                 %><div class="row">
                 <div class="col-md-4">
@@ -655,7 +633,7 @@
                                     <hr style="width: 80%; color: black; align-self: center; margin-top: 60px; position: absolute;">
                                     <p class="card-text">
                                         <%= rs.getString("description")%></p>
-                                    <div style="display">
+                                    <div style="display: inline-block; margin-bottom: 10px;">
                                         <a href="projectview?value=<%=rs.getString("project_id")%>" class="centre-button">View Project</a>
                                         <button class="centre-button3" data-value="<%=rs.getString("project_id")%>">Add users</button>
                                     </div>
@@ -708,16 +686,16 @@
                                         <div class="child-center">
                                             <h3><%= rs.getString("title")%></h3>
                                         </div>
-                                        <div class="child-right">
+<!--                                        <div class="child-right">
                                             <form action="projectdelete" method="post" onsubmit="return confirm('Are you sure you want to delete this project?');">
                                                 <button type="submit" style="border: none;">
                                                     <span class="material-symbols-outlined" style="color: red; background-color: white;margin-top: 0px; font-size: 1.6rem; border-top: 10px solid white; border-bottom: 10px solid white;">scan_delete</span>
                                                 </button><div class="text">Delete Project</div><br>
-                                                <input name="a" value="<%=session.getAttribute("userName")%>" hidden>
-                                                <input name="b" value="<%=rs.getString("title")%>" hidden>
+                                                <input name="a" value="<%--=session.getAttribute("userName")%>" hidden>
+                                                <input name="b" value="<%=rs.getString("project_id")--%>" hidden>
                                             </form>
                                         </div>
-                                    </div>
+                                    </div>-->
                                     <hr style="width: 80%; color: black; align-self: center; margin-top: 60px; position: absolute;">
                                     <p class="card-text">
                                         <%= rs.getString("description")%></p>
@@ -983,7 +961,7 @@
         </script>
         
         <script>
-            const addButton3 = document.querySelector('.centre-button3');
+            const addButton3 = document.querySelectorAll('.centre-button3');
             const modal3 = document.getElementById('modal3');
             const cancelButton3 = document.getElementById('cancel-button3');
             const saveButton3 = document.getElementById('save-button3');
@@ -994,9 +972,17 @@
                 modal3.style.display = 'none';
             });
 
-            addButton3.addEventListener('click', () => {
-                modal3.style.display = 'block';
-            });
+//            addButton3.addEventListener('click', () => {
+//                modal3.style.display = 'block';
+//            });
+
+            addButton3.forEach(button => {
+                button.addEventListener('click', function() {
+                  const value = this.getAttribute('data-value');
+                  document.getElementById('inputValue').value = value;
+                  document.getElementById('modal3').style.display = 'block';
+                });
+              });
 
             cancelButton3.addEventListener('click', () => {
                 modal3.style.display = 'none';
