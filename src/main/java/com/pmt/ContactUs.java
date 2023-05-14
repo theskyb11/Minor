@@ -134,7 +134,7 @@ public class ContactUs extends HttpServlet{
     public String getPartner1(@RequestParam("a") String x, @RequestParam("b") String y, Model object1){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-
+            System.out.println(x + " " + y);
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
             PreparedStatement stmt = con.prepareStatement("delete from projects where project_head=? and project_id=?");
             stmt.setString(1, x);
