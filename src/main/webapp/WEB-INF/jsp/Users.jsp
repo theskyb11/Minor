@@ -410,7 +410,7 @@
                         %>
                         <br><r style="font-size:25px; color: gray;"><%=cnt1%> employees are in <%=Company%></r>
                     </div><br>
-                    <div class="col">
+                    <div align="center" class="col">
                         <input list="myOptions" class="form-control form-input" placeholder="Search users"/><br>
                             <datalist id="myOptions" class="my-datalist">
                                 <%
@@ -419,7 +419,7 @@
 
                                     Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
 
-                                    PreparedStatement stmt2 = con.prepareStatement("select * from users where company_name=?");
+                                    PreparedStatement stmt2 = con.prepareStatement("select * from users where company_name=? order by name");
                                     stmt2.setString(1, Company);
                                     ResultSet rs=stmt2.executeQuery();
                                     
@@ -434,13 +434,13 @@
                                 %>
                             </datalist>
                     </div>
-                    <div class="col" style="display: flex; justify-content: center;align-items: center">
+                    <div class="col" style="display: flex; justify-content: center;align-items: center;">
                         <%
                             try{
                                 Class.forName("com.mysql.cj.jdbc.Driver");
 
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
-                                PreparedStatement state = con.prepareStatement("select count(*) from users where designation='CEO' and company_name=?");
+                                PreparedStatement state = con.prepareStatement("select count(*) from users where designation='CEO' and company_name=? ");
                                 state.setString(1, Company);
 
                                 ResultSet rst = state.executeQuery();
@@ -454,14 +454,14 @@
                             }
                         %>
                     </div><br>
-                    <div class="col" style="display: flex; justify-content: center;align-items: center">
+                    <div class="col" style="display: flex; justify-content: center;align-items: center; margin-left: 15px;">
                         <%
                             try{
                                 Class.forName("com.mysql.cj.jdbc.Driver");
 
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
                                 
-                                PreparedStatement stmt = con.prepareStatement("select * from users where designation='CEO' and company_name=?");
+                                PreparedStatement stmt = con.prepareStatement("select * from users where designation='CEO' and company_name=? order by name");
                                 stmt.setString(1, Company);
 
                                 ResultSet rs = stmt.executeQuery();
@@ -519,14 +519,14 @@
                             }
                         %>
                     </div><br>
-                    <div class="col" style="display: flex; justify-content: center;align-items: center">
+                    <div class="col" style="display: flex; justify-content: center;align-items: center; margin-left: 15px;">
                         <%
                             try{
                                 Class.forName("com.mysql.cj.jdbc.Driver");
 
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
                                 
-                                PreparedStatement stmt = con.prepareStatement("select * from users where designation='Vice CEO' and company_name=?");
+                                PreparedStatement stmt = con.prepareStatement("select * from users where designation='Vice CEO' and company_name=? order by name");
                                 stmt.setString(1, Company);
 
                                 ResultSet rs = stmt.executeQuery();
@@ -584,14 +584,14 @@
                             }
                         %>
                     </div><br>
-                    <div class="col" style="display: flex; justify-content: center;align-items: center">
+                    <div class="col" style="display: flex; justify-content: center;align-items: center; margin-left: 15px;">
                         <%
                             try{
                                 Class.forName("com.mysql.cj.jdbc.Driver");
 
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
                                 
-                                PreparedStatement stmt = con.prepareStatement("select * from users where designation='Project Head' and company_name=?");
+                                PreparedStatement stmt = con.prepareStatement("select * from users where designation='Project Head' and company_name=? order by name");
                                 stmt.setString(1, Company);
 
                                 ResultSet rs = stmt.executeQuery();
@@ -649,14 +649,14 @@
                             }
                         %>
                     </div><br>
-                    <div class="col" style="display: flex; justify-content: center;align-items: center">
+                    <div class="col" style="display: flex; justify-content: center;align-items: center; margin-left: 15px;">
                         <%
                             try{
                                 Class.forName("com.mysql.cj.jdbc.Driver");
 
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
                                 
-                                PreparedStatement stmt = con.prepareStatement("select * from users where designation='Vice Project Head' and company_name=?");
+                                PreparedStatement stmt = con.prepareStatement("select * from users where designation='Vice Project Head' and company_name=? order by name");
                                 stmt.setString(1, Company);
 
                                 ResultSet rs = stmt.executeQuery();
@@ -714,14 +714,14 @@
                             }
                         %>
                     </div><br>
-                    <div class="col" style="display: flex; justify-content: center;align-items: center">
+                    <div class="col" style="display: flex; justify-content: center;align-items: center; margin-left: 15px;">
                         <%
                             try{
                                 Class.forName("com.mysql.cj.jdbc.Driver");
 
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
                                 
-                                PreparedStatement stmt = con.prepareStatement("select * from users where designation='Project Management' and company_name=?");
+                                PreparedStatement stmt = con.prepareStatement("select * from users where designation='Project Management' and company_name=? order by name");
                                 stmt.setString(1, Company);
 
                                 ResultSet rs = stmt.executeQuery();
@@ -779,14 +779,14 @@
                             }
                         %>
                     </div><br>
-                    <div class="col" style="display: flex; justify-content: center;align-items: center">
+                    <div class="col" style="display: flex; justify-content: center;align-items: center; margin-left: 15px;">
                         <%
                             try{
                                 Class.forName("com.mysql.cj.jdbc.Driver");
 
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
                                 
-                                PreparedStatement stmt = con.prepareStatement("select * from users where designation='Member' and company_name=?");
+                                PreparedStatement stmt = con.prepareStatement("select * from users where designation='Member' and company_name=? order by name");
                                 stmt.setString(1, Company);
 
                                 ResultSet rs = stmt.executeQuery();

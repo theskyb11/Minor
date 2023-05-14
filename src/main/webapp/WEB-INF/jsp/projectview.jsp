@@ -410,8 +410,8 @@
                 border-color: white;
             }
 
-            .modal button.close, .modal2 button.close, .modal3 button.close, .modal4 button.close, .modal5 button.close{
-                display: none;
+            .modal button.close,.modal button.close, .modal3 button.close, .modal4 button.close, .modal5 button.close{
+                display: block;
             }
             
             form {

@@ -183,11 +183,11 @@
                 display: none;
             }
 
-            @media only screen and (max-width: 768px) {
+/*            @media only screen and (max-width: 768px) {
                 .project-card {
                     width: 100%;
                 }
-            }
+            }*/
 
             .main-details-div {
                 margin-top: 10px;
@@ -202,7 +202,7 @@
                 border-radius: 10px;
             }
 
-            .project-cards {
+/*            .project-cards {
                 position: fixed;
                 top: 0;
                 left: 120px;
@@ -225,7 +225,7 @@
             .card h3 {
                 font-size: 20px;
                 margin-bottom: 10px;
-            }
+            }*/
 
             .button {
                 display: inline-block;
@@ -240,10 +240,10 @@
                 background-color: #3e8e41;
             }
             
-            .card p {
+/*            .card p {
                 font-size: 16px;
                 margin-bottom: 20px;
-            }
+            }*/
 
             .button {
                 display: inline-block;
@@ -310,40 +310,46 @@
                         <hr style="color: black; width: 80%; position: absolute; top: 85px; left: 120px;">
                     </div>
                 </div>
-                <form action="">
-                    <h3>General Settings</h3>
-                    <label for="language">Language:</label>
-                    <select id="language" name="language">
-                        <option value="english">English</option>
-                        <option value="spanish">Spanish</option>
-                        <option value="french">French</option>
-                        <option value="german">German</option>
-                    </select>
-                    <br>
-                    <label for="timezone">Timezone:</label>
-                    <select id="timezone" name="timezone">
-                        <option value="utc-8">UTC-8</option>
-                        <option value="utc-7">UTC-7</option>
-                        <option value="utc-6">UTC-6</option>
-                        <option value="utc-5">UTC-5</option>
-                    </select>
-                    <br>
-                    <label for="dateFormat">Date Format:</label>
-                    <select id="dateFormat" name="dateFormat">
-                        <option value="mm-dd-yyyy">MM/DD/YYYY</option>
-                        <option value="dd-mm-yyyy">DD/MM/YYYY</option>
-                        <option value="yyyy-mm-dd">YYYY/MM/DD</option>
-                    </select>
-                    <br><br>
-                    <h3>Notification Settings</h3>
-                    <label for="emailNotifications">Email Notifications:</label>
-                    <input type="checkbox" id="emailNotifications" name="emailNotifications">
-                    <br>
-                    <label for="mobileNotifications">Mobile Notifications:</label>
-                    <input type="checkbox" id="mobileNotifications" name="mobileNotifications">
-                    <br><br>
-                    <input type="submit" class="button" value="Save Changes">
-                </form><br>
+                <div class="row">
+                    <div align="center" class="col-md-12">
+                        
+<!--                        <form action="">-->
+<!--                            <h3>General Settings</h3>
+                            <label for="language">Language:</label>
+                            <select id="language" name="language">
+                                <option value="english">English</option>
+                                <option value="spanish">Spanish</option>
+                                <option value="french">French</option>
+                                <option value="german">German</option>
+                            </select>
+                            <br>
+                            <label for="timezone">Timezone:</label>
+                            <select id="timezone" name="timezone">
+                                <option value="utc-8">UTC-8</option>
+                                <option value="utc-7">UTC-7</option>
+                                <option value="utc-6">UTC-6</option>
+                                <option value="utc-5">UTC-5</option>
+                            </select>
+                            <br>
+                            <label for="dateFormat">Date Format:</label>
+                            <select id="dateFormat" name="dateFormat">
+                                <option value="mm-dd-yyyy">MM/DD/YYYY</option>
+                                <option value="dd-mm-yyyy">DD/MM/YYYY</option>
+                                <option value="yyyy-mm-dd">YYYY/MM/DD</option>
+                            </select>
+                            <br><br>-->
+<!--                            <h3>Notification Settings</h3>
+                            <label for="emailNotifications">Email Notifications:</label>
+                            <input type="checkbox" id="emailNotifications" name="emailNotifications">
+                            <br>
+                            <label for="mobileNotifications">Mobile Notifications:</label>
+                            <input type="checkbox" id="mobileNotifications" name="mobileNotifications">
+                            <br><br>
+                            <input type="submit" class="button" value="Save Changes">-->
+<!--                        </form>-->
+                        <br>
+                    </div>
+                </div>
             </div>
         </div>
 
