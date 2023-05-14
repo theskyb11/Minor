@@ -59,6 +59,7 @@ public class AccountController {
                     model.addAttribute("ALTEM",rs.getString("alt_email"));
                     model.addAttribute("ADD",rs.getString("address"));
                     model.addAttribute("PWD",rs.getString("password"));
+                    model.addAttribute("QUAL",rs.getString("qualifications"));
                 }
             } catch (SQLException e) {
                 String errorMessage = "Unknown Error";
@@ -70,20 +71,24 @@ public class AccountController {
 
     @RequestMapping(value = "/userprofile", method = RequestMethod.POST)
     public String getDetails(HttpServletRequest request, HttpServletResponse response, @RequestParam("inputUsername") String m, @RequestParam("inputName") String n,
-                             @RequestParam("inputPhone") Long o, @RequestParam("inputEmail") String p, @RequestParam("inputAddress") String q, @RequestParam("inputAlternateEmail") String s, @RequestParam(value = "profile-image", required = false) CommonsMultipartFile file, Model model) {
+                             @RequestParam("inputPhone") Long o, @RequestParam("inputEmail") String p, @RequestParam("inputAddress") String q, @RequestParam("inputAlternateEmail") String s, @RequestParam("inputQualifications") String z, @RequestParam(value = "profile-image", required = false) CommonsMultipartFile file, Model model) {
 
         try {
+            System.out.println(file);
             HttpSession session = request.getSession();
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
 
-            PreparedStatement stmt = con.prepareStatement("update users set name=?, phone=?, email=?, address=?, alt_email=? where username=?");
+            PreparedStatement stmt = con.prepareStatement("update users set name=?, phone=?, email=?, address=?, alt_email=?, qualifications=? where username=?");
 
             stmt.setString(1, n);
             stmt.setLong(2, o);
             stmt.setString(3, p);
             stmt.setString(4, q);
             stmt.setString(5, s);
-            stmt.setString(6, (String) session.getAttribute("userName"));
+            stmt.setString(6, z);
+            stmt.setString(7, (String) session.getAttribute("userName"));
+            
+            stmt.executeUpdate();
 
             InputStream inputStream = null;
 
@@ -93,7 +98,49 @@ public class AccountController {
 
             String message = null;
 
-            try {
+//            PreparedStatement stmt1 = con.prepareStatement("select count(*) from user_image where username=?");
+//            stmt1.setString(1, (String) session.getAttribute("userName"));
+//            boolean result=false;
+//            ResultSet rst = stmt1.executeQuery();
+//            if (rst.next()) {
+//                int count = rst.getInt(1);
+//                if (count > 0) {
+//                    result = true;
+//                }
+//            }
+//
+//            if (result)
+//            {
+//                PreparedStatement statement1 = con.prepareStatement("update user_image set data=? where username=?");
+//                statement1.setString(2,(String) session.getAttribute("userName"));
+//
+//                if (inputStream != null) {
+//                    statement1.setBlob(1, inputStream);
+//                }
+//
+//                statement1.executeUpdate();
+//                int row = statement1.executeUpdate();
+//                if (row > 0) {
+//                    message = "File uploaded and saved into database";
+//                }
+//            }
+//            else
+//            {
+//                PreparedStatement statement = con.prepareStatement("insert into user_image (data,username) values (?,?)");
+//                statement.setString(2, (String) session.getAttribute("userName"));
+//
+//                if (inputStream != null) {
+//                    statement.setBlob(1, inputStream);
+//                }
+//
+//                statement.executeUpdate();
+//                int row = statement.executeUpdate();
+//                if (row > 0) {
+//                    message = "File uploaded and saved into database";
+//                }
+//            }
+                
+              try {
                 PreparedStatement statement = con.prepareStatement("update user_image set data=? where username=?");
                 statement.setString(2, m);
 
@@ -106,10 +153,10 @@ public class AccountController {
                 if (row > 0) {
                     message = "File uploaded and saved into database";
                 }
-                
             } catch (SQLException ex) {
                 out.println(ex);
             }
+
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }

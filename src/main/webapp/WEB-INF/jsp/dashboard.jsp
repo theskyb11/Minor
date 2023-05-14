@@ -92,6 +92,118 @@
             .modal button.close{
                 display: none;
             }
+            
+            .modal2 {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                align-self: center;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0,0,0,0.2);
+            }
+
+            .modal-content2 {
+                background-color: white;
+                margin: 10% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 40%;
+                position: relative;
+            }
+
+            .add-button2 {
+                position: fixed;
+                right: 20px;
+                bottom: 20px;
+                margin: 10px;
+                background-color: green;
+                color: #fff;
+                padding: 5px 10px;
+                border-radius: 10px;
+                text-decoration: none;
+                /*                width: 100px;*/
+                border-color: white;
+            }
+
+            .msg-button2{
+                position: fixed;
+                right: 20px;
+                bottom: 20px;
+                margin: 10px;
+                background-color: green;
+                color: #fff;
+                padding: 5px 10px;
+                border-radius: 10px;
+                text-decoration: none;
+                /*                width: 100px;*/
+                border-color: white;
+            }
+
+            .modal2 button.close{
+                display: none;
+            }
+            
+            .modal3 {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                align-self: center;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0,0,0,0.2);
+            }
+
+            .modal-content3{
+                background-color: white;
+                margin: 10% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 40%;
+                position: relative;
+            }
+
+            .add-button3 {
+                position: fixed;
+                right: 20px;
+                bottom: 20px;
+                margin: 10px;
+                background-color: green;
+                color: #fff;
+                padding: 5px 10px;
+                border-radius: 10px;
+                text-decoration: none;
+                /*                width: 100px;*/
+                border-color: white;
+            }
+
+            .msg-button3{
+                position: fixed;
+                right: 20px;
+                bottom: 20px;
+                margin: 10px;
+                background-color: green;
+                color: #fff;
+                padding: 5px 10px;
+                border-radius: 10px;
+                text-decoration: none;
+                /*                width: 100px;*/
+                border-color: white;
+            }
+            
+/*            .modal3 .btn-close3 {
+                display: none;
+            }*/
+
+            .modal3 .button-close{
+                display: none;
+            }
 
             .text {
                 display: none;
@@ -338,6 +450,44 @@
 
             .centre-button{
                 text-decoration: none;
+                padding: 5px 15px;
+                color: #fff;
+                background-color:green;
+                width: 40%;
+                border-radius: 5px;
+                align-self: center;
+/*                margin-bottom: 20px;*/
+                vertical-align: middle;
+                border-color: black;
+            }
+            
+            .centre-button3{
+                border-width: 0px;
+                text-decoration: none;
+                padding: 3.8px 10px;
+                color: #fff;
+                background-color:green;
+                width: 40%;
+                border-radius: 5px;
+                align-self: center;
+                margin-bottom: 2.5px;
+                vertical-align: middle;
+            }
+            
+            .member-button{
+                text-decoration: none;
+                padding: 5px 10px;
+                color: #fff;
+                background-color:green;
+                width: 40%;
+                border-radius: 5px;
+                align-self: center;
+                vertical-align: middle;
+                top: 0px;
+            }
+            .member-button{
+                vertical-align: middle;                
+                text-decoration: none;
                 padding: 5px 10px;
                 color: #fff;
                 background-color:green;
@@ -345,6 +495,7 @@
                 border-radius: 5px;
                 align-self: center;
                 margin-bottom: 10px;
+                border-color: green;
             }
 
             .button {
@@ -426,22 +577,41 @@
                     <cnt><%=count%> projects ongoing</cnt>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <table>
+            
                         <%
                             int colind = 0;
-                            try {
+                            String position="";
+                            String member="Member";
+                            String manage="Project Management";
+                            boolean exists=false, exists1=false;
+                            try{
                                 Class.forName("com.mysql.cj.jdbc.Driver");
 
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
 
-                                PreparedStatement stmt = con.prepareStatement("select * from projects where username=?");
+                                PreparedStatement stmt2 = con.prepareStatement("select * from users where username=?");
+                                stmt2.setString(1, (String) session.getAttribute("userName"));
+                                
+                                ResultSet rst=stmt2.executeQuery();
+                                while(rst.next())
+                                {
+                                    position = rst.getString("designation");
+                                    exists=position.equals(member);
+                                    exists1=position.equals(manage);
+                                }
+                                
+                                if (!exists && !exists1)
+                                {
+                                %><div class="row">
+                <div class="col-md-4">
+                                <table><%
+                                PreparedStatement stmt = con.prepareStatement("select * from projects natural join users where username=?");
                                 stmt.setString(1, (String) session.getAttribute("userName"));
 
                                 ResultSet rs = stmt.executeQuery();
 
                                 while (rs.next() && count < 7) {
+                                
                         %>
                         <td>
                             <div class="project-cards">
@@ -463,7 +633,10 @@
                                     <hr style="width: 80%; color: black; align-self: center; margin-top: 60px; position: absolute;">
                                     <p class="card-text">
                                         <%= rs.getString("description")%></p>
-                                    <a href="#" class="centre-button">View Project</a>
+                                    <div style="display: inline-block; margin-bottom: 10px;">
+                                        <a href="projectview?value=<%=rs.getString("project_id")%>" class="centre-button">View Project</a>
+                                        <button class="centre-button3" data-value="<%=rs.getString("project_id")%>">Add users</button>
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -473,11 +646,8 @@
                             <%}%>
                             <%
                                 }
-                            %>
-                            <%
-                                } catch (Exception k) {
-                                    System.out.println(k.getMessage());
-                                }
+                        %>
+                        <%
                             %>
                     </table>
                 </div>
@@ -495,7 +665,69 @@
             <%
                 }
             %>
-            <!--button class="add-button">Create New Project</button-->
+                            <%}
+            else
+{
+%><div class="row">
+                <div class="col-md-4">
+                                <table><%
+                                PreparedStatement stmt = con.prepareStatement("select * from projects natural join users where username=?");
+                                stmt.setString(1, (String) session.getAttribute("userName"));
+
+                                ResultSet rs = stmt.executeQuery();
+
+                                while (rs.next() && count < 7) {
+                                
+                        %>
+                        <td>
+                            <div class="project-cards">
+                                <div class="card">
+                                    <div class="card-head">
+                                        <div class="child-center">
+                                            <h3><%= rs.getString("title")%></h3>
+                                        </div>
+<!--                                        <div class="child-right">
+                                            <form action="projectdelete" method="post" onsubmit="return confirm('Are you sure you want to delete this project?');">
+                                                <button type="submit" style="border: none;">
+                                                    <span class="material-symbols-outlined" style="color: red; background-color: white;margin-top: 0px; font-size: 1.6rem; border-top: 10px solid white; border-bottom: 10px solid white;">scan_delete</span>
+                                                </button><div class="text">Delete Project</div><br>
+                                                <input name="a" value="<%--=session.getAttribute("userName")%>" hidden>
+                                                <input name="b" value="<%=rs.getString("project_id")--%>" hidden>
+                                            </form>
+                                        </div>
+                                    </div>-->
+                                    <hr style="width: 80%; color: black; align-self: center; margin-top: 60px; position: absolute;">
+                                    <p class="card-text">
+                                        <%= rs.getString("description")%></p>
+<!--                                    <div style="display">-->
+                                        <a href="projectview?value=<%=rs.getString("project_id")%>" class="centre-button">View Project</a>
+<!--                                </div>-->
+                                </div>
+                            </div>
+                        </td>
+                        <%colind++;%>
+                        <%if (colind % 3 == 0) {
+                        %></tr><tr>
+                            <%}%>
+                            <%
+                                }
+                        %>
+                        <%
+                            %>
+                    </table>
+                </div>
+            </div>
+
+            <br>
+            
+            <button class="add-button2">Enter into new Project</button>
+                            <%}
+                            }
+                            catch(Exception k){
+                                k.getMessage();
+                            }%>
+                            
+            <!-- end -->
 
             <div id="modal" class="modal">
                 <div class="modal-content">
@@ -503,10 +735,10 @@
                         <h5 class="modal-title" id="exampleModalLongTitle">New Project</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                    <!--                    <h2>New Project</h2>-->
                     <div class="modal-body">
                         <form action="addproject" method="post">
                             <input type="text" id="project-user" value="<%=session.getAttribute("userName")%>" class="form-control form-input" name="a" readonly="readonly"/><br>
+                            <input type="text" id="project-id" class="form-control form-input" placeholder="id" name="d"/><br>
                             <input type="text" id="project-title" class="form-control form-input" placeholder="title" name="b"/><br>
                             <textarea id="project-desc" class="form-control form-input" placeholder="descrition (word limit 100)" name="c" maxlength="100" /></textarea><br>                                
                             <button type="submit" class="btn btn-primary" value="submit">Save changes</button>
@@ -517,11 +749,72 @@
                     </div>
                 </div>
             </div>
+                            
+            <div id="modal2" class="modal2">
+                <div class="modal-content2">
+                    <div class="modal-header2">
+                        <h5 class="modal-title2" id="exampleModalLongTitle">New Project</h5>
+                        <button type="button" class="btn-close2" data-bs-dismiss="modal2"></button>
+                    </div>
+                    <!--                    <h2>New Project</h2>-->
+                    <div class="modal-body2">
+                        <form action="enterproject" method="post">
+                            <input type="text" id="project-user" value="<%=session.getAttribute("userName")%>" class="form-control form-input" name="a" readonly="readonly"/><br>
+                            <input type="text" id="project-id" class="form-control form-input" placeholder="id" name="d"/><br>
+                            <button type="submit" class="btn btn-primary" value="submit">Save changes</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer2">
+                        <!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>-->
+                    </div>
+                </div>
+            </div>
+                            
+            <div id="modal3" class="modal3">
+                <div class="modal-content3">
+                    <div class="modal-header3">
+                        <h5 class="modal-title3" id="exampleModalLongTitle">New Member or Vice Project Head</h5>
+                        <button type="button" class="btn-close3" data-bs-dismiss="modal3"></button>
+                    </div>
+                    <!--                    <h2>New Project</h2>-->
+                    <div class="modal-body3">
+                        <form action="enteruser" method="post">
+                            <input type="text" id="project-user" value="<%=session.getAttribute("userName")%>" class="form-control form-input" name="a" readonly="readonly"/><br>
+                            <input type="text" id="inputValue" class="form-control form-input" name="b" readonly="readonly"/><br>
+                            <input list="myOptions" id="project-id" class="form-control form-input" placeholder="username" name="u"/><br>
+                            <datalist id="myOptions" class="my-datalist">
+                                <%
+                                    try{
+                                    Class.forName("com.mysql.cj.jdbc.Driver");
+
+                                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
+
+                                    PreparedStatement stmt2 = con.prepareStatement("select * from users where designation not in ('CEO','Project Head')");
+                                    ResultSet rs=stmt2.executeQuery();
+                                    
+                                    while(rs.next())
+                                    {
+                                    %><option value="<%=rs.getString("username")%>"><%=rs.getString("username")%></option><%
+                                    }
+                                    }
+                                    catch(Exception k){
+                                    k.getMessage();
+                                    }
+                                %>
+                            </datalist>
+                            <button type="submit" class="btn btn-primary" value="submit">Save changes</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer3">
+                        <!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>-->
+                    </div>
+                </div>
+            </div>
             <br><br>
             <div class="row">
                 <div class="col-md-12">
                     <r>Progress</r>
-                    <hr style="color: black; width: 85%; top: 70px; left: 100px;">
+                    <hr style="color: black; width: 100%; top: 70px; left: 100px;">
                 </div>
             </div>
         </div>
@@ -574,12 +867,12 @@
                 <li class="list">
                     <b></b>
                     <b></b>
-                    <a href="#">
+                    <a href="users">
                         <span class="icon">
 
-                            <ion-icon name="help-circle-outline"></ion-icon>
+                            <ion-icon name="people-outline"></ion-icon>
                         </span>
-                        <span class="title">Help</span>
+                        <span class="title">Users</span>
                     </a>
                 </li>
                 <li class="list">
@@ -648,6 +941,76 @@
                         window.onload = move;
 
         </script>
+        
+        <script>
+//            document.addEventListener('click', function(event){
+//                if (event.target.matches('.centre-button3')) {
+//                    value = event.target.getAttribute('data-value');
+//                    document.getElementById('inputValue').textContent = value;
+//                    document.getElementById('modal3').style.display = 'block';
+//                }
+//            });
+
+            document.querySelector('.centre-button3').addEventListener('click', function() {
+                var value = this.getAttribute('data-value');
+
+                document.getElementById('inputValue').value = value;
+
+                document.getElementById('modal3').style.display = 'block';
+              });
+        </script>
+        
+        <script>
+            const addButton3 = document.querySelectorAll('.centre-button3');
+            const modal3 = document.getElementById('modal3');
+            const cancelButton3 = document.getElementById('cancel-button3');
+            const saveButton3 = document.getElementById('save-button3');
+            const closeButton3 = document.querySelector('.btn-close3');
+
+            closeButton3.addEventListener('click', () => {
+                modal3.classList.remove('show');
+                modal3.style.display = 'none';
+            });
+
+//            addButton3.addEventListener('click', () => {
+//                modal3.style.display = 'block';
+//            });
+
+            addButton3.forEach(button => {
+                button.addEventListener('click', function() {
+                  const value = this.getAttribute('data-value');
+                  document.getElementById('inputValue').value = value;
+                  document.getElementById('modal3').style.display = 'block';
+                });
+              });
+
+            cancelButton3.addEventListener('click', () => {
+                modal3.style.display = 'none';
+            });            
+
+        </script>
+        
+        <script>
+            const addButton2 = document.querySelector('.add-button2');
+            const modal2 = document.getElementById('modal2');
+            const cancelButton2 = document.getElementById('cancel-button2');
+            const saveButton2 = document.getElementById('save-button2');
+            const closeButton2 = document.querySelector('.btn-close2');
+
+            closeButton2.addEventListener('click', () => {
+                modal2.classList.remove('show');
+                modal2.style.display = 'none';
+            });
+
+            addButton2.addEventListener('click', () => {
+                modal2.style.display = 'block';
+            });
+
+            cancelButton2.addEventListener('click', () => {
+                modal2.style.display = 'none';
+            });            
+
+        </script>
 
         <script>
             const addButton = document.querySelector('.add-button');
@@ -664,7 +1027,7 @@
             addButton.addEventListener('click', () => {
                 modal.style.display = 'block';
             });
-
+            
             cancelButton.addEventListener('click', () => {
                 modal.style.display = 'none';
             });            
