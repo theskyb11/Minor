@@ -626,7 +626,7 @@
                                                     <span class="material-symbols-outlined" style="color: red; background-color: white;margin-top: 0px; font-size: 1.6rem; border-top: 10px solid white; border-bottom: 10px solid white;">scan_delete</span>
                                                 </button><div class="text">Delete Project</div><br>
                                                 <input name="a" value="<%=session.getAttribute("userName")%>" hidden>
-                                                <input name="b" value="<%=rs.getString("project_id")%>" hidden>
+                                                <input name="b" value="<%=rs.getString("title")%>" hidden>
                                             </form>
                                         </div>
                                     </div>
@@ -683,7 +683,9 @@
                             <div class="project-cards">
                                 <div class="card">
                                     <div class="card-head">
-                                        <h3><%= rs.getString("title")%></h3>
+                                        <div class="child-center">
+                                            <h3><%= rs.getString("title")%></h3>
+                                        </div>
 <!--                                        <div class="child-right">
                                             <form action="projectdelete" method="post" onsubmit="return confirm('Are you sure you want to delete this project?');">
                                                 <button type="submit" style="border: none;">
@@ -693,12 +695,13 @@
                                                 <input name="b" value="<%=rs.getString("project_id")--%>" hidden>
                                             </form>
                                         </div>
--->                                 </div><hr style="width: 80%; color: black; align-self: center; margin-top: 60px; position: absolute;">
-                                    <p class="card-text" style="margin-top: 20px;">
+                                    </div>-->
+                                    <hr style="width: 80%; color: black; align-self: center; margin-top: 60px; position: absolute;">
+                                    <p class="card-text">
                                         <%= rs.getString("description")%></p>
-                                    <div style="margin-bottom: 10px; margin-top: 10px">
+<!--                                    <div style="display">-->
                                         <a href="projectview?value=<%=rs.getString("project_id")%>" class="centre-button">View Project</a>
-                                    </div>
+<!--                                </div>-->
                                 </div>
                             </div>
                         </td>
