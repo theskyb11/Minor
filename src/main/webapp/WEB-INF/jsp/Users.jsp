@@ -656,11 +656,7 @@
 
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
                                 
-<<<<<<< HEAD
                                 PreparedStatement stmt = con.prepareStatement("select * from users where designation='Vice Project Head' and company_name=? order by name");
-=======
-                                PreparedStatement stmt = con.prepareStatement("select * from users where designation='Project Head' and company_name=?");
->>>>>>> df033b60cacf2d19f92a5d78fa070c143da27287
                                 stmt.setString(1, Company);
 
                                 ResultSet rs = stmt.executeQuery();
