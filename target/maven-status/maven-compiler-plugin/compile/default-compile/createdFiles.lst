@@ -1,9 +1,7 @@
 com\pmt\ContactUs.class
 com\pmt\IntrovidController.class
-com\pmt\Message.class
 com\pmt\ControllerClass.class
 com\pmt\Login.class
 com\pmt\ProjectController.class
 com\pmt\AccountController.class
 com\pmt\AccountController$1.class
-com\pmt\MessageDAO.class

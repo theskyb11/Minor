@@ -140,6 +140,12 @@ public class ContactUs extends HttpServlet{
             stmt.setString(1, x);
             stmt.setString(2, y);
             stmt.executeUpdate();
+            PreparedStatement stmt1 = con.prepareStatement("delete from tasks where project_id=?");
+            stmt1.setString(1, y);
+            stmt1.executeUpdate();
+            PreparedStatement stmt2 = con.prepareStatement("delete from announcements where project_id=?");
+            stmt2.setString(1, y);
+            stmt2.executeUpdate();
             
         }catch(Exception k){
             System.out.println(k.getMessage());
