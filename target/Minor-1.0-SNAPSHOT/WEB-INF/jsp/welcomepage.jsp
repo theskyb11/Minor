@@ -94,10 +94,10 @@
                 max-width: 100%
             }
             .content {
-                max-width: 1170px;
+                width:100%;
                 position: relative;
-                width: 100%;
                 padding: 0 25px;
+                justify-content:center;
                 font-size: 17px
             }
             
