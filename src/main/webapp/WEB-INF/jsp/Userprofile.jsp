@@ -24,7 +24,7 @@
         String s = (String) request.getAttribute("EM");
         String t = (String) request.getAttribute("ALTEM");
         String u = (String) request.getAttribute("ADD");
-        String z = (String) request.getAttribute("ADD");
+        String z = (String) request.getAttribute("QUAL");
     %>
     <head>
         <meta charset="UTF-8">

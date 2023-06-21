@@ -409,11 +409,14 @@
 
             .child-center {
                 position: absolute;
-                left: 50%;
+                left: 45%;
+                width: 70%;
+                text-align: center;
                 transform: translateX(-50%);
             }
 
             .child-right {
+                width: 30%;
                 position: absolute;
                 right: 0;
             }
@@ -682,7 +685,7 @@
                         <td>
                             <div class="project-cards">
                                 <div class="card">
-                                    <div class="card-head">
+                                    <div class="card-head" style="width: 100%">
                                         <h3><%= rs.getString("title")%></h3>
 <!--                                        <div class="child-right">
                                             <form action="projectdelete" method="post" onsubmit="return confirm('Are you sure you want to delete this project?');">
