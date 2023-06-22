@@ -501,24 +501,15 @@
                                         byte[] imageBytes = outputStream.toByteArray();
 
                             %>
-                            <img class="img-account-profile rounded-circle mb-2" alt="..." align="center" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes) %>" />
+                            <img id="profile-image" class="img-account-profile rounded-circle mb-2" alt="..." align="center" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes) %>" />
+                            <input id="profile-image-input" type="file" style="font-size: 0.8rem;display:none;" accept="image/png, image/jpeg" name="profile-image" />
                             <%
                                 }} else {
-//                                        Blob imageBlob = rs.getBlob("data");
-//                                        InputStream imageStream = imageBlob.getBinaryStream();
-//                                        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-//                                        byte[] buffer = new byte[4096];
-//                                        int n = 0;
-//                                        while (-1 != (n = imageStream.read(buffer))) {
-//                                            outputStream.write(buffer, 0, n);
-//                                        }
-//                                        byte[] imageBytes = outputStream.toByteArray();
                             %>
                             <div id="image-upload">
-                                <a href="#" class="display-picture">
-                                    <img src="<c:url value="/resources/images/user-icon-default.png" />" alt="Projekta backgrnd" style="width: 80px; height: 80px;"/>
-                                </a>
-                                <input id="profile-image" type="file" style="font-size: 0.7rem" accept="image/png, image/jpeg" name="profile-image"/ >
+                                <br>
+                                <img id="profile-image" src="<c:url value="/resources/images/user-icon-default.png" />" alt="Projekta backgrnd" style="width: 100px; height: 100px;"/><br><br>
+                                <input id="profile-image-input" type="file" style="font-size: 0.8rem;display:none;" accept="image/png, image/jpeg" name="profile-image"/>
                             </div>
                                 <%
                                     }} catch(Exception k)
@@ -527,10 +518,7 @@
                                     System.out.println(k);
                                 }
                             %>
-                            
                             <br><br><br>
-<!--                            <input id="profile-image" type="file" style="font-size: 0.7rem" accept="image/png, image/jpeg" name="profile-image"/>-->
-<!--                            <label for="profile-image" class="btn-primary">Upload an Image</label>-->
                             <br><br>
                         </div>
                     </div>
@@ -790,7 +778,7 @@
             document.getElementById("inputQualifications").removeAttribute("readonly");
         });
         </script>
-        <script>
+<!--        <script>
         function toggleImageInput() {
           var input = document.getElementById("profile-image");
           if (input.style.display === "none") {
@@ -799,7 +787,19 @@
             input.style.display = "none";
           }
         }
-        </script>
+        </script>-->
+        
+        <script>
+  // Get references to the image and input elements
+  const profileImage = document.getElementById("profile-image");
+  const profileImageInput = document.getElementById("profile-image-input");
+
+  // Add a click event listener to the image
+  profileImage.addEventListener("click", function() {
+    // Trigger the click event on the file input
+    profileImageInput.click();
+  });
+</script>
         
     </body>
 

@@ -4,8 +4,13 @@
     Author     : Akash
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%String pass="";%>
 <html lang="en">
 
     <head>
@@ -284,8 +289,9 @@
             }
 
             .form-input {
-                width: 70%!important;
+                width: 50%!important;
                 border: none;
+                font-size: 0.9rem;
                 border-bottom: 1px solid #949494;
                 border-radius: 0;
                 display: block;
@@ -353,9 +359,10 @@
 <br><br>Your password must be at least 6 characters and should include a combination of numbers, letters and special characters (!$@%).</p><br><br>
 
                 <form action="Resetpass" method="post" class="forgot-pass-form" id="form">
-                    <input type="password" name="a" class="form-input" placeholder="Enter Old Password" id="oldpass" required><br>
-                    <input type="password" name="c" class="form-input" placeholder="Re-enter Old Password" id="oldpass2" required><br>
-                    <input type="password" name="b" class="form-input" placeholder="Enter New Password" id="newpass" required><br><br>
+                    <input type="text" name="a" class="form-input" placeholder="Enter Old Password" id="oldpass" required /><br>
+                    <input type="text" name="b" class="form-input" placeholder="Enter New Password" id="newpass" required /><br>
+                    <input type="text" name="c" class="form-input" placeholder="Re-enter New Password" id="confirmpass" required /><br><br>
+                    <span id="password-error" style="color: red;"></span><br>
                     <input type="submit" value="   Submit   " class="btn-primary btn"><br><br><br>
                 </form>
             </div>
@@ -485,29 +492,44 @@
             window.onload = move;
 
         </script>
+        <%try{
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
+            PreparedStatement stmt = con.prepareStatement("select * from users where username=?");
+            stmt.setString(1, (String) session.getAttribute("userName"));
+            ResultSet rs=stmt.executeQuery();
+            while(rs.next()){
+                pass=rs.getString("password");
+            }
+            }
+        catch(Exception k){
+        k.getMessage();
+    }%>
         <script>
         const form = document.getElementById("form");
         form.addEventListener("submit", function(event) {
             const a = document.getElementById("oldpass");
             const b = document.getElementById("newpass");
-            const c = document.getElementById("oldpass2");
+            const c = document.getElementById("confirmpass");
+            const d = '<%=pass%>';
 
             if (!a.value || !b.value || !c.value) {
                 alert("All fields are required.");
                 event.preventDefault();
+            } else if (b.value !== c.value) {
+                alert("New passwords do not match.");
+                event.preventDefault();
+            } else if (a.value !== d.value) {
+                alert("Wrong password entered.");
+                event.preventDefault();
+            } else if (!isPasswordValid(b.value)) {
+                alert("Password must be at least 6 characters and include a combination of numbers, letters, and special characters (!$@%).");
+                event.preventDefault();
             }
-        });
-        
-        const passwordInput = document.getElementById('oldpass');
-        const confirmPasswordInput = document.getElementById('oldpass2');
-
-        confirmPasswordInput.addEventListener('input', () => {
-          if (confirmPasswordInput.value !== passwordInput.value) {
-            confirmPasswordInput.setCustomValidity('Passwords do not match');
-          } else {
-            confirmPasswordInput.setCustomValidity('');
-          }
-        });
+            });
+        function isPasswordValid(password) {
+            const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,}$/;
+            return passwordPattern.test(password);
+        }
     </script>
     <script>
             function displayTime() {

@@ -20,20 +20,20 @@
           <a class="nav-link" href="contactus">Contact and Support</a>
         </li>
         
-        <li class="nav-item">
+<!--        <li class="nav-item">
           <a class="nav-link" href="dashboard">Dashboard</a>
-        </li>
+        </li>-->
         
         
         <li class="nav-item">
-<!--          <% boolean flag = false;
+         <% boolean flag = false;
              Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
              if (loggedIn == null || !loggedIn) { %>
             <a class="nav-link" href="#" onclick="alert('Please Login')">Dashboard</a>
           <% } else { %>
-            <a class="nav-link" href="dashboard" onclick="alert('Please Login')">Dashboard</a>
+            <a class="nav-link" href="dashboard">Dashboard</a>
           <% } %>
-        </li>-->
+        </li>
       </ul>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center">
           <%
