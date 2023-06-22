@@ -32,7 +32,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class AccountController {
@@ -71,7 +71,7 @@ public class AccountController {
 
     @RequestMapping(value = "/userprofile", method = RequestMethod.POST)
     public String getDetails(HttpServletRequest request, HttpServletResponse response, @RequestParam("inputUsername") String m, @RequestParam("inputName") String n,
-                             @RequestParam("inputPhone") Long o, @RequestParam("inputEmail") String p, @RequestParam("inputAddress") String q, @RequestParam("inputAlternateEmail") String s, @RequestParam("inputQualifications") String z, @RequestParam(value = "profile-image", required = false) CommonsMultipartFile file, Model model) {
+                             @RequestParam("inputPhone") Long o, @RequestParam("inputEmail") String p, @RequestParam("inputAddress") String q, @RequestParam("inputAlternateEmail") String s, @RequestParam("inputQualifications") String z, @RequestParam("profile-image") MultipartFile file, Model model) {
 
         try {
             System.out.println(file);
@@ -89,74 +89,52 @@ public class AccountController {
             stmt.setString(7, (String) session.getAttribute("userName"));
             
             stmt.executeUpdate();
+            int count=0;
+            if (!file.isEmpty()) {
+                try (InputStream inputStream = file.getInputStream()) {
+                PreparedStatement stmt1 = con.prepareStatement("select count(*) from user_image where username=?");
+                stmt1.setString(1, (String) session.getAttribute("userName"));
 
-            InputStream inputStream = null;
-
-            if (file != null) {
-                inputStream = file.getInputStream();
-            }
-
-            String message = null;
-
-//            PreparedStatement stmt1 = con.prepareStatement("select count(*) from user_image where username=?");
-//            stmt1.setString(1, (String) session.getAttribute("userName"));
-//            boolean result=false;
-//            ResultSet rst = stmt1.executeQuery();
-//            if (rst.next()) {
-//                int count = rst.getInt(1);
-//                if (count > 0) {
-//                    result = true;
-//                }
-//            }
-//
-//            if (result)
-//            {
-//                PreparedStatement statement1 = con.prepareStatement("update user_image set data=? where username=?");
-//                statement1.setString(2,(String) session.getAttribute("userName"));
-//
-//                if (inputStream != null) {
-//                    statement1.setBlob(1, inputStream);
-//                }
-//
-//                statement1.executeUpdate();
-//                int row = statement1.executeUpdate();
-//                if (row > 0) {
-//                    message = "File uploaded and saved into database";
-//                }
-//            }
-//            else
-//            {
-//                PreparedStatement statement = con.prepareStatement("insert into user_image (data,username) values (?,?)");
-//                statement.setString(2, (String) session.getAttribute("userName"));
-//
-//                if (inputStream != null) {
-//                    statement.setBlob(1, inputStream);
-//                }
-//
-//                statement.executeUpdate();
-//                int row = statement.executeUpdate();
-//                if (row > 0) {
-//                    message = "File uploaded and saved into database";
-//                }
-//            }
+                ResultSet rs1 = stmt1.executeQuery();
+                while (rs1.next()){
+                    count = rs1.getInt(1);
+                }
                 
-              try {
-                PreparedStatement statement = con.prepareStatement("update user_image set data=? where username=?");
-                statement.setString(2, m);
+                if (count==0){
+                    String sql = "insert into user_image (username, data) values (?, ?)";
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.setString(1, (String) session.getAttribute("userName"));
 
-                if (inputStream != null) {
-                    statement.setBlob(1, inputStream);
-                }
+                    if (inputStream != null) {
+                        statement.setBlob(2, inputStream);
+                    }
 
-                stmt.executeUpdate();
-                int row = statement.executeUpdate();
-                if (row > 0) {
-                    message = "File uploaded and saved into database";
+    //                statement.executeUpdate();
+                    int row = statement.executeUpdate();
+                    if (row > 0) {
+                        String message = "File uploaded and saved into the database";
+                    }
                 }
+                else{
+                    String sql = "update user_image set data=? where username=?";
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.setString(2, (String) session.getAttribute("userName"));
+
+                    if (inputStream != null) {
+                        statement.setBlob(1, inputStream);
+                    }
+
+    //                statement.executeUpdate();
+                    int row = statement.executeUpdate();
+                    if (row > 0) {
+                        String message = "File uploaded and saved into the database";
+                    }
+                }
+                
             } catch (SQLException ex) {
-                out.println(ex);
+                ex.printStackTrace();
             }
-
+        }
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }

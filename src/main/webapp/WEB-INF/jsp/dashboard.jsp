@@ -11,7 +11,9 @@
 <%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<% int count = 0;%>
+<% int count = 0;
+String company_name="";
+String position="";;%>
 <html lang="en">
 
     <head>
@@ -583,7 +585,6 @@
             
                         <%
                             int colind = 0;
-                            String position="";
                             String member="Member";
                             String manage="Project Management";
                             boolean exists=false, exists1=false;
@@ -598,6 +599,7 @@
                                 ResultSet rst=stmt2.executeQuery();
                                 while(rst.next())
                                 {
+                                    company_name=rst.getString("company_code");
                                     position = rst.getString("designation");
                                     exists=position.equals(member);
                                     exists1=position.equals(manage);
@@ -810,6 +812,81 @@
                     </div>
                 </div>
             </div>
+            <%if(position.equals("CEO") || position.equals("Vice CEO")){%>
+            <br><br>
+            <div class="row">
+                <div class="col-md-12">
+                    <r>Undergoing projects in your Company</r>
+                    <hr style="color: black; width: 100%; top: 70px; left: 100px;" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <%
+                        try {
+                            Class.forName("com.mysql.cj.jdbc.Driver");
+
+                            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
+                            PreparedStatement state = con.prepareStatement("select count(distinct(project_id)) from projects");
+
+                            ResultSet rst = state.executeQuery();
+
+                            while (rst.next()) {
+                                count = rst.getInt(1);
+                            }
+                        } catch (Exception k) {
+                            System.out.println(k.getMessage());
+                        }
+                    %>
+                    <cnt><%=count%> projects ongoing</cnt>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+            <%int colind1 = 0;
+                try{
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
+                PreparedStatement state = con.prepareStatement("select * from projects where project_head like ? group by project_id");
+                state.setString(1, company_name + "%");
+                
+                ResultSet rst=state.executeQuery();
+                %><table><%
+                while (rst.next()){%>
+                        <td>
+                            <div class="project-cards">
+                                <div class="card">
+                                    <div class="card-head">
+                                        <div class="child-center">
+                                            <h3><%= rst.getString("title")%></h3>
+                                        </div>
+                                        <div class="child-right">
+                                        </div>
+                                    </div>
+                                    <hr style="width: 80%; color: black; align-self: center; margin-top: 60px; position: absolute;">
+                                    <p class="card-text">
+                                        <%= rst.getString("description")%></p>
+                                    <div style="display: inline-block; margin-bottom: 10px;">
+                                        <a href="projectview?value=<%=rst.getString("project_id")%>" class="centre-button">View Project</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <%colind1++;%>
+                        <%if (colind1 % 3 == 0) {
+                        %></tr><tr>
+                            <%}%>
+                            <%
+                                }
+                        %>
+                    </table>
+                <%}
+            catch(Exception k){
+            k.getMessage();
+    }%>
+                </div>
+            </div>
+                <%}else{}%> 
             <br><br>
             <div class="row">
                 <div class="col-md-12">
@@ -817,6 +894,7 @@
                     <hr style="color: black; width: 100%; top: 70px; left: 100px;">
                 </div>
             </div>
+        <br><br>
         </div>
         <div class="navigation">
 
