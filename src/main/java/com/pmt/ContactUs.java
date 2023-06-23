@@ -39,14 +39,16 @@ public class ContactUs extends HttpServlet{
         try{
             String id=x+w;
             Class.forName("com.mysql.cj.jdbc.Driver");
+            String status="No";
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
-            PreparedStatement stmt = con.prepareStatement("insert into projects(project_id, project_head, username, title, description) values(?,?,?,?,?)");
+            PreparedStatement stmt = con.prepareStatement("insert into projects(project_id, project_head, username, title, description, progress) values(?,?,?,?,?,?)");
             stmt.setString(1, id);
             stmt.setString(2, x);
             stmt.setString(3, x);
             stmt.setString(4, y);
             stmt.setString(5, z);
+            stmt.setString(6, status);
             stmt.executeUpdate();
             
         }catch(Exception k){
