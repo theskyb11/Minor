@@ -13,7 +13,22 @@
 <!DOCTYPE html>
 <% int count = 0;
 String company_name="";
-String position="";;%>
+String position="";
+try{
+    Class.forName("com.mysql.cj.jdbc.Driver");
+
+    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
+    PreparedStatement state = con.prepareStatement("select * from projects where username=?");
+    state.setString(1, (String) session.getAttribute("userName"));
+    ResultSet rs=state.executeQuery();
+    
+    while(rs.next()){
+        company_name=rs.getString("company_code");
+    }
+    }
+catch(Exception k){
+    k.getMessage();
+    }%>
 <html lang="en">
 
     <head>
@@ -436,6 +451,20 @@ String position="";;%>
                 margin-right: 5px;
                 text-align: center;
             }
+            
+            .card1 {
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                justify-content: space-between;
+                margin-top: 10px;
+                /*                padding: 20px;*/
+                height: 100px;
+                width: 300px;
+                margin-left: 5px;
+                margin-right: 5px;
+                text-align: center;
+            }
 
             .card h3 {
                 margin-bottom: 10px;
@@ -538,6 +567,13 @@ String position="";;%>
                 font-family: 'Poppins', sans-serif;
             }
             .clock{
+/*                color: black;
+                font-size: 0.9rem;
+                top: 4px;
+                position: fixed;
+                left: 10px;
+                width: 18%;
+                border-radius: 20px;*/
                 color: black;
                 font-size: 0.9rem;
                 top: 27px;
@@ -752,18 +788,101 @@ String position="";;%>
                 </div>
             </div>
                             
+            <div id="modal3" class="modal3">
+                <div style="border-radius: 10px;" class="modal-content3">
+                    <div class="modal-header3">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="modal-title3" id="exampleModalLongTitle">New Member or Vice Project Head</h5>
+                            </div>
+                            <div class="col text-end">
+                                <button type="button" class="float-end" style="border: none; background: transparent;" id="cancel-button3" data-bs-dismiss="modal"><span class="material-symbols-outlined">close</span></button>  
+                            </div>
+                        </div>
+                      <button type="button" class="btn-close3" data-bs-dismiss="modal3" hidden></button>
+                      <hr>
+                    </div>
+                    <div class="modal-body3">
+                        <form action="enteruser" method="post">
+                            <input type="text" id="project-user" value="<%=session.getAttribute("userName")%>" class="form-control form-input" name="a" readonly="readonly"/><br>
+                            <input type="text" id="inputValue" class="form-control form-input" name="b" readonly="readonly"/><br>
+                                <%
+                                    try{
+                                    Class.forName("com.mysql.cj.jdbc.Driver");
+
+                                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
+
+                                    PreparedStatement stmt2 = con.prepareStatement("select * from users where designation in ('Member','Project Management','Vice Project Head') and company_code=?");
+                                    stmt2.setString(1, company_name);
+                                    ResultSet rs=stmt2.executeQuery();%>
+                            <input list="myOptions" id="project-id" class="form-control form-input" placeholder="username" name="u"/><br>
+                            <datalist id="myOptions" class="my-datalist">
+                                    <%while(rs.next()){
+                                    %><option value="<%=rs.getString("username")%>"><%=rs.getString("name")%> <%=rs.getString("username")%></option><%
+                                    }%>
+                            </datalist>
+                            <button type="submit" class="btn btn-primary" value="submit">Save changes</button>
+                                    <%}
+                                    catch(Exception k){
+                                    k.getMessage();
+                                    }
+                                %>
+                        </form>
+                    </div>
+                    <div class="modal-footer3">
+                        <!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>-->
+                    </div>
+                </div>
+            </div>
+                            
             <div id="modal2" class="modal2">
-                <div class="modal-content2">
+                <div style="border-radius: 10px;" class="modal-content2">
                     <div class="modal-header2">
-                        <h5 class="modal-title2" id="exampleModalLongTitle">New Project</h5>
-                        <button type="button" class="btn-close2" data-bs-dismiss="modal2"></button>
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="modal-title2" id="exampleModalLongTitle">New Project</h5>
+                            </div>
+                            <div class="col text-end">
+                                <button type="button" class="float-end" style="border: none; background: transparent;" id="cancel-button2" data-bs-dismiss="modal"><span class="material-symbols-outlined">close</span></button>  
+                            </div>
+                        </div>
+                      <button type="button" class="btn-close2" data-bs-dismiss="modal2" hidden></button>
+                      <hr>
                     </div>
                     <!--                    <h2>New Project</h2>-->
                     <div class="modal-body2">
                         <form action="enterproject" method="post">
                             <input type="text" id="project-user" value="<%=session.getAttribute("userName")%>" class="form-control form-input" name="a" readonly="readonly"/><br>
-                            <input type="text" id="project-id" class="form-control form-input" placeholder="id" name="d"/><br>
+                            <%String company_code="";
+                            try {
+                                Class.forName("com.mysql.cj.jdbc.Driver");
+
+                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
+                                
+                                PreparedStatement stmt1 = con.prepareStatement("select * from users where username=?");
+                                stmt1.setString(1, (String) session.getAttribute("userName"));
+                                
+                                ResultSet rst=stmt1.executeQuery();
+                                while(rst.next()){
+                                    company_code=rst.getString("company_code");
+                                }
+                                
+                                PreparedStatement stmt = con.prepareStatement("select * from projects where project_id like ? group by project_id");
+                                stmt.setString(1, company_code + "%");
+
+                                ResultSet rs12 = stmt.executeQuery();
+                            %>
+                            <input list="myOptions1" id="project-id" class="form-control form-input" placeholder="Select project" name="d"/>
+                            <datalist id="myOptions1" class="my-datalist">
+                                <%while (rs12.next()) {%><option value="<%=rs12.getString("project_id")%>"><%=rs12.getString("title")%>   <%=rs12.getString("project_head")%></option><%}%>
+                            </datalist>
+                            <br>
                             <button type="submit" class="btn btn-primary" value="submit">Save changes</button>
+                            <%
+                                } catch (Exception k) {
+                                    k.getMessage();
+                                }
+                            %>
                         </form>
                     </div>
                     <div class="modal-footer2">
@@ -772,46 +891,7 @@ String position="";;%>
                 </div>
             </div>
                             
-            <div id="modal3" class="modal3">
-                <div class="modal-content3">
-                    <div class="modal-header3">
-                        <h5 class="modal-title3" id="exampleModalLongTitle">New Member or Vice Project Head</h5>
-                        <button type="button" class="btn-close3" data-bs-dismiss="modal3"></button>
-                    </div>
-                    <!--                    <h2>New Project</h2>-->
-                    <div class="modal-body3">
-                        <form action="enteruser" method="post">
-                            <input type="text" id="project-user" value="<%=session.getAttribute("userName")%>" class="form-control form-input" name="a" readonly="readonly"/><br>
-                            <input type="text" id="inputValue" class="form-control form-input" name="b" readonly="readonly"/><br>
-                            <input list="myOptions" id="project-id" class="form-control form-input" placeholder="username" name="u"/><br>
-                            <datalist id="myOptions" class="my-datalist">
-                                <%
-                                    try{
-                                    Class.forName("com.mysql.cj.jdbc.Driver");
-
-                                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
-
-                                    PreparedStatement stmt2 = con.prepareStatement("select * from users where designation not in ('CEO','Project Head')");
-                                    ResultSet rs=stmt2.executeQuery();
-                                    
-                                    while(rs.next())
-                                    {
-                                    %><option value="<%=rs.getString("username")%>"><%=rs.getString("username")%></option><%
-                                    }
-                                    }
-                                    catch(Exception k){
-                                    k.getMessage();
-                                    }
-                                %>
-                            </datalist>
-                            <button type="submit" class="btn btn-primary" value="submit">Save changes</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer3">
-                        <!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>-->
-                    </div>
-                </div>
-            </div>
+            
             <%if(position.equals("CEO") || position.equals("Vice CEO")){%>
             <br><br>
             <div class="row">
@@ -827,7 +907,8 @@ String position="";;%>
                             Class.forName("com.mysql.cj.jdbc.Driver");
 
                             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
-                            PreparedStatement state = con.prepareStatement("select count(distinct(project_id)) from projects");
+                            PreparedStatement state = con.prepareStatement("select count(distinct(project_id)) from projects where company_code=?");
+                            state.setString(1, company_name);
 
                             ResultSet rst = state.executeQuery();
 
@@ -892,6 +973,119 @@ String position="";;%>
                 <div class="col-md-12">
                     <r>Progress</r>
                     <hr style="color: black; width: 100%; top: 70px; left: 100px;">
+                    <%boolean rank=false;
+                    String yes="Yes";
+                    int count1=0;
+                    try{
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
+                        PreparedStatement state = con.prepareStatement("select * from users where username=?");
+                        state.setString(1, (String) session.getAttribute("userName"));
+                        
+                        ResultSet rst=state.executeQuery();
+                        while(rst.next()){
+                            if(rst.getString("designation").equals("CEO")){rank=true;}else{rank=false;}
+                        }
+                        
+                        PreparedStatement state1 = con.prepareStatement("select count(*) from projects where username=? and progress=?");
+                        state1.setString(1, (String) session.getAttribute("userName"));
+                        state1.setString(2, yes);
+
+                        ResultSet rst1 = state1.executeQuery();
+
+                        while (rst1.next()) {
+                            count1 = rst1.getInt(1);
+                        }
+                    }
+                    catch(Exception k){
+                        k.getMessage();
+                    }%>
+                    <%if(!rank){%>
+                    All completed projects under you, <%=count1%> completed.
+                    <br>
+                    <%int colind1 = 0;
+                        try{
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
+                        PreparedStatement state = con.prepareStatement("select * from projects where progress=? and project_head=? group by project_id");
+                        state.setString(1, yes);
+                        state.setString(2,(String) session.getAttribute("userName"));
+
+                        ResultSet rst=state.executeQuery();
+                        %><table><%
+                        while (rst.next()){%>
+                                <td>
+                                    <div class="project-cards">
+                                        <div class="card1">
+                                            <div class="card-head" align="center">
+                                                <h3><%= rst.getString("title")%></h3>
+                                                <hr style="width: 80%; color: black; align-self: center;">
+                                            </div>
+                                            <%--<p class="card-text">
+                                                <%= rst.getString("description")%></p>>--%>
+                                            <div style="display: inline-block; margin-bottom: 10px;">
+                                                <a href="projectview?value=<%=rst.getString("project_id")%>" class="centre-button">View Project</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <%colind1++;%>
+                                <%if (colind1 % 3 == 0) {
+                                %></tr><tr>
+                                    <%}%>
+                                    <%
+                                        }
+                                %>
+                            </table>
+                        <%}
+                    catch(Exception k){
+                    k.getMessage();
+            }%>
+                    <%}else{%>
+                    All completed projects under your company, <%=count1%> completed.
+                    <%int colind1 = 0;
+                        try{
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
+                        PreparedStatement state = con.prepareStatement("select * from projects where progress=? group by project_id");
+                        state.setString(1, yes);
+
+                        ResultSet rst=state.executeQuery();
+                        %><table><%
+                        while (rst.next()){%>
+                                <td>
+                                    <div class="project-cards">
+                                        <div class="card">
+                                            <div class="card-head">
+                                                <div class="child-center">
+                                                    <h3><%= rst.getString("title")%></h3>
+                                                </div>
+                                                <div class="child-right">
+                                                </div>
+                                            </div>
+                                            <hr style="width: 80%; color: black; align-self: center; margin-top: 60px; position: absolute;">
+                                            <p class="card-text">
+                                                <%= rst.getString("description")%></p>
+                                            <div style="display: inline-block; margin-bottom: 10px;">
+                                                <a href="projectview?value=<%=rst.getString("project_id")%>" class="centre-button">View Project</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <%colind1++;%>
+                                <%if (colind1 % 3 == 0) {
+                                %></tr><tr>
+                                    <%}%>
+                                    <%
+                                        }
+                                %>
+                            </table>
+                        <%}
+                    catch(Exception k){
+                    k.getMessage();
+            }%>
+                    <%}%>
+                    
                 </div>
             </div>
         <br><br>

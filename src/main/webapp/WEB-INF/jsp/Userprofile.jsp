@@ -25,8 +25,19 @@
         String t = (String) request.getAttribute("ALTEM");
         String u = (String) request.getAttribute("ADD");
         String z = (String) request.getAttribute("QUAL");
+        String abt = (String) request.getAttribute("ABT");
+        String lin = (String) request.getAttribute("LIN");
+        String git = (String) request.getAttribute("GIT");
+        String twit = (String) request.getAttribute("TWIT");
+        String insta = (String) request.getAttribute("INSTA");
+        String fb = (String) request.getAttribute("FB");
     %>
     <head>
+        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -338,6 +349,35 @@
                 font-family: 'Poppins', sans-serif;
             }
             
+            .profile-image{
+                width: 100%;
+            }
+            
+            .hover-textpic {
+                position: absolute;
+/*                top: 100%;
+                left: 120%;*/
+                margin-top: 130px;
+                width: 130px;
+                transform: translateX(-50%);
+                padding: 5px;
+                background-color: white;
+                color: #000;
+                font-size: 14px;
+                visibility: hidden;
+                border-radius: 10px;
+                opacity: 0;
+                
+                transition: opacity 0.3s ease-in-out;
+            }
+
+            .profile-image:hover .hover-textpic {
+                visibility: visible;
+                background-color: white;
+                opacity: 1;
+                z-index: 3;
+            }
+            
             .form-control, .dataTable-input {
                 display: block;
                 width: 100%;
@@ -501,14 +541,14 @@
                                         byte[] imageBytes = outputStream.toByteArray();
 
                             %>
-                            <img id="profile-image" class="img-account-profile rounded-circle mb-2" alt="..." align="center" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes) %>" />
+                            <div class="profile-image"><img id="profile-image" class="img-account-profile rounded-circle mb-2" alt="..." align="center" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes) %>" /><span class="hover-textpic">Preferred if uploading a square image</span></div>
                             <input id="profile-image-input" type="file" style="font-size: 0.8rem;display:none;" accept="image/png, image/jpeg" name="profile-image" />
                             <%
                                 }} else {
                             %>
                             <div id="image-upload">
-                                <br>
-                                <img id="profile-image" src="<c:url value="/resources/images/user-icon-default.png" />" alt="Projekta backgrnd" style="width: 100px; height: 100px;"/><br><br>
+                                <div class="profile-image" id="profile-image"><i style="font-size: 150px; color: #3b3b3b;" class="fas fa-user-circle"></i><span class="hover-textpic">Preferred if uploading a square image</span></div>
+<!--                                <img id="profile-image" src="<!--c:url value="/resources/images/user-icon-default.png" />" alt="Projekta backgrnd" style="width: 100px; height: 100px;"/><br><br>-->
                                 <input id="profile-image-input" type="file" style="font-size: 0.8rem;display:none;" accept="image/png, image/jpeg" name="profile-image"/>
                             </div>
                                 <%
@@ -537,7 +577,7 @@
                                 ResultSet rs=stmt.executeQuery();
                                 while(rs.next())
                                 {%>
-                                <%= rs.getString("qualifications")%>
+                                <%= rs.getString("qualifications")%><hr><%= rs.getString("about")%>
                                 <%}
                             }
                             catch(Exception k){
@@ -587,6 +627,30 @@
                             <div class="mb-3">
                                 <br><label class="small mb-1" for="inputQualifications" style="margin-left: 20px;color: #6b6b6b;">Qualifications</label>
                                 <input class="form-input" id="inputQualifications" name="inputQualifications" type="text" value="<%= z%>" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <br><label class="small mb-1" for="inputAbout" style="margin-left: 20px;color: #6b6b6b;">About</label>
+                                <textarea class="form-input" id="inputAbout" name="inputAbout" value="<%= abt%>" readonly></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <br><label class="small mb-1" for="inputLinkedin" style="margin-left: 20px;color: #6b6b6b;">LinkedIn Profile</label>
+                                <input class="form-input" id="inputLinkedin" name="inputLinkedin" type="text" value="<%= lin%>" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <br><label class="small mb-1" for="inputGit" style="margin-left: 20px;color: #6b6b6b;">Github Profile</label>
+                                <input class="form-input" id="inputGit" name="inputGit" type="text" value="<%= git%>" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <br><label class="small mb-1" for="inputTwitter" style="margin-left: 20px;color: #6b6b6b;">Twitter Profile</label>
+                                <input class="form-input" id="inputTwitter" name="inputTwitter" type="text" value="<%= twit%>" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <br><label class="small mb-1" for="inputInsta" style="margin-left: 20px;color: #6b6b6b;">Instagram Profile</label>
+                                <input class="form-input" id="inputInsta" name="inputInsta" type="text" value="<%= insta%>" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <br><label class="small mb-1" for="inputFB" style="margin-left: 20px;color: #6b6b6b;">Facebook Profile</label>
+                                <input class="form-input" id="inputFB" name="inputFB" type="text" value="<%= fb%>" readonly>
                             </div>
                             <br>
                             <input class="btn-primary" type="submit" value="Save changes"><br><br>
@@ -762,8 +826,14 @@
                 const d = document.getElementById("inputEmail");
                 const e = document.getElementById("inputAlternateEmail");
                 const f = document.getElementById("inputQualifications");
+                const g = document.getElementById("inputAbout");
+                const h = document.getElementById("inputLinkedin");
+                const i = document.getElementById("inputGit");
+                const j = document.getElementById("inputTwitter");
+                const k = document.getElementById("inputInsta");
+                const l = document.getElementById("inputFB");
 
-                if (!a.value || !b.value || !c.value || !d.value || !e.value || !e.value || !f) {
+                if (!a.value || !b.value || !c.value || !d.value || !e.value || !e.value || !f.value || !h.value || !i.value || !j.value || !k.value || !l.value) {
                     alert("All fields are required.");
                     event.preventDefault();
                 }
@@ -776,6 +846,12 @@
             document.getElementById("inputAddress").removeAttribute("readonly");
             document.getElementById("inputPhone").removeAttribute("readonly");
             document.getElementById("inputQualifications").removeAttribute("readonly");
+            document.getElementById("inputAbout").removeAttribute("readonly");
+            document.getElementById("inputLinkedin").removeAttribute("readonly");
+            document.getElementById("inputGit").removeAttribute("readonly");
+            document.getElementById("inputTwitter").removeAttribute("readonly");
+            document.getElementById("inputInsta").removeAttribute("readonly");
+            document.getElementById("inputFB").removeAttribute("readonly");
         });
         </script>
 <!--        <script>

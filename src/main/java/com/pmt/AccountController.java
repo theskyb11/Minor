@@ -60,7 +60,23 @@ public class AccountController {
                     model.addAttribute("ADD",rs.getString("address"));
                     model.addAttribute("PWD",rs.getString("password"));
                     model.addAttribute("QUAL",rs.getString("qualifications"));
+                    model.addAttribute("ABT",rs.getString("about"));
                 }
+                
+                PreparedStatement stmt1 = con.prepareStatement("select * from user_professional_links where username = ?");
+                stmt1.setString(1, (String) session.getAttribute("userName"));
+                ResultSet rs1 = stmt1.executeQuery();
+
+                while(rs1.next()) {
+                    
+                    model.addAttribute("LIN",rs1.getString("linkedin"));
+                    model.addAttribute("GIT",rs1.getString("github"));
+                    model.addAttribute("TWIT",rs1.getString("twitter"));
+                    model.addAttribute("INSTA",rs1.getString("insta"));
+                    model.addAttribute("FB",rs1.getString("fb"));
+                }
+                
+                
             } catch (SQLException e) {
                 String errorMessage = "Unknown Error";
                 model.addAttribute("errorMessage", errorMessage);
@@ -71,14 +87,16 @@ public class AccountController {
 
     @RequestMapping(value = "/userprofile", method = RequestMethod.POST)
     public String getDetails(HttpServletRequest request, HttpServletResponse response, @RequestParam("inputUsername") String m, @RequestParam("inputName") String n,
-                             @RequestParam("inputPhone") Long o, @RequestParam("inputEmail") String p, @RequestParam("inputAddress") String q, @RequestParam("inputAlternateEmail") String s, @RequestParam("inputQualifications") String z, @RequestParam("profile-image") MultipartFile file, Model model) {
+                             @RequestParam("inputPhone") Long o, @RequestParam("inputEmail") String p, @RequestParam("inputAddress") String q, @RequestParam("inputAlternateEmail") String s, @RequestParam("inputQualifications") String z, @RequestParam("inputAbout") String abt,
+                             @RequestParam("inputLinkedin") String lin, @RequestParam("inputGit") String git, @RequestParam("inputTwitter") String twit, @RequestParam("inputInsta") String insta, @RequestParam("inputFB") String fb,
+                             @RequestParam("profile-image") MultipartFile file, Model model) {
 
         try {
             System.out.println(file);
             HttpSession session = request.getSession();
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
 
-            PreparedStatement stmt = con.prepareStatement("update users set name=?, phone=?, email=?, address=?, alt_email=?, qualifications=? where username=?");
+            PreparedStatement stmt = con.prepareStatement("update users set name=?, phone=?, email=?, address=?, alt_email=?, qualifications=?, about=? where username=?");
 
             stmt.setString(1, n);
             stmt.setLong(2, o);
@@ -86,9 +104,23 @@ public class AccountController {
             stmt.setString(4, q);
             stmt.setString(5, s);
             stmt.setString(6, z);
-            stmt.setString(7, (String) session.getAttribute("userName"));
+            stmt.setString(7, abt);
+            stmt.setString(8, (String) session.getAttribute("userName"));
             
             stmt.executeUpdate();
+            
+            PreparedStatement stmt2 = con.prepareStatement("update user_professional_links set linkedin=?, github=?, twitter=?, insta=?, fb=? where username=?");
+
+            stmt2.setString(1, lin);
+            stmt2.setString(2, git);
+            stmt2.setString(3, twit);
+            stmt2.setString(4, insta);
+            stmt2.setString(5, fb);
+            stmt2.setString(6, (String) session.getAttribute("userName"));
+            
+            stmt2.executeUpdate();
+            
+            
             int count=0;
             if (!file.isEmpty()) {
                 try (InputStream inputStream = file.getInputStream()) {
@@ -524,5 +556,12 @@ public class AccountController {
             }
             return "Reset";
         }
+    }
+    
+    @RequestMapping("/users1")
+    public String dashboardusers()
+    {
+        System.out.println("This is users page");
+        return "Users_1";
     }
 }

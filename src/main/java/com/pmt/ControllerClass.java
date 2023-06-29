@@ -71,10 +71,10 @@ public class ControllerClass {
         return "Users";
     }
     
-//    @RequestMapping("/userprofile")
-//    public String userprofile()
-//    {
-//        System.out.println("This is dashboard page");
-//        return "userprofile";
-//    }
+    @RequestMapping("/profile")
+    public String userprofile()
+    {
+        System.out.println("This is dashboard page");
+        return "profile";
+    }
 }

@@ -4,21 +4,32 @@
     Author     : Akash
 --%>
 
+<%@page import="java.util.Base64"%>
+<%@page import="java.io.ByteArrayOutputStream"%>
+<%@page import="java.io.InputStream"%>
+<%@page import="java.sql.Blob"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%int cnt1=0,cnt2=0;%>
 <html lang="en">
 
     <head>
+        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Projekta - Dashboard</title>
+        <title>Projekta - Users</title>
         
         <link rel="icon" href="http://d1ujqdpfgkvqfi.cloudfront.net/favicon-generator/htdocs/favicons/2015-01-25/4757e4ccd8a23c97566ae55feb33e917.ico">
         <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
@@ -455,49 +466,81 @@
                         %>
                     </div><br>
                     <div class="col" style="display: flex; justify-content: center;align-items: center; margin-left: 15px;">
+                        
+                        <table>
                         <%
-                            try{
+                            int colind = 0;
+                            try {
                                 Class.forName("com.mysql.cj.jdbc.Driver");
 
-                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
-                                
+                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
                                 PreparedStatement stmt = con.prepareStatement("select * from users where designation='CEO' and company_name=? order by name");
                                 stmt.setString(1, Company);
-
                                 ResultSet rs = stmt.executeQuery();
-                                %>
-                                <br><br>
-                                <table class="table table-striped table-hover users-table">
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Name</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                    <th>Alternate Email</th>
-                                    <th>Qualifications</th>
-                                </tr>
-                                <%
-                                 while (rs.next()) {
-                            out.println("<tr>");
-                            %>
-                            <td><%= rs.getString("username")%></td>
-                            <td><%= rs.getString("name")%></td>
-                            <td><%= rs.getString("phone")%></td>
-                            <td><%= rs.getString("email")%></td>
-                            <td><%= rs.getString("alt_email")%></td>
-                            <td><%= rs.getString("qualifications")%></td>
-                            <%
-                            out.println("</tr>");
-                        }%>
-                        </table>
-                                <%rs.close();
-                        stmt.close();
-                        con.close();
-                            }
-                            catch (Exception k){
-                                System.out.println(k.getMessage());
-                            }
+                                while (rs.next()) {
+                                
+                                    byte[] imageBytes = null;
+                                    PreparedStatement stmt10 = con.prepareStatement("select * from user_image where username=?");
+                                    stmt10.setString(1, rs.getString("username"));
+
+                                    ResultSet rs10=stmt10.executeQuery();
+
+                                    while (rs10.next())
+                                    {
+                                        Blob imageBlob = rs10.getBlob("data");
+                                        InputStream imageStream = imageBlob.getBinaryStream();
+                                        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                                        byte[] buffer = new byte[4096];
+                                        int n = 0;
+                                        while (-1 != (n = imageStream.read(buffer))) {
+                                            outputStream.write(buffer, 0, n);
+                                        }
+                                        imageBytes = outputStream.toByteArray();
+                                    }
+                                    int cnt_pic=0;
+                                    
+                                    PreparedStatement stmt3=con.prepareStatement("select count(*) from user_image where username=?");
+                                    stmt3.setString(1, rs.getString("username"));
+
+                                    ResultSet rs3=stmt3.executeQuery();
+                                    while(rs3.next()){
+                                        cnt_pic=rs3.getInt(1);
+                                    }
+                                    
+                                    PreparedStatement stmt2 = con.prepareStatement("select * from users where username=?");
+                                    stmt2.setString(1, rs.getString("username"));
+                                        ResultSet rst = stmt2.executeQuery();
+                                        while (rst.next()) {
                         %>
+                        <td class="item-td1">
+                            <a href="profile?value=<%=rs.getString("username")%>" style="text-decoration: none; color: black;">
+                            <div class="card item-card" align="center" style="width: 14rem; background: linear-gradient(grey 50%, #f7f9fa 50%);">
+                                <div class="card-head">
+                                    <%if(imageBytes==null || cnt_pic==0){%>
+                                    <i style="font-size: 150px; color: #3b3b3b;" class="fas fa-user-circle"></i>
+                                    <%}else{%>
+                                    <img style="width: 150px; z-index: 1; border: 2px solid black; border-radius: 50%; " class="img-account-profile rounded-circle mb-2" alt="..." align="center" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes) %>" />
+                                    <%}%>
+                                </div>
+                                <div style="margin-top: 10px;" class="card-title">
+                                    <r style="font-size: 1rem;"><%= rst.getString("name")%></r>
+                                </div>
+                            </div>
+                            </a>
+                        </td>                                    
+                        <%colind++;%>
+                        <% if (colind % 4 == 0) {
+                        %></tr><tr>
+                            <%}%>
+                            <%}
+                                    }
+
+                                } catch (Exception k) {
+                                    k.getMessage();
+                                }
+                            %>
+                    </table>
+                        
                     </div><br><br>
                     <div class="col" style="display: flex; justify-content: center;align-items: center">
                         <%
@@ -520,51 +563,86 @@
                         %>
                     </div><br>
                     <div class="col" style="display: flex; justify-content: center;align-items: center; margin-left: 15px;">
+                        
+                        <table>
                         <%
-                            try{
+                            int colind1 = 0;
+                            try {
                                 Class.forName("com.mysql.cj.jdbc.Driver");
 
-                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
-                                
+                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
                                 PreparedStatement stmt = con.prepareStatement("select * from users where designation='Vice CEO' and company_name=? order by name");
                                 stmt.setString(1, Company);
-
                                 ResultSet rs = stmt.executeQuery();
-                                %>
-                                <br><br>
-                                <table class="table table-striped table-hover users-table">
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Name</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                    <th>Alternate Email</th>
-                                    <th>Qualifications</th>
-                                </tr>
-                                <%
-                                 while (rs.next()) {
-                            out.println("<tr>");
-                            %>
-                            <td><%= rs.getString("username")%></td>
-                            <td><%= rs.getString("name")%></td>
-                            <td><%= rs.getString("phone")%></td>
-                            <td><%= rs.getString("email")%></td>
-                            <td><%= rs.getString("alt_email")%></td>
-                            <td><%= rs.getString("qualifications")%></td>
-                            <%
-                            out.println("</tr>");
-                        }%>
-                        </table>
-                                <%rs.close();
-                        stmt.close();
-                        con.close();
-                            }
-                            catch (Exception k){
-                                System.out.println(k.getMessage());
-                            }
+                                while (rs.next()) {
+                                
+                                    byte[] imageBytes = null;
+                                    PreparedStatement stmt10 = con.prepareStatement("select * from user_image where username=?");
+                                    stmt10.setString(1, rs.getString("username"));
+
+                                    ResultSet rs10=stmt10.executeQuery();
+
+                                    while (rs10.next())
+                                    {
+                                        Blob imageBlob = rs10.getBlob("data");
+                                        InputStream imageStream = imageBlob.getBinaryStream();
+                                        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                                        byte[] buffer = new byte[4096];
+                                        int n = 0;
+                                        while (-1 != (n = imageStream.read(buffer))) {
+                                            outputStream.write(buffer, 0, n);
+                                        }
+                                        imageBytes = outputStream.toByteArray();
+                                    }
+                                    int cnt_pic=0;
+                                    
+                                    PreparedStatement stmt3=con.prepareStatement("select count(*) from user_image where username=?");
+                                    stmt3.setString(1, rs.getString("username"));
+
+                                    ResultSet rs3=stmt3.executeQuery();
+                                    while(rs3.next()){
+                                        cnt_pic=rs3.getInt(1);
+                                    }
+                                    
+                                    PreparedStatement stmt2 = con.prepareStatement("select * from users where username=?");
+                                    stmt2.setString(1, rs.getString("username"));
+                                        ResultSet rst = stmt2.executeQuery();
+                                        while (rst.next()) {
                         %>
+                        <td class="item-td1">
+                            <a href="profile?value=<%=rs.getString("username")%>" style="text-decoration: none; color: black;">
+                            <div class="card item-card" align="center" style="width: 14rem; background: linear-gradient(grey 50%, #f7f9fa 50%); margin-left: 10px; margin-right: 10px;">
+                                <div class="card-head">
+                                    <%if(imageBytes==null || cnt_pic==0){%>
+                                    <i style="font-size: 150px; color: #3b3b3b;" class="fas fa-user-circle"></i>
+                                    <%}else{%>
+                                    <img style="width: 150px; z-index: 1; border: 2px solid black; border-radius: 50%; " class="img-account-profile rounded-circle mb-2" alt="..." align="center" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes) %>" />
+                                    <%}%>
+                                </div>
+                                <div style="margin-top: 10px;" class="card-title">
+                                    <r style="font-size: 1rem;"><%= rst.getString("name")%></r>
+                                </div>
+                            </div>
+                            </a>
+                        </td>                                    
+                        <%colind1++;%>
+                        <% if (colind1 % 4 == 0) {
+                        %></tr><tr>
+                            <%}%>
+                            <%}
+                                    }
+
+                                } catch (Exception k) {
+                                    k.getMessage();
+                                }
+                            %>
+                    </table>
+                        
                     </div><br><br>
                     <div class="col" style="display: flex; justify-content: center;align-items: center">
+                        
+                        
+                        
                         <%
                             try{
                                 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -585,49 +663,81 @@
                         %>
                     </div><br>
                     <div class="col" style="display: flex; justify-content: center;align-items: center; margin-left: 15px;">
+                        
+                        <table>
                         <%
-                            try{
+                            int colind2 = 0;
+                            try {
                                 Class.forName("com.mysql.cj.jdbc.Driver");
 
-                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
-                                
+                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
                                 PreparedStatement stmt = con.prepareStatement("select * from users where designation='Project Head' and company_name=? order by name");
                                 stmt.setString(1, Company);
-
                                 ResultSet rs = stmt.executeQuery();
-                                %>
-                                <br><br>
-                                <table class="table table-striped table-hover users-table">
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Name</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                    <th>Alternate Email</th>
-                                    <th>Qualifications</th>
-                                </tr>
-                                <%
-                                 while (rs.next()) {
-                            out.println("<tr>");
-                            %>
-                            <td><%= rs.getString("username")%></td>
-                            <td><%= rs.getString("name")%></td>
-                            <td><%= rs.getString("phone")%></td>
-                            <td><%= rs.getString("email")%></td>
-                            <td><%= rs.getString("alt_email")%></td>
-                            <td><%= rs.getString("qualifications")%></td>
-                            <%
-                            out.println("</tr>");
-                        }%>
-                        </table>
-                                <%rs.close();
-                        stmt.close();
-                        con.close();
-                            }
-                            catch (Exception k){
-                                System.out.println(k.getMessage());
-                            }
+                                while (rs.next()) {
+                                
+                                    byte[] imageBytes = null;
+                                    PreparedStatement stmt10 = con.prepareStatement("select * from user_image where username=?");
+                                    stmt10.setString(1, rs.getString("username"));
+
+                                    ResultSet rs10=stmt10.executeQuery();
+
+                                    while (rs10.next())
+                                    {
+                                        Blob imageBlob = rs10.getBlob("data");
+                                        InputStream imageStream = imageBlob.getBinaryStream();
+                                        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                                        byte[] buffer = new byte[4096];
+                                        int n = 0;
+                                        while (-1 != (n = imageStream.read(buffer))) {
+                                            outputStream.write(buffer, 0, n);
+                                        }
+                                        imageBytes = outputStream.toByteArray();
+                                    }
+                                    int cnt_pic=0;
+                                    
+                                    PreparedStatement stmt3=con.prepareStatement("select count(*) from user_image where username=?");
+                                    stmt3.setString(1, rs.getString("username"));
+
+                                    ResultSet rs3=stmt3.executeQuery();
+                                    while(rs3.next()){
+                                        cnt_pic=rs3.getInt(1);
+                                    }
+                                    
+                                    PreparedStatement stmt2 = con.prepareStatement("select * from users where username=?");
+                                    stmt2.setString(1, rs.getString("username"));
+                                        ResultSet rst = stmt2.executeQuery();
+                                        while (rst.next()) {
                         %>
+                        <td class="item-td1">
+                            <a href="profile?value=<%=rs.getString("username")%>" style="text-decoration: none; color: black;">
+                            <div class="card item-card" align="center" style="width: 14rem; background: linear-gradient(grey 50%, #f7f9fa 50%); margin-left: 10px; margin-right: 10px;">
+                                <div class="card-head">
+                                    <%if(imageBytes==null || cnt_pic==0){%>
+                                    <i style="font-size: 150px; color: #3b3b3b;" class="fas fa-user-circle"></i>
+                                    <%}else{%>
+                                    <img style="width: 150px; z-index: 1; border: 2px solid black; border-radius: 50%; " class="img-account-profile rounded-circle mb-2" alt="..." align="center" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes) %>" />
+                                    <%}%>
+                                </div>
+                                <div style="margin-top: 10px;" class="card-title">
+                                    <r style="font-size: 1rem;"><%= rst.getString("name")%></r>
+                                </div>
+                            </div>
+                            </a>
+                        </td>                                    
+                        <%colind2++;%>
+                        <% if (colind2 % 4 == 0) {
+                        %></tr><tr>
+                            <%}%>
+                            <%}
+                                    }
+
+                                } catch (Exception k) {
+                                    k.getMessage();
+                                }
+                            %>
+                    </table>
+                        
                     </div><br><br>
                     <div class="col" style="display: flex; justify-content: center;align-items: center">
                         <%
@@ -650,49 +760,81 @@
                         %>
                     </div><br>
                     <div class="col" style="display: flex; justify-content: center;align-items: center; margin-left: 15px;">
+                        
+                        <table>
                         <%
-                            try{
+                            int colind3 = 0;
+                            try {
                                 Class.forName("com.mysql.cj.jdbc.Driver");
 
-                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
-                                
+                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
                                 PreparedStatement stmt = con.prepareStatement("select * from users where designation='Vice Project Head' and company_name=? order by name");
                                 stmt.setString(1, Company);
-
                                 ResultSet rs = stmt.executeQuery();
-                                %>
-                                <br><br>
-                                <table class="table table-striped table-hover users-table">
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Name</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                    <th>Alternate Email</th>
-                                    <th>Qualifications</th>
-                                </tr>
-                                <%
-                                 while (rs.next()) {
-                            out.println("<tr>");
-                            %>
-                            <td><%= rs.getString("username")%></td>
-                            <td><%= rs.getString("name")%></td>
-                            <td><%= rs.getString("phone")%></td>
-                            <td><%= rs.getString("email")%></td>
-                            <td><%= rs.getString("alt_email")%></td>
-                            <td><%= rs.getString("qualifications")%></td>
-                            <%
-                            out.println("</tr>");
-                        }%>
-                        </table>
-                                <%rs.close();
-                        stmt.close();
-                        con.close();
-                            }
-                            catch (Exception k){
-                                System.out.println(k.getMessage());
-                            }
+                                while (rs.next()) {
+                                
+                                    byte[] imageBytes = null;
+                                    PreparedStatement stmt10 = con.prepareStatement("select * from user_image where username=?");
+                                    stmt10.setString(1, rs.getString("username"));
+
+                                    ResultSet rs10=stmt10.executeQuery();
+
+                                    while (rs10.next())
+                                    {
+                                        Blob imageBlob = rs10.getBlob("data");
+                                        InputStream imageStream = imageBlob.getBinaryStream();
+                                        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                                        byte[] buffer = new byte[4096];
+                                        int n = 0;
+                                        while (-1 != (n = imageStream.read(buffer))) {
+                                            outputStream.write(buffer, 0, n);
+                                        }
+                                        imageBytes = outputStream.toByteArray();
+                                    }
+                                    int cnt_pic=0;
+                                    
+                                    PreparedStatement stmt3=con.prepareStatement("select count(*) from user_image where username=?");
+                                    stmt3.setString(1, rs.getString("username"));
+
+                                    ResultSet rs3=stmt3.executeQuery();
+                                    while(rs3.next()){
+                                        cnt_pic=rs3.getInt(1);
+                                    }
+                                    
+                                    PreparedStatement stmt2 = con.prepareStatement("select * from users where username=?");
+                                    stmt2.setString(1, rs.getString("username"));
+                                        ResultSet rst = stmt2.executeQuery();
+                                        while (rst.next()) {
                         %>
+                        <td class="item-td1">
+                            <a href="profile?value=<%=rs.getString("username")%>" style="text-decoration: none; color: black;">
+                            <div class="card item-card" align="center" style="width: 14rem; background: linear-gradient(grey 50%, #f7f9fa 50%); margin-left: 10px; margin-right: 10px;">
+                                <div class="card-head">
+                                    <%if(imageBytes==null || cnt_pic==0){%>
+                                    <i style="font-size: 150px; color: #3b3b3b;" class="fas fa-user-circle"></i>
+                                    <%}else{%>
+                                    <img style="width: 150px; z-index: 1; border: 2px solid black; border-radius: 50%; " class="img-account-profile rounded-circle mb-2" alt="..." align="center" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes) %>" />
+                                    <%}%>
+                                </div>
+                                <div style="margin-top: 10px;" class="card-title">
+                                    <r style="font-size: 1rem;"><%= rst.getString("name")%></r>
+                                </div>
+                            </div>
+                            </a>
+                        </td>                                    
+                        <%colind3++;%>
+                        <% if (colind3 % 4 == 0) {
+                        %></tr><tr>
+                            <%}%>
+                            <%}
+                                    }
+
+                                } catch (Exception k) {
+                                    k.getMessage();
+                                }
+                            %>
+                    </table>
+                        
                     </div><br><br>
                     <div class="col" style="display: flex; justify-content: center;align-items: center">
                         <%
@@ -715,49 +857,81 @@
                         %>
                     </div><br>
                     <div class="col" style="display: flex; justify-content: center;align-items: center; margin-left: 15px;">
+                        
+                        <table>
                         <%
-                            try{
+                            int colind4 = 0;
+                            try {
                                 Class.forName("com.mysql.cj.jdbc.Driver");
 
-                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
-                                
+                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
                                 PreparedStatement stmt = con.prepareStatement("select * from users where designation='Project Management' and company_name=? order by name");
                                 stmt.setString(1, Company);
-
                                 ResultSet rs = stmt.executeQuery();
-                                %>
-                                <br><br>
-                                <table class="table table-striped table-hover users-table">
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Name</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                    <th>Alternate Email</th>
-                                    <th>Qualifications</th>
-                                </tr>
-                                <%
-                                 while (rs.next()) {
-                            out.println("<tr>");
-                            %>
-                            <td><%= rs.getString("username")%></td>
-                            <td><%= rs.getString("name")%></td>
-                            <td><%= rs.getString("phone")%></td>
-                            <td><%= rs.getString("email")%></td>
-                            <td><%= rs.getString("alt_email")%></td>
-                            <td><%= rs.getString("qualifications")%></td>
-                            <%
-                            out.println("</tr>");
-                        }%>
-                        </table>
-                                <%rs.close();
-                        stmt.close();
-                        con.close();
-                            }
-                            catch (Exception k){
-                                System.out.println(k.getMessage());
-                            }
+                                while (rs.next()) {
+                                
+                                    byte[] imageBytes = null;
+                                    PreparedStatement stmt10 = con.prepareStatement("select * from user_image where username=?");
+                                    stmt10.setString(1, rs.getString("username"));
+
+                                    ResultSet rs10=stmt10.executeQuery();
+
+                                    while (rs10.next())
+                                    {
+                                        Blob imageBlob = rs10.getBlob("data");
+                                        InputStream imageStream = imageBlob.getBinaryStream();
+                                        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                                        byte[] buffer = new byte[4096];
+                                        int n = 0;
+                                        while (-1 != (n = imageStream.read(buffer))) {
+                                            outputStream.write(buffer, 0, n);
+                                        }
+                                        imageBytes = outputStream.toByteArray();
+                                    }
+                                    int cnt_pic=0;
+                                    
+                                    PreparedStatement stmt3=con.prepareStatement("select count(*) from user_image where username=?");
+                                    stmt3.setString(1, rs.getString("username"));
+
+                                    ResultSet rs3=stmt3.executeQuery();
+                                    while(rs3.next()){
+                                        cnt_pic=rs3.getInt(1);
+                                    }
+                                    
+                                    PreparedStatement stmt2 = con.prepareStatement("select * from users where username=?");
+                                    stmt2.setString(1, rs.getString("username"));
+                                        ResultSet rst = stmt2.executeQuery();
+                                        while (rst.next()) {
                         %>
+                        <td class="item-td1">
+                            <a href="profile?value=<%=rs.getString("username")%>" style="text-decoration: none; color: black;">
+                            <div class="card item-card" align="center" style="width: 14rem; background: linear-gradient(grey 50%, #f7f9fa 50%); margin-left: 10px; margin-right: 10px;">
+                                <div class="card-head">
+                                    <%if(imageBytes==null || cnt_pic==0){%>
+                                    <i style="font-size: 150px; color: #3b3b3b;" class="fas fa-user-circle"></i>
+                                    <%}else{%>
+                                    <img style="width: 150px; z-index: 1; border: 2px solid black; border-radius: 50%; " class="img-account-profile rounded-circle mb-2" alt="..." align="center" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes) %>" />
+                                    <%}%>
+                                </div>
+                                <div style="margin-top: 10px;" class="card-title">
+                                    <r style="font-size: 1rem;"><%= rst.getString("name")%></r>
+                                </div>
+                            </div>
+                            </a>
+                        </td>                                    
+                        <%colind4++;%>
+                        <% if (colind4 % 4 == 0) {
+                        %></tr><tr>
+                            <%}%>
+                            <%}
+                                    }
+
+                                } catch (Exception k) {
+                                    k.getMessage();
+                                }
+                            %>
+                    </table>
+                        
                     </div><br><br>
                     <div class="col" style="display: flex; justify-content: center;align-items: center">
                         <%
@@ -780,49 +954,81 @@
                         %>
                     </div><br>
                     <div class="col" style="display: flex; justify-content: center;align-items: center; margin-left: 15px;">
+                        
+                        <table>
                         <%
-                            try{
+                            int colind6 = 0;
+                            try {
                                 Class.forName("com.mysql.cj.jdbc.Driver");
 
-                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8","root","root");
-                                
+                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
                                 PreparedStatement stmt = con.prepareStatement("select * from users where designation='Member' and company_name=? order by name");
                                 stmt.setString(1, Company);
-
                                 ResultSet rs = stmt.executeQuery();
-                                %>
-                                <br><br>
-                                <table class="table table-striped table-hover users-table">
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Name</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                    <th>Alternate Email</th>
-                                    <th>Qualifications</th>
-                                </tr>
-                                <%
-                                 while (rs.next()) {
-                            out.println("<tr>");
-                            %>
-                            <td><%= rs.getString("username")%></td>
-                            <td><%= rs.getString("name")%></td>
-                            <td><%= rs.getString("phone")%></td>
-                            <td><%= rs.getString("email")%></td>
-                            <td><%= rs.getString("alt_email")%></td>
-                            <td><%= rs.getString("qualifications")%></td>
-                            <%
-                            out.println("</tr>");
-                        }%>
-                        </table>
-                                <%rs.close();
-                        stmt.close();
-                        con.close();
-                            }
-                            catch (Exception k){
-                                System.out.println(k.getMessage());
-                            }
+                                while (rs.next()) {
+                                
+                                    byte[] imageBytes = null;
+                                    PreparedStatement stmt10 = con.prepareStatement("select * from user_image where username=?");
+                                    stmt10.setString(1, rs.getString("username"));
+
+                                    ResultSet rs10=stmt10.executeQuery();
+
+                                    while (rs10.next())
+                                    {
+                                        Blob imageBlob = rs10.getBlob("data");
+                                        InputStream imageStream = imageBlob.getBinaryStream();
+                                        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                                        byte[] buffer = new byte[4096];
+                                        int n = 0;
+                                        while (-1 != (n = imageStream.read(buffer))) {
+                                            outputStream.write(buffer, 0, n);
+                                        }
+                                        imageBytes = outputStream.toByteArray();
+                                    }
+                                    int cnt_pic=0;
+                                    
+                                    PreparedStatement stmt3=con.prepareStatement("select count(*) from user_image where username=?");
+                                    stmt3.setString(1, rs.getString("username"));
+
+                                    ResultSet rs3=stmt3.executeQuery();
+                                    while(rs3.next()){
+                                        cnt_pic=rs3.getInt(1);
+                                    }
+                                    
+                                    PreparedStatement stmt2 = con.prepareStatement("select * from users where username=?");
+                                    stmt2.setString(1, rs.getString("username"));
+                                        ResultSet rst = stmt2.executeQuery();
+                                        while (rst.next()) {
                         %>
+                        <td class="item-td1">
+                            <a href="profile?value=<%=rs.getString("username")%>" style="text-decoration: none; color: black;">
+                            <div class="card item-card" align="center" style="width: 14rem; background: linear-gradient(grey 50%, #f7f9fa 50%); margin-left: 10px; margin-right: 10px;">
+                                <div class="card-head">
+                                    <%if(imageBytes==null || cnt_pic==0){%>
+                                    <i style="font-size: 150px; color: #3b3b3b;" class="fas fa-user-circle"></i>
+                                    <%}else{%>
+                                    <img style="width: 150px; z-index: 1; border: 2px solid black; border-radius: 50%; " class="img-account-profile rounded-circle mb-2" alt="..." align="center" src="data:image/jpeg;base64,<%= Base64.getEncoder().encodeToString(imageBytes) %>" />
+                                    <%}%>
+                                </div>
+                                <div style="margin-top: 10px;" class="card-title">
+                                    <r style="font-size: 1rem;"><%= rst.getString("name")%></r>
+                                </div>
+                            </div>
+                            </a>
+                        </td>                                    
+                        <%colind6++;%>
+                        <% if (colind6 % 4 == 0) {
+                        %></tr><tr>
+                            <%}%>
+                            <%}
+                                    }
+
+                                } catch (Exception k) {
+                                    k.getMessage();
+                                }
+                            %>
+                    </table>
+                        
                     </div>
                 </div><br>
                 
