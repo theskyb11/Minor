@@ -2176,6 +2176,7 @@ Date ennd_date=null;int percentage = 0;
                         closeBtn.style.display = 'none';
                     });
                 }
+                
             });
         </script>
         
