@@ -205,23 +205,23 @@
             <ul class="list-group list-group-flush rounded-3">
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <i style="margin-left: 40px;font-size: 2rem;" class="fab fa-linkedin fa-lg"></i>
-                <p style="margin-right: 80px;" class="mb-0"><%if(lin==null || cnt_link==0){%>Not regsitered<%}else{%><a href="<%=lin%>" target="_blank">Follow</a><%}%></p>
+                <p style="margin-right: 80px;" class="mb-0"><%if(lin==null || cnt_link==0 || lin.equals("null")){%>Not regsitered<%}else{%><a href="<%=lin%>" target="_blank">Follow</a><%}%></p>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <i style="margin-left: 40px;font-size: 2rem;color: #333333;" class="fab fa-github fa-lg"></i>
-                <p style="margin-right: 80px;" class="mb-0"><%if(git==null || cnt_link==0){%>Not regsitered<%}else{%><a href="<%=git%>" target="_blank">Follow</a><%}%></p>
+                <p style="margin-right: 80px;" class="mb-0"><%if(git==null || cnt_link==0 || git.equals("null")){%>Not regsitered<%}else{%><a href="<%=git%>" target="_blank">Follow</a><%}%></p>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <i style="margin-left: 40px;font-size: 2rem;color: #55acee;" class="fab fa-twitter fa-lg" ></i>
-                <p style="margin-right: 80px;" class="mb-0"><%if(twit==null || cnt_link==0){%>Not regsitered<%}else{%><a href="<%=twit%>" target="_blank">Follow</a><%}%></p>
+                <p style="margin-right: 80px;" class="mb-0"><%if(twit==null || cnt_link==0 || twit.equals("null")){%>Not regsitered<%}else{%><a href="<%=twit%>" target="_blank">Follow</a><%}%></p>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <i style="margin-left: 40px;font-size: 2rem;color: #ac2bac;" class="fab fa-instagram fa-lg" ></i>
-                <p style="margin-right: 80px;" class="mb-0"><%if(insta==null || cnt_link==0){%>Not regsitered<%}else{%><a href="<%=insta%>" target="_blank">Follow</a><%}%></p>
+                <p style="margin-right: 80px;" class="mb-0"><%if(insta==null || cnt_link==0 || insta.equals("null")){%>Not regsitered<%}else{%><a href="<%=insta%>" target="_blank">Follow</a><%}%></p>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <i style="margin-left: 40px;font-size: 2rem;color: #3b5998;" class="fab fa-facebook-f fa-lg" ></i>
-                <p style="margin-right: 80px;" class="mb-0"><%if(fb==null || cnt_link==0){%>Not regsitered<%}else{%><a href="<%=fb%>" target="_blank">Follow</a><%}%></p>
+                <p style="margin-right: 80px;" class="mb-0"><%if(fb==null || cnt_link==0 || fb.equals("null")){%>Not regsitered<%}else{%><a href="<%=fb%>" target="_blank">Follow</a><%}%></p>
               </li>
             </ul>
           </div>

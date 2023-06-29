@@ -109,17 +109,40 @@ public class AccountController {
             
             stmt.executeUpdate();
             
-            PreparedStatement stmt2 = con.prepareStatement("update user_professional_links set linkedin=?, github=?, twitter=?, insta=?, fb=? where username=?");
+            int cnt_link=0;
+            
+            PreparedStatement stmt4=con.prepareStatement("select count(*) from user_professional_links where username=?");
+            stmt4.setString(1, (String) session.getAttribute("userName"));
 
-            stmt2.setString(1, lin);
-            stmt2.setString(2, git);
-            stmt2.setString(3, twit);
-            stmt2.setString(4, insta);
-            stmt2.setString(5, fb);
-            stmt2.setString(6, (String) session.getAttribute("userName"));
+            ResultSet rs4=stmt4.executeQuery();
+            while(rs4.next()){
+                cnt_link=rs4.getInt(1);
+            }
             
-            stmt2.executeUpdate();
-            
+            if(cnt_link!=0){
+                PreparedStatement stmt2 = con.prepareStatement("update user_professional_links set linkedin=?, github=?, twitter=?, insta=?, fb=? where username=?");
+
+                stmt2.setString(1, lin);
+                stmt2.setString(2, git);
+                stmt2.setString(3, twit);
+                stmt2.setString(4, insta);
+                stmt2.setString(5, fb);
+                stmt2.setString(6, (String) session.getAttribute("userName"));
+
+                stmt2.executeUpdate();
+            }
+            else{
+                PreparedStatement stmt2 = con.prepareStatement("insert into user_professional_links (linkedin, github, twitter, insta, fb, username) values (?,?,?,?,?,?)");
+
+                stmt2.setString(1, lin);
+                stmt2.setString(2, git);
+                stmt2.setString(3, twit);
+                stmt2.setString(4, insta);
+                stmt2.setString(5, fb);
+                stmt2.setString(6, (String) session.getAttribute("userName"));
+
+                stmt2.executeUpdate();
+            }
             
             int count=0;
             if (!file.isEmpty()) {
