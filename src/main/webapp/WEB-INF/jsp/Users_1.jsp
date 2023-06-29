@@ -18,8 +18,9 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Projekta - Dashboard</title>
+        <title>Projekta - Users</title>
         
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
         <link rel="icon" href="http://d1ujqdpfgkvqfi.cloudfront.net/favicon-generator/htdocs/favicons/2015-01-25/4757e4ccd8a23c97566ae55feb33e917.ico">
         <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
         <style>
@@ -475,6 +476,7 @@
                                     <th>Email</th>
                                     <th>Alternate Email</th>
                                     <th>Qualifications</th>
+                                    <th>View Profile</th>
                                 </tr>
                                 <%
                                  while (rs.next()) {
@@ -486,6 +488,7 @@
                             <td><%= rs.getString("email")%></td>
                             <td><%= rs.getString("alt_email")%></td>
                             <td><%= rs.getString("qualifications")%></td>
+                            <td><a href="profile?value=<%=rs.getString("username")%>" style="text-decoration: none; color: black;"><span class="material-symbols-outlined">account_box</span></a></td>
                             <%
                             out.println("</tr>");
                         }%>
@@ -540,6 +543,7 @@
                                     <th>Email</th>
                                     <th>Alternate Email</th>
                                     <th>Qualifications</th>
+                                    <th>View Profile</th>
                                 </tr>
                                 <%
                                  while (rs.next()) {
@@ -551,6 +555,7 @@
                             <td><%= rs.getString("email")%></td>
                             <td><%= rs.getString("alt_email")%></td>
                             <td><%= rs.getString("qualifications")%></td>
+                            <td><a href="profile?value=<%=rs.getString("username")%>" style="text-decoration: none; color: black;"><span class="material-symbols-outlined">account_box</span></a></td>
                             <%
                             out.println("</tr>");
                         }%>
@@ -605,6 +610,7 @@
                                     <th>Email</th>
                                     <th>Alternate Email</th>
                                     <th>Qualifications</th>
+                                    <th>View Profile</th>
                                 </tr>
                                 <%
                                  while (rs.next()) {
@@ -616,6 +622,7 @@
                             <td><%= rs.getString("email")%></td>
                             <td><%= rs.getString("alt_email")%></td>
                             <td><%= rs.getString("qualifications")%></td>
+                            <td><a href="profile?value=<%=rs.getString("username")%>" style="text-decoration: none; color: black;"><span class="material-symbols-outlined">account_box</span></a></td>
                             <%
                             out.println("</tr>");
                         }%>
@@ -670,6 +677,7 @@
                                     <th>Email</th>
                                     <th>Alternate Email</th>
                                     <th>Qualifications</th>
+                                    <th>View Profile</th>
                                 </tr>
                                 <%
                                  while (rs.next()) {
@@ -681,6 +689,7 @@
                             <td><%= rs.getString("email")%></td>
                             <td><%= rs.getString("alt_email")%></td>
                             <td><%= rs.getString("qualifications")%></td>
+                            <td><a href="profile?value=<%=rs.getString("username")%>" style="text-decoration: none; color: black;"><span class="material-symbols-outlined">account_box</span></a></td>
                             <%
                             out.println("</tr>");
                         }%>
@@ -735,6 +744,7 @@
                                     <th>Email</th>
                                     <th>Alternate Email</th>
                                     <th>Qualifications</th>
+                                    <th>View Profile</th>
                                 </tr>
                                 <%
                                  while (rs.next()) {
@@ -746,6 +756,7 @@
                             <td><%= rs.getString("email")%></td>
                             <td><%= rs.getString("alt_email")%></td>
                             <td><%= rs.getString("qualifications")%></td>
+                            <td><a href="profile?value=<%=rs.getString("username")%>" style="text-decoration: none; color: black;"><span class="material-symbols-outlined">account_box</span></a></td>
                             <%
                             out.println("</tr>");
                         }%>
@@ -800,6 +811,7 @@
                                     <th>Email</th>
                                     <th>Alternate Email</th>
                                     <th>Qualifications</th>
+                                    <th>View Profile</th>
                                 </tr>
                                 <%
                                  while (rs.next()) {
@@ -811,6 +823,7 @@
                             <td><%= rs.getString("email")%></td>
                             <td><%= rs.getString("alt_email")%></td>
                             <td><%= rs.getString("qualifications")%></td>
+                            <td><a href="profile?value=<%=rs.getString("username")%>" style="text-decoration: none; color: black;"><span class="material-symbols-outlined">account_box</span></a></td>
                             <%
                             out.println("</tr>");
                         }%>

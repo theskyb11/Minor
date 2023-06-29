@@ -72,6 +72,7 @@ public class ContactUs extends HttpServlet{
             String title="";
             String project_head="";
             String desc="";
+            String status="No";
             ResultSet rs=stmt1.executeQuery();
             while (rs.next())
             {
@@ -79,13 +80,14 @@ public class ContactUs extends HttpServlet{
                 project_head=rs.getString("project_head");
                 desc=rs.getString("description");
             }
-            PreparedStatement stmt = con.prepareStatement("insert into projects(project_id, project_head, username, title, description) values(?,?,?,?,?)");
+            PreparedStatement stmt = con.prepareStatement("insert into projects(project_id, project_head, username, title, description, progress) values(?,?,?,?,?,?)");
             
             stmt.setString(1, id);
             stmt.setString(2, project_head);
             stmt.setString(3, w);
             stmt.setString(4, title);
             stmt.setString(5, desc);
+            stmt.setString(6, status);
             stmt.executeUpdate();
             
         }catch(Exception k){
@@ -109,6 +111,7 @@ public class ContactUs extends HttpServlet{
             String title="";
             String project_head="";
             String desc="";
+            String status="No";
             ResultSet rs=stmt1.executeQuery();
             while (rs.next())
             {
@@ -116,13 +119,14 @@ public class ContactUs extends HttpServlet{
                 project_head=rs.getString("project_head");
                 desc=rs.getString("description");
             }
-            PreparedStatement stmt = con.prepareStatement("insert into projects(project_id, project_head, username, title, description) values(?,?,?,?,?)");
+            PreparedStatement stmt = con.prepareStatement("insert into projects(project_id, project_head, username, title, description, progress) values(?,?,?,?,?,?)");
             
             stmt.setString(1, id);
             stmt.setString(2, w);
             stmt.setString(3, x);
             stmt.setString(4, title);
             stmt.setString(5, desc);
+            stmt.setString(6, status);
             stmt.executeUpdate();
             
         }catch(Exception k){
