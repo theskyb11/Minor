@@ -36,6 +36,8 @@ catch(Exception k){
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Projekta | Dashboard</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" href="path/to/fontawesome/css/all.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -437,6 +439,33 @@ catch(Exception k){
                 position: absolute;
                 right: 0;
             }
+            
+            .child-right1 {
+                width: 30%;
+                position: absolute;
+                right: 0;
+            }
+            
+            .hover-textcomp {
+                position: absolute;
+                transform: translateX(-50%);
+                padding: 5px;
+                top: 20px;
+                background-color: #fff;
+                color: #000;
+                font-size: 14px;
+                visibility: hidden;
+                border-radius: 50px;
+                opacity: 0;
+                width: 160%;
+                transition: opacity 0.3s ease-in-out;
+            }
+
+            .child-right1:hover .hover-textcomp {
+                visibility: visible;
+                opacity: 1;
+                z-index: 2;
+            }
 
             .card {
                 background-color: #fff;
@@ -603,7 +632,7 @@ catch(Exception k){
                             Class.forName("com.mysql.cj.jdbc.Driver");
 
                             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
-                            PreparedStatement state = con.prepareStatement("select count(*) from projects where username=?");
+                            PreparedStatement state = con.prepareStatement("select count(*) from projects where username=? and progress='No'");
                             state.setString(1, (String) session.getAttribute("userName"));
 
                             ResultSet rst = state.executeQuery();
@@ -646,7 +675,7 @@ catch(Exception k){
                                 %><div class="row">
                 <div class="col-md-4">
                                 <table><%
-                                PreparedStatement stmt = con.prepareStatement("select * from projects natural join users where username=?");
+                                PreparedStatement stmt = con.prepareStatement("select * from projects natural join users where username=? and progress='No'");
                                 stmt.setString(1, (String) session.getAttribute("userName"));
 
                                 ResultSet rs = stmt.executeQuery();
@@ -712,7 +741,7 @@ catch(Exception k){
 %><div class="row">
                 <div class="col-md-4">
                                 <table><%
-                                PreparedStatement stmt = con.prepareStatement("select * from projects natural join users where username=?");
+                                PreparedStatement stmt = con.prepareStatement("select * from projects natural join users where username=? and progress='No'");
                                 stmt.setString(1, (String) session.getAttribute("userName"));
 
                                 ResultSet rs = stmt.executeQuery();
@@ -907,8 +936,8 @@ catch(Exception k){
                             Class.forName("com.mysql.cj.jdbc.Driver");
 
                             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projekta?characterEncoding=utf8", "root", "root");
-                            PreparedStatement state = con.prepareStatement("select count(distinct(project_id)) from projects where company_code=?");
-                            state.setString(1, company_name);
+                            PreparedStatement state = con.prepareStatement("select count(distinct(project_id)) from projects where project_id like ?");
+                            state.setString(1, company_name + "%");
 
                             ResultSet rst = state.executeQuery();
 
@@ -919,7 +948,7 @@ catch(Exception k){
                             System.out.println(k.getMessage());
                         }
                     %>
-                    <cnt><%=count%> projects ongoing</cnt>
+                    <cnt><%=count%> projects ongoing and completed</cnt>
                 </div>
             </div>
             <div class="row">
@@ -933,7 +962,8 @@ catch(Exception k){
                 
                 ResultSet rst=state.executeQuery();
                 %><table><%
-                while (rst.next()){%>
+                while (rst.next()){
+                    String b = rst.getString("progress");%>
                         <td>
                             <div class="project-cards">
                                 <div class="card">
@@ -941,7 +971,10 @@ catch(Exception k){
                                         <div class="child-center">
                                             <h3><%= rst.getString("title")%></h3>
                                         </div>
-                                        <div class="child-right">
+                                        <div style="top: 15px;" class="child-right1">
+                                            <%if(b.equals("Yes")){%><i style="font-size: 1.2rem;" class="fas fa-check"></i>
+                                            <span class="hover-textcomp">Project Completed</span>
+                                            <%}else{%><%}%>
                                         </div>
                                     </div>
                                     <hr style="width: 80%; color: black; align-self: center; margin-top: 60px; position: absolute;">
