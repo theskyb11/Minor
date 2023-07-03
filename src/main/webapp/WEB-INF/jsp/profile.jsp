@@ -315,6 +315,13 @@
                             rnk = rst10.getString(2);
                         }%>
                         <p class="mb-1" style="font-size: 0.8rem;"><%=rs.getString("title")%><r style="font-size: 0.8rem;color: #999999;"> (Headed by: <%=nm%>)</r></p>
+                        <%String progress = rs.getString("progress");
+                        if(progress.equals("Yes")){%>
+                        <div class="progress rounded" style="height: 5px;">
+                            <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>    
+                        <%}else{%>
                         <%int total=0; int done=0; int percentage=0;String pid=rs.getString("project_id");
                         PreparedStatement stmt1 = con.prepareStatement("select count(*) from tasks where project_id=?");
                         stmt1.setString(1, pid);
@@ -343,7 +350,7 @@
                             <div class="progress-bar" role="progressbar" style="width: <%=percentage%>%" aria-valuenow="<%=percentage%>"
                             aria-valuemin="0" aria-valuemax="100"></div>
                         </div><br>
-                        <%
+                        <%}
                         }}
                 }catch(Exception k){
                     k.getMessage();
